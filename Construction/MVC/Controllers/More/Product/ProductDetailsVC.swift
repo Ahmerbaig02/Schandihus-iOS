@@ -22,6 +22,24 @@ class ProductDetailsVC: UIViewController {
     var paramDescripts: [String] = []
     var groupedProducts : [String] = []
     
+    fileprivate lazy var addParameterBtn: UIButton = {
+        let button = UIButton()
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(self.addProductParametersAction(btn:)), for: .touchUpInside)
+        button.tintColor = UIColor.primaryColor
+        button.setImage(#imageLiteral(resourceName: "baseline_add_circle_black_24pt"), for: .normal)
+        return button
+    }()
+    
+    fileprivate lazy var addGroupProductBtn: UIButton = {
+        let button = UIButton()
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(self.addGroupedProductsAction(btn:)), for: .touchUpInside)
+        button.tintColor = UIColor.primaryColor
+        button.setImage(#imageLiteral(resourceName: "baseline_add_circle_black_24pt"), for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,8 +54,15 @@ class ProductDetailsVC: UIViewController {
         self.getProductDetailsFromManager()
     }
     
-    fileprivate func setValues() {
+    @objc fileprivate func addProductParametersAction(btn: UIButton) {
+        self.performSegue(withIdentifier: "Add Parameters", sender: nil)
+    }
+    
+    @objc fileprivate func addGroupedProductsAction(btn: UIButton) {
         
+    }
+    
+    fileprivate func setValues() {
         paramTitles.removeAll()
         paramDescripts.removeAll()
         groupedProducts.removeAll()
@@ -49,7 +74,7 @@ class ProductDetailsVC: UIViewController {
                 paramDescripts.append("\(param.parameterValue!) \(param.parameterUnit!)")
             }
         } else {
-            paramTitles.append("No parameters")
+            paramTitles.append("No Product Parameters")
             paramDescripts.append("")
         }
         if grouped.count != 0 {
@@ -62,7 +87,6 @@ class ProductDetailsVC: UIViewController {
             groupedProducts.append("No Grouped Products")
         }
         productDetailsTblView.reloadData()
-        
     }
     
     func configureCell() {
@@ -89,9 +113,7 @@ class ProductDetailsVC: UIViewController {
             if data?.success == true {
                 print(data?.data ?? "Error fetching data")
                 self?.product = data?.data ?? nil
-                self?.setValues()
-                self?.productDetailsTblView.reloadData()
-
+                self?.getProductParamsFromManager()
             } else {
                 print("Error fetching data")
             }
@@ -107,6 +129,8 @@ class ProductDetailsVC: UIViewController {
             if list?.success == true {
                 print(list?.data ?? "Error fetching data")
                 self?.params = list?.data ?? []
+                self?.product.ProductParameter = list?.data ?? []
+                self?.getGroupedProductsFromManager()
             } else {
                 print("Error fetching data")
             }
@@ -179,25 +203,52 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
             cell.userImgView.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A","Product ID: \(String(product.productId ?? 0))","\(String(product.minimumRetailPrice ?? 0))$ - \(String(product.maximumRetailPrice ?? 0))$"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 14.0),UIFont.systemFont(ofSize: 14.0)], Colors: [UIColor.black, UIColor.black,UIColor.black], seperator: ["\n","\n",""], Spacing: 2, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A","Product ID: \(String(product.productId ?? 0))","\(String(product.minimumRetailPrice ?? 0))$ - \(String(product.maximumRetailPrice ?? 0))$"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 14.0),UIFont.systemFont(ofSize: 14.0)], Colors: [UIColor.primaryColor, UIColor.black, UIColor.black], seperator: ["\n","\n",""], Spacing: 5, atIndex: 0)
             return cell
             
         } else if indexPath.section == 1 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.text = product.description ?? "No Description Added"
             return cell
             
         } else if indexPath.section == 2 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
-            cell.textLabel?.attributedText = getAttributedText(Titles: [paramTitles[indexPath.row],paramDescripts[indexPath.row]], Font: [UIFont.systemFont(ofSize: 15.0),UIFont.systemFont(ofSize: 15.0)], Colors: [UIColor.black,UIColor.black], seperator: ["\t\t\t\t\t",""], Spacing: 2, atIndex: 0)
+            if self.params.count == 0 {
+                cell.textLabel?.textColor = UIColor.black
+            } else {
+                cell.textLabel?.textColor = UIColor.primaryColor
+            }
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
+            cell.textLabel?.text = paramTitles[indexPath.row]
+            cell.detailTextLabel?.text = paramDescripts[indexPath.row]
             return cell
             
         } else {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             cell.textLabel?.text = groupedProducts[indexPath.row]
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let hView = view as? UITableViewHeaderFooterView {
+            if section == 2 || section == 3 {
+                let addBtn = (section == 2) ? addParameterBtn : addGroupProductBtn
+                if !hView.subviews.contains(addBtn) {
+                    hView.addSubview(addBtn)
+                    addBtn.anchor(hView.topAnchor, left: nil, bottom: hView.bottomAnchor, right: hView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+                } else {
+                    addBtn.removeFromSuperview()
+                }
+            }
+            hView.contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
+            hView.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
+            hView.textLabel?.textColor = UIColor.primaryColor
         }
     }
     
@@ -210,5 +261,10 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.productDetailsTblView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 3 {
+            let controller = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            controller.product = self.grouped[indexPath.row]
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }

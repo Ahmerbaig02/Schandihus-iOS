@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SKActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        SKActivityIndicator.spinnerColor(UIColor.primaryColor)
+        SKActivityIndicator.spinnerStyle(.spinningCircle)
+        SKActivityIndicator.statusTextColor(UIColor.primaryColor)
+        
+        UITableViewCell.setupTableViewCell()
+        UITableViewHeaderFooterView.setupTableHeaderFooterView()
         
         IQKeyboardManager.shared.enable = true
         if let data = UserDefaults.standard.data(forKey: Helper.UserProfileDefaultsID) {

@@ -103,12 +103,8 @@ extension VendorProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.VendorProductsTblView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-        self.navigationController?.pushViewController(controller, animated: true)
         controller.product = productSectionedData[indexPath.section][indexPath.row]
-        controller.addBtn.isEnabled = false
-        controller.addBtn.title = ""
-        controller.vendorsBtn.isEnabled = false
-        controller.vendorsBtn.title = ""
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

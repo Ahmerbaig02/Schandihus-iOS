@@ -103,6 +103,7 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = productsTblView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath)
         cell.textLabel?.text = productsSectionedData[indexPath.section][indexPath.row].name ?? ""
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         return cell
     }
     

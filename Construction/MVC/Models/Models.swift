@@ -53,7 +53,7 @@ struct ProductData: Codable {
     var markup: Int?
     var name: String?
     var description: String?
-    var ProductParameter: [Int]?
+    var ProductParameter: [ParamsData]?
     var VendorProducts: [ProductData]?
     var Product1: [ProductData]?
     var Product2: [ProductData]?
@@ -74,7 +74,7 @@ struct ParamsData: Codable {
     var productId: Int?
     var parameterName: String?
     var parameterValue: Int?
-    var parameterUnit: Int?
+    var parameterUnit: String?
     var Product: ProductData?
 }
 

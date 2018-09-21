@@ -93,6 +93,8 @@ extension ProspectsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = prospectsTblView.dequeueReusableCell(withIdentifier: Helper.ProspectsCellID, for: indexPath)
         cell.textLabel?.text = prospectsSectionedData[indexPath.section][indexPath.row].prospectName ?? ""
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         return cell
     }
     

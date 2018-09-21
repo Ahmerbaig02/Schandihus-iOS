@@ -50,14 +50,14 @@ class SettingsVC: UIViewController {
     }
 
     fileprivate func getSettingsFromManager() {
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetSettingsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<LookupData>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetSettingsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[LookupData]>?, error) in
             if let err = error {
                 print(err)
                 return
             }
             if data?.success == true {
-                print(data?.data ?? "Error fetching data")
-                self?.lookup = data?.data ?? nil
+                print(data?.data?.first ?? "Error fetching data")
+                self?.lookup = data?.data?.first ?? nil
             } else {
                 print("Error fetching data")
             }
@@ -114,15 +114,17 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = settingsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
             cell.userImgView.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [lookup.companyInfo?.COMPANY_BANK_NAME ?? "No Name",lookup.companyInfo?.COMPANY_ADDRESS ?? "No Address"], Font: [UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 13.0)], Colors: [UIColor.primaryColor, UIColor.black], seperator: ["\n",""], Spacing: 3, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [lookup.companyInfo?.COMPANY_BANK_NAME ?? "No Name",lookup.companyInfo?.COMPANY_ADDRESS ?? "No Address"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.bold), UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)], Colors: [UIColor.primaryColor, UIColor.black], seperator: ["\n",""], Spacing: 5, atIndex: 0)
             return cell
             
         } else if indexPath.section == 1 {
             let cell = settingsTblView.dequeueReusableCell(withIdentifier: Helper.SettingsCellID, for: indexPath)
+            cell.textLabel?.textColor = UIColor.primaryColor
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.text = bankTitles[indexPath.row]
             cell.detailTextLabel?.text = bankDescripts[indexPath.row]
             return cell
-            
         } else {
             let cell = settingsTblView.dequeueReusableCell(withIdentifier: Helper.SettingsCellID, for: indexPath)
             cell.textLabel?.numberOfLines = 0
@@ -130,6 +132,14 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = lookup.companyInfo?.COMPANY_INFO ?? "No description"
             cell.detailTextLabel?.isHidden = true
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let hView = view as? UITableViewHeaderFooterView {
+            hView.contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
+            hView.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
+            hView.textLabel?.textColor = UIColor.primaryColor
         }
     }
     

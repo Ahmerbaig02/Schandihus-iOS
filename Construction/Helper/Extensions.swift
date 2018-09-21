@@ -13,6 +13,113 @@ import NotificationBannerSwift
 import SKActivityIndicatorView
 
 
+extension UITableViewCell {
+    static func setupTableViewCell() {
+        self.appearance().textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        self.appearance().textLabel?.numberOfLines = 0
+        self.appearance().detailTextLabel?.numberOfLines = 0
+        self.appearance().detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0)
+        self.appearance().selectionStyle = .none
+    }
+    
+    func animate3DScaleTableViewCell() {
+        self.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.layer.transform = CATransform3DIdentity
+        }) { (success) in
+            
+        }
+    }
+}
+
+extension UITableViewHeaderFooterView {
+    static func setupTableHeaderFooterView() {
+        self.appearance().textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        self.appearance().contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
+        self.appearance().detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0)
+    }
+}
+
+extension UITableView {
+    
+    static func setupTableView() {
+        self.appearance().separatorStyle = .none
+    }
+    
+    func scrollToBottomRow() {
+        DispatchQueue.main.async {
+            guard self.numberOfSections > 0 else { return }
+            
+            // Make an attempt to use the bottom-most section with at least one row
+            var section = max(self.numberOfSections - 1, 0)
+            var row = max(self.numberOfRows(inSection: section) - 1, 0)
+            var indexPath = IndexPath(row: row, section: section)
+            
+            // Ensure the index path is valid, otherwise use the section above (sections can
+            // contain 0 rows which leads to an invalid index path)
+            while !self.indexPathIsValid(indexPath) {
+                section = max(section - 1, 0)
+                row = max(self.numberOfRows(inSection: section) - 1, 0)
+                indexPath = IndexPath(row: row, section: section)
+                
+                // If we're down to the last section, attempt to use the first row
+                if indexPath.section == 0 {
+                    indexPath = IndexPath(row: 0, section: 0)
+                    break
+                }
+            }
+            
+            // In the case that [0, 0] is valid (perhaps no data source?), ensure we don't encounter an
+            // exception here
+            guard self.indexPathIsValid(indexPath) else { return }
+            
+            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    func indexPathIsValid(_ indexPath: IndexPath) -> Bool {
+        return (indexPath.row > 0) && (indexPath.section > 0)
+    }
+}
+
+extension UICollectionView {
+    
+    func scrollToBottomRow() {
+        DispatchQueue.main.async {
+            guard self.numberOfSections > 0 else { return }
+            
+            // Make an attempt to use the bottom-most section with at least one row
+            var section = max(self.numberOfSections - 1, 0)
+            var row = max(self.numberOfItems(inSection: section) - 1, 0)
+            var indexPath = IndexPath(row: row, section: section)
+            
+            // Ensure the index path is valid, otherwise use the section above (sections can
+            // contain 0 rows which leads to an invalid index path)
+            while !self.indexPathIsValid(indexPath) {
+                section = max(section - 1, 0)
+                row = max(self.numberOfItems(inSection: section) - 1, 0)
+                indexPath = IndexPath(row: row, section: section)
+                
+                // If we're down to the last section, attempt to use the first row
+                if indexPath.section == 0 {
+                    indexPath = IndexPath(row: 0, section: 0)
+                    break
+                }
+            }
+            
+            // In the case that [0, 0] is valid (perhaps no data source?), ensure we don't encounter an
+            // exception here
+            guard self.indexPathIsValid(indexPath) else { return }
+            
+            self.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    func indexPathIsValid(_ indexPath: IndexPath) -> Bool {
+        return (indexPath.row > 0) && (indexPath.section > 0)
+    }
+}
+
 extension Notification.Name {
     static let NotificationFireName = Notification.Name(rawValue: "SmartTourNotifications")
 }

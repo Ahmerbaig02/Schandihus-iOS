@@ -80,6 +80,8 @@ extension ProductVendorsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ProductvendorsTblView.dequeueReusableCell(withIdentifier: Helper.ProductVendorsCellID, for: indexPath)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         cell.textLabel?.text = vendorsSectionedData[indexPath.section][indexPath.row].name ?? ""
         return cell
     }
@@ -102,6 +104,9 @@ extension ProductVendorsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.ProductvendorsTblView.deselectRow(at: indexPath, animated: true)
+        let controller = storyboard?.instantiateViewController(withIdentifier: "VendorDetailsVC") as! VendorDetailsVC
+        controller.vendor = vendorsSectionedData[indexPath.section][indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

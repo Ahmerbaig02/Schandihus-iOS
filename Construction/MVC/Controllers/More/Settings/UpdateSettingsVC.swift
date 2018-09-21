@@ -37,6 +37,12 @@ class UpdateSettingsVC: UIViewController {
         descriptionTV.text = companyData.companyInfo?.COMPANY_INFO ?? ""
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.descriptionTV.setBorder(width: 0.5, color: UIColor.gray)
+    }
+    
     fileprivate lazy var validator: Validator = {
         let validator = Validator()
         validator.registerField(self.companyAddressTF, rules: [RequiredRule()])

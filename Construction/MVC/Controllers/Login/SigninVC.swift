@@ -59,7 +59,9 @@ class SigninVC: UIViewController {
     }
     
     fileprivate func postUserFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.PostUsersURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["userName": emailTF.text!, "password": passwordTF.text!]) { [weak self] (user: BasicResponse<UserData>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -71,6 +73,7 @@ class SigninVC: UIViewController {
                 UserDefaults.standard.set(true, forKey: Helper.isLoggedInDefaultID)
                 self?.verifyCredentialsFromManager()
             } else {
+                self!.showBanner(title: user?.error ?? "An Error occurred. Please try again.", style: .danger)
                 print("Error fetching data")
             }
         }

@@ -36,6 +36,8 @@ extension MoreVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = settingsTblView.dequeueReusableCell(withIdentifier: Helper.MoreCellID, for: indexPath)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         if indexPath.row == 0 {
             cell.textLabel?.text = "Products"
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_local_offer_black_18pt")

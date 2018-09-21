@@ -103,7 +103,13 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = vendorsTblView.dequeueReusableCell(withIdentifier: Helper.VendorsCellID, for: indexPath)
         cell.textLabel?.text = vendorsSectionedData[indexPath.section][indexPath.row].name ?? ""
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -129,8 +135,6 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
         } else {
             performSegue(withIdentifier: Helper.AddProductVendorSegueID, sender: indexPath)
         }
-        
-        
     }
     
 }
