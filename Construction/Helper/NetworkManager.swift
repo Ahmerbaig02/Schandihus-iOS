@@ -36,31 +36,28 @@ class NetworkManager {
         }
     }
     
-    class func uploadFileOnServer(fileURL: URL, filename: String, completionHandler: @escaping (String?) -> ()) {
+    class func uploadFileOnServer<T: Codable>(urlString: String, fileURL: URL, filename: String, completionHandler: @escaping (T?, String?) -> ()) {
         Alamofire.upload(multipartFormData: { (formData) in
-            formData.append(fileURL, withName: "file", fileName: filename, mimeType: "application/pdf")
-        }, to: "\(Helper.PinterBaseURL)files/upload", headers: Helper.PinterHeaders) { (encodingResult) in
+            formData.append(fileURL, withName: "file", fileName: filename, mimeType: "application/jpeg")
+        }, to: urlString, headers: nil) { (encodingResult) in
             switch encodingResult {
             case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    debugPrint(response)
-                    if let res = response.result.value as? [String:Any] {
-                        if let success = res["success"] as? Int {
-                            if success == 1 {
-                                completionHandler(res["url"] as? String ?? "")
-                            } else {
-                                completionHandler(nil)
-                            }
-                        } else {
-                            completionHandler(nil)
+                upload.responseData(completionHandler: { (data) in
+                    if let data = data.data {
+                        let decoder = JSONDecoder()
+                        //decoder.keyDecodingStrategy = .convertFromSnakeCase
+                        guard let ParsedData = try? decoder.decode(T.self, from: data) else {
+                            completionHandler(nil, "Unable to Parse json...")
+                            return
                         }
+                        completionHandler(ParsedData, nil)
                     } else {
-                        completionHandler(nil)
+                        
                     }
-                }
+                })
             case .failure(let encodingError):
                 print(encodingError)
-                completionHandler(nil)
+                completionHandler(nil, encodingError.localizedDescription)
             }
         }
     }

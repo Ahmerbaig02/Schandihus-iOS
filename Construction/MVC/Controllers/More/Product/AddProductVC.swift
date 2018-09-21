@@ -110,6 +110,11 @@ class AddProductVC: UIViewController {
             if let photo = items.singlePhoto {
                 if let modifiedImage = photo.modifiedImage {
                     // call uploadImageFromManager
+                    if let url = modifiedImage.getURLFor(filename: "productImage.jpg") {
+                        print(url)
+                    } else {
+                        print("error making url for file")
+                    }
                 }
             }
             imgPicker.dismiss(animated: true, completion: nil)
