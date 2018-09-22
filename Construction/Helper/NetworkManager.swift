@@ -36,9 +36,9 @@ class NetworkManager {
         }
     }
     
-    class func uploadFileOnServer<T: Codable>(urlString: String, fileURL: URL, filename: String, completionHandler: @escaping (T?, String?) -> ()) {
+    class func uploadFileOnServer<T: Codable>(urlString: String, fileURL: URL, filename: String, withName: String, completionHandler: @escaping (T?, String?) -> ()) {
         Alamofire.upload(multipartFormData: { (formData) in
-            formData.append(fileURL, withName: "file", fileName: filename, mimeType: "application/jpeg")
+            formData.append(fileURL, withName: withName, fileName: filename, mimeType: "application/jpeg")
         }, to: urlString, headers: nil) { (encodingResult) in
             switch encodingResult {
             case .success(let upload, _, _):
