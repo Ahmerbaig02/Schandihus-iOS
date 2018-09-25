@@ -12,6 +12,9 @@ import UIKit
 
 class Helper {
     static let NoImageURL = "http://newhorizonindia.edu/college_edu/wp-content/uploads/2016/07/member_default_img-200x200.png"
+    static let GetProductImageURL = "http://nordtex.no.ws1.my-hosting-panel.com/Images/Products/"
+    
+    
     static let PinterBaseURL: String = "http://nordtex.no.ws1.my-hosting-panel.com/api/"
     
     
@@ -45,6 +48,7 @@ class Helper {
     static let PostProductURL = "product"
     static let PostProspectURL = "Prospect"
     static let PostVendorProductURL = "VendorProducts"
+    static let PostImageURL = "Images"
     
     static var accessToken = ""
     

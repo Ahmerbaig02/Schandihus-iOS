@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Product/ProductDetailsVC.swift"
-            timestampString = "559177341.791909"
+            timestampString = "559606747.646242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "getGroupedProductsFromManager()"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "getProductParamsFromManager()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Vendor/VendorProductsVC.swift"
-            timestampString = "559177341.792419"
+            timestampString = "559606747.6464"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Vendor/VendorProductsVC.swift"
-            timestampString = "559177341.792487"
+            timestampString = "559606747.646534"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "VendorProductsVC"
+            landmarkType = "21">
             <Locations>
                <Location
                   shouldBeEnabled = "No"

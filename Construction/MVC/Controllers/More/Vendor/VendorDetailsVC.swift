@@ -61,7 +61,9 @@ class VendorDetailsVC: UIViewController {
     }
     
     fileprivate func getVendorDetailsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetVendorDetailsURL)/\(vendor.vendorId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<VendorData>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -72,6 +74,7 @@ class VendorDetailsVC: UIViewController {
                 self?.setValues()
                 self?.vendorDetailsTblView.reloadData()
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }

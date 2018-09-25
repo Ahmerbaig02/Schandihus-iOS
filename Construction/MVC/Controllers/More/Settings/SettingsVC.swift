@@ -50,7 +50,9 @@ class SettingsVC: UIViewController {
     }
 
     fileprivate func getSettingsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetSettingsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[LookupData]>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -59,6 +61,7 @@ class SettingsVC: UIViewController {
                 print(data?.data?.first ?? "Error fetching data")
                 self?.lookup = data?.data?.first ?? nil
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }

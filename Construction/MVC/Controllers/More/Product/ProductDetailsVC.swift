@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import PINRemoteImage
 
 class ProductDetailsVC: UIViewController {
 
@@ -51,6 +52,7 @@ class ProductDetailsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.getProductParamsFromManager()
         self.getProductDetailsFromManager()
     }
     
@@ -105,7 +107,9 @@ class ProductDetailsVC: UIViewController {
     }
     
     fileprivate func getProductDetailsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductDetailsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<ProductData>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -113,8 +117,8 @@ class ProductDetailsVC: UIViewController {
             if data?.success == true {
                 print(data?.data ?? "Error fetching data")
                 self?.product = data?.data ?? nil
-                self?.getProductParamsFromManager()
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
@@ -164,8 +168,6 @@ class ProductDetailsVC: UIViewController {
     deinit {
         print("deinit ProductDetailsVC")
     }
-    
-
 
 }
 
@@ -202,7 +204,8 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
-            cell.userImgView.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
+            cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
+            
             cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A","Product ID: \(String(product.productId ?? 0))","\(String(product.minimumRetailPrice ?? 0))$ - \(String(product.maximumRetailPrice ?? 0))$"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 14.0),UIFont.systemFont(ofSize: 14.0)], Colors: [UIColor.primaryColor, UIColor.black, UIColor.black], seperator: ["\n","\n",""], Spacing: 5, atIndex: 0)
             return cell
             

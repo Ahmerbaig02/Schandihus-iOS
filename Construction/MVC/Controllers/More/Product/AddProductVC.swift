@@ -24,13 +24,21 @@ class AddProductVC: UIViewController {
     var product: ProductData! = ProductData()
     var urlStr: String = Helper.PostProductURL
     var method: HTTPMethod = .post
+    var imgURL: URL!
+    var productId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.descriptionTV.placeholder = "Description..."
+        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.descriptionTV.placeholder = "Description..."
+        self.imgURL = #imageLiteral(resourceName: "baseline_account_circle_black_24pt").getURLFor(filename: "productImage.jpg")
+        print(imgURL)
+    }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -76,19 +84,40 @@ class AddProductVC: UIViewController {
     }
     
     fileprivate func postProductFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         if product == nil {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<ss>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
             }
             if response?.success == true {
                 print("Posted Product")
+                self?.productId = response?.data ?? 0
+                self?.postProductImageFromManager()
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
+    fileprivate func postProductImageFromManager() {
+        NetworkManager.uploadFileOnServer(urlString: "\(Helper.PinterBaseURL)\(Helper.PostImageURL)?id=\(productId!)", fileURL: imgURL, filename: "product_\(productId!).jpg", withName: "UploadedImage") { [weak self] (response: BasicResponse<String>?, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            if response?.success == true {
+                print("Posted Image")
+                print(response?.data ?? "")
                 self?.navigationController?.popViewController(animated: true)
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
@@ -109,9 +138,10 @@ class AddProductVC: UIViewController {
         imgPicker.didFinishPicking { [unowned imgPicker, weak self] items, _ in
             if let photo = items.singlePhoto {
                 if let modifiedImage = photo.modifiedImage {
-                    // call uploadImageFromManager
                     if let url = modifiedImage.getURLFor(filename: "productImage.jpg") {
                         print(url)
+                        self?.imgURL = url
+                        self?.userImgView.image = modifiedImage
                     } else {
                         print("error making url for file")
                     }

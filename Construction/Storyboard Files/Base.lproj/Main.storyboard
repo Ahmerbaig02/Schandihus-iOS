@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bg9-B8-Ik2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bg9-B8-Ik2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -773,7 +775,8 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_account_circle_black_24pt" translatesAutoresizingMaskIntoConstraints="NO" id="Qrm-xd-Nj1">
                                 <rect key="frame" x="147.5" y="20" width="80" height="80"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Qrm-xd-Nj1" secondAttribute="height" multiplier="1:1" id="5It-p7-BdJ"/>
                                     <constraint firstAttribute="height" constant="80" id="Ksa-97-T97"/>
@@ -808,7 +811,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bdb-1F-eoS">
-                                <rect key="frame" x="15" y="288" width="345" height="163.5"/>
+                                <rect key="frame" x="15" y="288" width="345" height="164"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Minimum Retail Price ($)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-XV-QVd" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
@@ -823,7 +826,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Markup" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmr-K7-mHD" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="345" height="47.5"/>
+                                        <rect key="frame" x="0.0" y="116" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1449,7 +1452,7 @@
         <segue reference="JHA-Q4-Opb"/>
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
-        <segue reference="GI9-S1-f3E"/>
+        <segue reference="iGc-li-Sil"/>
         <segue reference="wRj-Fg-3YX"/>
     </inferredMetricsTieBreakers>
 </document>

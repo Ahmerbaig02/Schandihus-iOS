@@ -112,11 +112,13 @@ class AddVendorVC: UIViewController {
     }
     
     fileprivate func postVendorFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         if vendor != nil {
             urlStr = "\(Helper.PostVendorURL)/\(vendor!.vendorId ?? 0)"
             method = .put
         }
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": nameTF.text!, "address": addressTF.text!, "registrationNumber": regNumTF.text!, "vatNumber": VATNumTF.text!, "bankName": bankNameTF.text!, "bankCode": bankCodeTF.text!, "bankAccountNumber": accountNumTF.text!, "status": statusTF.text!, "priority": priorityTF.text!]) { [weak self] (response: BasicResponse<ss>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -129,6 +131,7 @@ class AddVendorVC: UIViewController {
                     self?.navigationController?.goBackViewControllers(n: 2)
                     }
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }

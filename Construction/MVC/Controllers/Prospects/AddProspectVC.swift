@@ -102,18 +102,24 @@ class AddProspectVC: UIViewController {
     }
     
     fileprivate func postProspectFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         if prospect != nil {
             urlStr = "\(Helper.PostProspectURL)/\(prospect!.prospectId ?? 0)"
             method = .put
         }
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["prospectName": prospectNameTF.text!, "contactNumber": contactNumTF.text!, "workAddress": workAddressTF.text!, "homeAddress": homeAddressTF.text!, "status": statusTF.text!, "generalDiscount": generalDiscountTF.text!]) { [weak self] (response: BasicResponse<ss>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
-                self?.navigationController?.popViewController(animated: true)
                 return
             }
-            print("Posted Prospect")
-            
+            if response?.success == true {
+                print("Posted Prospect")
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
         }
     }
 

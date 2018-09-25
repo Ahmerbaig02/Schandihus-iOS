@@ -55,7 +55,9 @@ class ProspectsVC: UIViewController {
     }
     
     fileprivate func getProspectListFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProspectsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProspectData]>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -64,6 +66,7 @@ class ProspectsVC: UIViewController {
                 print(list?.data ?? "Error fetching data")
                 self?.prospects = list?.data ?? []
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }

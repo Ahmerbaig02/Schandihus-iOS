@@ -48,7 +48,9 @@ class ProductVendorsVC: UIViewController {
     }
     
     fileprivate func getProductVendorsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductVendorURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[VendorData]>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -57,6 +59,7 @@ class ProductVendorsVC: UIViewController {
                 print(list?.data ?? "Error fetching data")
                 self?.vendors = list?.data ?? []
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
