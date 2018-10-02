@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProspectDetailsVC: UIViewController {
 
@@ -14,16 +15,21 @@ class ProspectDetailsVC: UIViewController {
     
     var prospect: ProspectData! = ProspectData()
     var accountTitles: [String] = ["Work Address","Home Address","Status"]
-    var accountDescripts: [String] = []
+    var accountDescripts: [String] = ["","",""]
     var estimates: [String] = ["No Estimate"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setValues()
         self.prospectDetailsTblView.delegate = self
         self.prospectDetailsTblView.dataSource = self
         configureCell()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.getProspectDetailsFromManager()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -45,6 +51,26 @@ class ProspectDetailsVC: UIViewController {
         prospectDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
 
+    fileprivate func getProspectDetailsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProspectsURL)/\(prospect.prospectId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<ProspectData>?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if data?.success == true {
+                print(data?.data ?? "Error fetching data")
+                self?.prospect = data?.data ?? nil
+                self?.setValues()
+                self?.prospectDetailsTblView.reloadData()
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
     @IBAction func editProspectAction(_ sender: Any) {
         self.performSegue(withIdentifier: "EditProspectSegue", sender: nil)
     }

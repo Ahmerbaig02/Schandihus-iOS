@@ -104,6 +104,18 @@ class ProductDetailsVC: UIViewController {
         if let destinationVC = segue.destination as? ProductVendorsVC {
             destinationVC.product = product!
         }
+        if let destinationVC = segue.destination as? AddParamsVC {
+            destinationVC.product = product!
+        }
+    }
+    
+    func showDeleteAlert(indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Delete Parameter", message: "Are you sure you want to delete this parameter?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] (action) in
+            self?.deleteParametersFromManager(indexPath: indexPath)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     fileprivate func getProductDetailsFromManager() {
@@ -156,6 +168,26 @@ class ProductDetailsVC: UIViewController {
             }
         }
     }
+    
+    fileprivate func deleteParametersFromManager(indexPath: IndexPath) {
+        let param = params[indexPath.row]
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProductParamsURL, method: .delete, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "parameterName": param.parameterName ?? ""]) { [weak self] (list: BaseResponse?, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            if list?.success == true {
+                print("Error")
+                self?.params.remove(at: indexPath.row)
+                self?.paramTitles.remove(at: indexPath.row)
+                self?.paramDescripts.remove(at: indexPath.row)
+                self?.productDetailsTblView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                print("Error fetching data")
+            }
+        }
+    }
+    
     
     @IBAction func showProductVendorsAction(_ sender: Any) {
         performSegue(withIdentifier: Helper.ProductVendorsSegueID, sender: nil)
@@ -270,4 +302,19 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            showDeleteAlert(indexPath: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 2 {
+            return true
+        }
+        return false
+    }
+    
+    
 }

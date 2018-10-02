@@ -67,7 +67,7 @@ class UpdateSettingsVC: UIViewController {
     
     fileprivate func postCompanyInfoFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.PostCompanyInfoURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["companyAddress": companyAddressTF.text!, "companyAccountNumber": accountNumTF.text!, "companyBankName": bankNameTF.text!, "companyBranchCode": bankCodeTF.text!, "companyInfo": descriptionTV.text!]) { [weak self] (response: BasicResponse<ss>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.PostCompanyInfoURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["companyAddress": companyAddressTF.text!, "companyAccountNumber": accountNumTF.text!, "companyBankName": bankNameTF.text!, "companyBranchCode": bankCodeTF.text!, "companyInfo": descriptionTV.text!]) { [weak self] (response: BasicResponse<BaseResponse>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)

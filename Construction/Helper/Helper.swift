@@ -48,6 +48,8 @@ class Helper {
     static let PostProductURL = "product"
     static let PostProspectURL = "Prospect"
     static let PostVendorProductURL = "VendorProducts"
+    static let PostProductParamsURL = "ProductParameter"
+    
     static let PostImageURL = "Images"
     
     static var accessToken = ""

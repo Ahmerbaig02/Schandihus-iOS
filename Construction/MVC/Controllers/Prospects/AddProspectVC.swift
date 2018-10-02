@@ -107,7 +107,7 @@ class AddProspectVC: UIViewController {
             urlStr = "\(Helper.PostProspectURL)/\(prospect!.prospectId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["prospectName": prospectNameTF.text!, "contactNumber": contactNumTF.text!, "workAddress": workAddressTF.text!, "homeAddress": homeAddressTF.text!, "status": statusTF.text!, "generalDiscount": generalDiscountTF.text!]) { [weak self] (response: BasicResponse<ss>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["prospectName": prospectNameTF.text!, "contactNumber": contactNumTF.text!, "workAddress": workAddressTF.text!, "homeAddress": homeAddressTF.text!, "status": statusTF.text!, "generalDiscount": generalDiscountTF.text!]) { [weak self] (response: BaseResponse?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)

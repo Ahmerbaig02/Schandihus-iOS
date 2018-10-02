@@ -26,10 +26,30 @@ class AddParamsVC: UIViewController {
         
     }
 
-    
+    fileprivate func postProductParamsFromManager() {
+        let params: [[String: Any]] = [["parameterName": paramNameTF.text!, "parameterValue": Int(paramValueTF.text!) ?? 0, "parameterUnit": paramUnitTF.text!]]
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString:  Helper.PostProductParamsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "parameters": params]) { [weak self] (response: BaseResponse?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if response?.success == true {
+                self!.showBanner(title: "Parameter added successfully", style: .success)
+                print("Posted Product Parameters")
+                self!.paramNameTF.text = ""
+                self!.paramValueTF.text = ""
+                self!.paramUnitTF.text = ""
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
     
     @IBAction func submitAction(_ sender: Any) {
-        
+        self.postProductParamsFromManager()
     }
     
     deinit{

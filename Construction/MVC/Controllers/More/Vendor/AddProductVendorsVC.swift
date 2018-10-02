@@ -57,7 +57,7 @@ class AddProductVendorsVC: UIViewController {
     
     fileprivate func postProductVendorFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.PostVendorProductURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "vendorId": vendor.vendorId ?? 0, "vendorPrice": Int(priceTF.text!)!]) { [weak self] (response: BasicResponse<ss>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.PostVendorProductURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "vendorId": vendor.vendorId ?? 0, "vendorPrice": Int(priceTF.text!)!]) { [weak self] (response: BasicResponse<BaseResponse>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)

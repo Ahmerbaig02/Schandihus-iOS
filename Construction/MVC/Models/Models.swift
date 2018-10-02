@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct ss: Codable {
+struct BaseResponse: Codable {
+    var success: Bool?
+    var error: String?
 }
 
 struct BasicResponse<T: Codable>: Codable {
