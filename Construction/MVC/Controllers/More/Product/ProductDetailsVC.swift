@@ -57,11 +57,11 @@ class ProductDetailsVC: UIViewController {
     }
     
     @objc fileprivate func addProductParametersAction(btn: UIButton) {
-        self.performSegue(withIdentifier: "Add Parameters", sender: nil)
+        self.performSegue(withIdentifier: Helper.AddProductParametersSegueID, sender: nil)
     }
     
     @objc fileprivate func addGroupedProductsAction(btn: UIButton) {
-        
+        self.performSegue(withIdentifier: Helper.AddGroupedProductsSegueID, sender: nil)
     }
     
     fileprivate func setValues() {
@@ -106,6 +106,10 @@ class ProductDetailsVC: UIViewController {
         }
         if let destinationVC = segue.destination as? AddParamsVC {
             destinationVC.product = product!
+        }
+        if let destinationVC = segue.destination as? GroupedProductsVC {
+            destinationVC.product = product!
+            destinationVC.selectedProducts = grouped ?? []
         }
     }
     

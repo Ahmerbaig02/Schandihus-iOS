@@ -765,6 +765,53 @@
             </objects>
             <point key="canvasLocation" x="5337" y="3367"/>
         </scene>
+        <!--Grouped Products-->
+        <scene sceneID="zum-b8-HOd">
+            <objects>
+                <viewController storyboardIdentifier="GroupedProductsVC" title="Grouped Products" id="V6h-Q0-kuo" customClass="GroupedProductsVC" customModule="Construction" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sWW-Mu-D0u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KJv-Mf-hcE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Grouped Products Cell" id="r6s-a3-OBS">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r6s-a3-OBS" id="417-ih-4Nv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KJv-Mf-hcE" firstAttribute="leading" secondItem="aWF-oU-8J6" secondAttribute="leading" id="D9V-KB-kTm"/>
+                            <constraint firstItem="aWF-oU-8J6" firstAttribute="trailing" secondItem="KJv-Mf-hcE" secondAttribute="trailing" id="FGr-mU-FJa"/>
+                            <constraint firstItem="aWF-oU-8J6" firstAttribute="bottom" secondItem="KJv-Mf-hcE" secondAttribute="bottom" id="RZT-ne-P7M"/>
+                            <constraint firstItem="KJv-Mf-hcE" firstAttribute="top" secondItem="aWF-oU-8J6" secondAttribute="top" id="kMV-oY-ava"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="aWF-oU-8J6"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Grouped Products" id="FXe-aA-kYL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Kyx-87-rQj">
+                            <connections>
+                                <action selector="addGroupedProducts:" destination="V6h-Q0-kuo" id="V6c-AZ-DSZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="groupedProductsTblView" destination="KJv-Mf-hcE" id="iTe-bE-6v4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qvj-29-rh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2870" y="3367"/>
+        </scene>
         <!--Add Product-->
         <scene sceneID="vCY-Cd-3yQ">
             <objects>
@@ -957,6 +1004,7 @@
                         <segue destination="GJP-8M-odc" kind="show" identifier="Show Vendors" id="kFE-wI-pX8"/>
                         <segue destination="Y8I-ia-juT" kind="show" identifier="Product Vendors" id="d1D-Jw-hRe"/>
                         <segue destination="LP4-Nr-JMb" kind="show" identifier="Add Parameters" id="GI9-S1-f3E"/>
+                        <segue destination="V6h-Q0-kuo" kind="show" identifier="Grouped Products" id="pCf-Si-tbB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eih-3X-A8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1449,10 +1497,10 @@
         <image name="baseline_star_border_black_24pt" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JHA-Q4-Opb"/>
+        <segue reference="Hk5-sD-9eP"/>
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
-        <segue reference="iGc-li-Sil"/>
+        <segue reference="GI9-S1-f3E"/>
         <segue reference="wRj-Fg-3YX"/>
     </inferredMetricsTieBreakers>
 </document>

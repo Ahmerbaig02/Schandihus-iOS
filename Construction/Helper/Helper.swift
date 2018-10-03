@@ -70,6 +70,7 @@ class Helper {
     static let ProspectDetailsCellID = "Prospect Details Cell"
     static let ProductVendorsCellID = "Product Vendors Cell"
     static let VendorProductsCellID = "Vendor Products Cell"
+    static let GroupedProductsCellID = "Grouped Products Cell"
     
     static let SearchCellID = "searchCell"
     
@@ -98,6 +99,9 @@ class Helper {
     static  let AddProductVendorSegueID = "Add Product Vendor"
     static  let VendorProductsSegueID = "Vendor Products"
     static  let AddVendorProductSegueID = "Add Vendor Product"
+    static  let AddProductParametersSegueID = "Add Parameters"
+    static  let AddGroupedProductsSegueID = "Grouped Products"
+    
     
     // MARK: - Defaults ID
     static let rideDataDefaultsID = "rideData"
