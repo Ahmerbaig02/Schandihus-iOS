@@ -9,9 +9,15 @@
 import UIKit
 import Alamofire
 
+protocol ProspectDelegate: class {
+    func Prospects(controller: ProspectsVC, prospect: ProspectData)
+}
+
 class ProspectsVC: UIViewController {
 
     @IBOutlet weak var prospectsTblView: UITableView!
+    
+    weak var delegate: ProspectDelegate?
     
     var prospects : [ProspectData] = [] {
         didSet {
@@ -119,6 +125,10 @@ extension ProspectsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.prospectsTblView.deselectRow(at: indexPath, animated: true)
+        if delegate != nil {
+            delegate?.Prospects(controller: self, prospect: prospects[indexPath.row])
+            return
+        }
         performSegue(withIdentifier: Helper.ProspectDetailsSegueID, sender: indexPath)
     }
     

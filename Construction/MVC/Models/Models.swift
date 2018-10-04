@@ -98,3 +98,17 @@ struct ProspectData: Codable {
     var contactNumber: String?
     var Estimate: [String]?
 }
+
+struct EstimateData: Codable {
+    var estimateId: Int?
+    var projectName: String?
+    var prospectId: Int?
+    var estimateDate: String?
+    var closingDate: String?
+    var priceGuaranteeDate: String?
+    var volume: Double?
+    var Prospect: ProspectData?
+    var Product: [ProductData]?
+}
+
+

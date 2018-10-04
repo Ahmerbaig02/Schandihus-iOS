@@ -9,9 +9,15 @@
 import UIKit
 import Alamofire
 
+protocol ProductDelegate: class {
+    func GroupedProducts(controller: GroupedProductsVC, products: [ProductData])
+}
+
 class GroupedProductsVC: UIViewController {
     
     @IBOutlet weak var groupedProductsTblView: UITableView!
+    
+    weak var delegate: ProductDelegate?
     
     var products : [ProductData] = [] {
         didSet {
@@ -140,6 +146,10 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if delegate != nil {
+            delegate?.GroupedProducts(controller: self, products: selectedProducts)
+            return
+        }
         self.groupedProductsTblView.deselectRow(at: indexPath, animated: true)
         if let index = selectedProducts.index(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             selectedProducts.remove(at: index)

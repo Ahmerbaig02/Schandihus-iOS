@@ -16,7 +16,8 @@ class ProspectDetailsVC: UIViewController {
     var prospect: ProspectData! = ProspectData()
     var accountTitles: [String] = ["Work Address","Home Address","Status"]
     var accountDescripts: [String] = ["","",""]
-    var estimates: [String] = ["No Estimate"]
+    var estimates: [EstimateData] = []
+    var estimateList = [EstimateData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,26 @@ class ProspectDetailsVC: UIViewController {
             if data?.success == true {
                 print(data?.data ?? "Error fetching data")
                 self?.prospect = data?.data ?? nil
+                self?.getEstimatesFromManager()
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
+    fileprivate func getEstimatesFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[EstimateData]>?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if data?.success == true {
+                print(data?.data ?? "Error fetching data")
+                self?.estimateList = (data?.data ?? nil)!
+                self?.estimates = (self?.estimateList.filter({ $0.prospectId == self?.prospect.prospectId!}))!
                 self?.setValues()
                 self?.prospectDetailsTblView.reloadData()
             } else {
@@ -124,11 +145,10 @@ extension ProspectDetailsVC : UITableViewDelegate, UITableViewDataSource {
             
         } else {
             let cell = prospectDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProspectDetailsCellID, for: indexPath)
-            cell.textLabel?.textColor = UIColor.primaryColor
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            cell.textLabel?.text = estimates[indexPath.row]
-            cell.detailTextLabel?.isHidden = true
+            cell.textLabel?.text = estimates[indexPath.row].projectName ?? ""
+            cell.detailTextLabel?.text = String(estimates[indexPath.row].volume ?? 0.0)
             return cell
         }
     }
