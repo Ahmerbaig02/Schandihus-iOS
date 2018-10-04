@@ -16,7 +16,7 @@ class AddEstimateVC: UIViewController {
     @IBOutlet weak var totalLbl: UILabel!
     
     var prospect: ProspectData = ProspectData()
-    var products: [ProductData] = [ProductData()]
+    var products: [ProductData] = []
     var validator = Validator()
     
     override func viewDidLoad() {
@@ -74,11 +74,11 @@ class AddEstimateVC: UIViewController {
     }
 
     @objc fileprivate func addProspectAction(btn: UIButton) {
-     self.performSegue(withIdentifier: Helper.AddProductsSegueID, sender: nil)
+     self.performSegue(withIdentifier: Helper.AddProspectsSegueID, sender: nil)
     }
     
     @objc fileprivate func addProductsAction(btn: UIButton) {
-     self.performSegue(withIdentifier: Helper.AddProspectsSegueID, sender: nil)
+     self.performSegue(withIdentifier: Helper.AddProductsSegueID, sender: nil)
     }
     
     @IBAction func addEstimateAction(_ sender: Any) {
@@ -135,23 +135,38 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: indexPath)
-            //validator.registerField(cell.textField, rules: [RequiredRule()])
+            let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: indexPath) as! AddEstimateFieldsCell
+            validator.registerField(cell.estimateNameTF, rules: [RequiredRule()])
+            validator.registerField(cell.estimateDateTF, rules: [RequiredRule()])
+            validator.registerField(cell.closingDateTF, rules: [RequiredRule()])
+            validator.registerField(cell.priceGuaranteeDateTF, rules: [RequiredRule()])
             return cell
             
         } else if indexPath.section == 1 {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddEstimatesCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            cell.textLabel?.text = prospect.prospectName ?? ""
-            cell.detailTextLabel?.text = prospect.homeAddress ?? ""
+            if prospect.prospectId == nil {
+                cell.textLabel?.text = "No Prospect"
+                cell.detailTextLabel?.isHidden = true
+            } else {
+                cell.textLabel?.text = prospect.prospectName ?? ""
+                cell.detailTextLabel?.text = prospect.homeAddress ?? ""
+                cell.detailTextLabel?.isHidden = false
+            }
             return cell
         } else {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddEstimatesCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            cell.textLabel?.text = products[indexPath.row].name ?? ""
-            cell.detailTextLabel?.text = "Min \(String(products[indexPath.row].minimumRetailPrice ?? 0)) - Max \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
+            if products.count == 0 {
+                cell.textLabel?.text = "No Products"
+                cell.detailTextLabel?.isHidden = true
+            } else {
+                cell.textLabel?.text = products[indexPath.row].name ?? ""
+                cell.detailTextLabel?.text = "Min \(String(products[indexPath.row].minimumRetailPrice ?? 0)) - Max \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
+                cell.detailTextLabel?.isHidden = false
+            }
             return cell
         }
     }

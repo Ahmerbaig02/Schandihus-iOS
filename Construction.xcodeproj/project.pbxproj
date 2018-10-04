@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4209F7FF21669EB000396E00 /* AddEstimateFieldsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */; };
 		42457F4421388C9400D985A2 /* UpdateSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4321388C9400D985A2 /* UpdateSettingsVC.swift */; };
 		42457F4621388CB600D985A2 /* AddVendorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4521388CB600D985A2 /* AddVendorVC.swift */; };
 		42457F4821388CD300D985A2 /* AddProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4721388CD300D985A2 /* AddProductVC.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEstimateFieldsCell.swift; sourceTree = "<group>"; };
 		42457F4321388C9400D985A2 /* UpdateSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettingsVC.swift; sourceTree = "<group>"; };
 		42457F4521388CB600D985A2 /* AddVendorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVendorVC.swift; sourceTree = "<group>"; };
 		42457F4721388CD300D985A2 /* AddProductVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductVC.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 			children = (
 				42CC6C262127727300B06418 /* EstimateVC.swift */,
 				42EB8F6521655E6E00CEF7A5 /* AddEstimateVC.swift */,
+				4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */,
 			);
 			path = Estimate;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				42D66B46213C30A200684CF4 /* ProspectDetailsVC.swift in Sources */,
 				CA991173212A9FC60091AB7D /* AlamofireRequestFetch.swift in Sources */,
 				42CC6C272127727300B06418 /* EstimateVC.swift in Sources */,
+				4209F7FF21669EB000396E00 /* AddEstimateFieldsCell.swift in Sources */,
 				42CC6C252127725200B06418 /* ProspectsVC.swift in Sources */,
 				42CC6BE82127483400B06418 /* SigninVC.swift in Sources */,
 				42EB8F6621655E6E00CEF7A5 /* AddEstimateVC.swift in Sources */,
