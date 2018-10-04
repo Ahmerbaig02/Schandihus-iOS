@@ -96,6 +96,7 @@ class Helper {
     static  let UpdateSettingsSegueID = "Update Settings"
     static  let AddParametersSegueID = "Add Parameters"
     static  let EditVendorSegueID = "Edit Vendor"
+    static  let EditProductSegueID = "Edit Product"
     static  let ProspectDetailsSegueID = "Prospect Details"
     static  let AddProspectSegueID = "Add Prospect"
     static  let ProductVendorsSegueID = "Product Vendors"

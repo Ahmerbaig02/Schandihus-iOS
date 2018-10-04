@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftValidator
+import Alamofire
 
 class AddEstimateVC: UIViewController {
 
@@ -25,13 +26,15 @@ class AddEstimateVC: UIViewController {
         self.estimateTblView.delegate = self
         self.estimateTblView.dataSource = self
         
-        totalLbl.text = "450 NOK"
+        totalLbl.text = "0 NOK"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.estimateTblView.reloadData()
+        let total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
+        totalLbl.text = "\(String(total)) NOK"
     }
     
     fileprivate func validateInputs() {
@@ -73,6 +76,31 @@ class AddEstimateVC: UIViewController {
         }
     }
 
+    fileprivate func postEstimateFromManager() {
+        var productIds: [Int] = []
+        for index in 0...products.count-1 {
+            let product = products[index]
+            productIds.append(product.productId ?? 0)
+        }
+        if let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
+            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!, "prospectId": "\(prospect.prospectId ?? 0)", "estimateDate": cell.estimateDateTF.text!, "closingDate": cell.closingDateTF.text!, "priceGuaranteeDate": cell.priceGuaranteeDateTF.text!, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
+                UIViewController.hideLoader()
+                if let err = error {
+                    print(err)
+                    return
+                }
+                if response?.success == true {
+                    print("Posted Estimate")
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                    print("Error fetching data")
+                }
+            }
+        }
+        
+    }
+    
     @objc fileprivate func addProspectAction(btn: UIButton) {
      self.performSegue(withIdentifier: Helper.AddProspectsSegueID, sender: nil)
     }
@@ -83,6 +111,7 @@ class AddEstimateVC: UIViewController {
     
     @IBAction func addEstimateAction(_ sender: Any) {
         self.validateInputs()
+        self.postEstimateFromManager()
     }
     
     deinit {
@@ -102,7 +131,11 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
         } else if section == 1 {
             return 1
         } else {
-            return products.count
+            if products.count == 0 {
+                return products.count+1
+            } else {
+                return products.count
+            }
         }
     }
     
@@ -123,8 +156,6 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
                 if !hView.subviews.contains(addBtn) {
                     hView.addSubview(addBtn)
                     addBtn.anchor(hView.topAnchor, left: nil, bottom: hView.bottomAnchor, right: hView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 0)
-                } else {
-                    addBtn.removeFromSuperview()
                 }
             }
             hView.contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
@@ -172,7 +203,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.estimateTblView.deselectRow(at: indexPath, animated: true)
     }
     
 }

@@ -96,6 +96,10 @@ class GroupedProductsVC: UIViewController {
     }
     
     @IBAction func addGroupedProducts(_ sender: Any) {
+        if delegate != nil {
+            delegate?.GroupedProducts(controller: self, products: selectedProducts)
+            return
+        }
         let productIds = self.selectedProducts.map( { $0.productId! })
         postGroupedProductsFromManager(productIds: productIds)
     }
@@ -146,10 +150,6 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if delegate != nil {
-            delegate?.GroupedProducts(controller: self, products: selectedProducts)
-            return
-        }
         self.groupedProductsTblView.deselectRow(at: indexPath, animated: true)
         if let index = selectedProducts.index(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             selectedProducts.remove(at: index)

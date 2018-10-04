@@ -126,7 +126,7 @@ extension ProspectsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.prospectsTblView.deselectRow(at: indexPath, animated: true)
         if delegate != nil {
-            delegate?.Prospects(controller: self, prospect: prospects[indexPath.row])
+            delegate?.Prospects(controller: self, prospect: prospectsSectionedData[indexPath.section][indexPath.row])
             return
         }
         performSegue(withIdentifier: Helper.ProspectDetailsSegueID, sender: indexPath)

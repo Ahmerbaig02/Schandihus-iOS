@@ -392,7 +392,7 @@
                                     <constraint firstAttribute="bottom" secondItem="L4O-hg-2HE" secondAttribute="bottom" constant="5" id="y7b-wV-fkv"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrV-fJ-yLR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrV-fJ-yLR">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -400,7 +400,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cvh-UW-0Hr" id="ESx-AZ-tNI">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="184.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="i6B-Fr-E9C">
@@ -466,7 +466,7 @@
                                         <rect key="frame" x="0.0" y="213" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zaq-a6-pjM" id="jbF-xD-uNB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H5Y-0D-Et4">
@@ -525,7 +525,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IqE-1g-JSg">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IqE-1g-JSg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -533,7 +533,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q2r-vz-RD2" id="5cD-ww-rcn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1146,6 +1146,7 @@
                         <outlet property="markupTF" destination="Dmr-K7-mHD" id="vEK-sS-7xY"/>
                         <outlet property="maxRetailPriceTF" destination="5Jj-AT-cvu" id="bDS-vW-uVx"/>
                         <outlet property="minRetailPriceTF" destination="Fly-XV-QVd" id="2zn-ws-Qdc"/>
+                        <outlet property="updateBtn" destination="98d-RO-rCQ" id="6Gj-Nc-IlO"/>
                         <outlet property="userImgView" destination="Qrm-xd-Nj1" id="V2R-Bu-kY2"/>
                         <outlet property="userNameTF" destination="gJg-Qf-LHA" id="icP-d3-jmb"/>
                         <segue destination="LP4-Nr-JMb" kind="show" identifier="Add Parameters" id="iGc-li-Sil"/>
@@ -1205,6 +1206,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="Ypf-14-7zi">
                         <rightBarButtonItems>
+                            <barButtonItem title="Edit" id="S7r-HT-0K2">
+                                <connections>
+                                    <action selector="editProductAction:" destination="ZEH-U1-pwr" id="OKw-W4-IgL"/>
+                                    <segue destination="Leb-RK-bfc" kind="show" identifier="Edit Product" id="pou-ni-9SN"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Vendors" id="xlI-Ur-LFc">
                                 <connections>
                                     <action selector="showProductVendorsAction:" destination="ZEH-U1-pwr" id="yrg-BY-fSD"/>
@@ -1720,7 +1727,8 @@
         <segue reference="Hk5-sD-9eP"/>
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
-        <segue reference="jli-2B-Hr3"/>
+        <segue reference="pou-ni-9SN"/>
+        <segue reference="pCf-Si-tbB"/>
         <segue reference="GI9-S1-f3E"/>
         <segue reference="wRj-Fg-3YX"/>
         <segue reference="aJg-s0-x5T"/>

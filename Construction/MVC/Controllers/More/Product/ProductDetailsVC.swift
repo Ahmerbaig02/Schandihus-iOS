@@ -107,6 +107,9 @@ class ProductDetailsVC: UIViewController {
         if let destinationVC = segue.destination as? AddParamsVC {
             destinationVC.product = product!
         }
+        if let destinationVC = segue.destination as? AddProductVC {
+            destinationVC.product = product!
+        }
         if let destinationVC = segue.destination as? GroupedProductsVC {
             destinationVC.product = product!
             destinationVC.selectedProducts = grouped ?? []
@@ -200,6 +203,11 @@ class ProductDetailsVC: UIViewController {
     @IBAction func addProductVendorsAction(_ sender: Any) {
         performSegue(withIdentifier: Helper.ShowVendorsSegueID, sender: nil)
     }
+    
+    @IBAction func editProductAction(_ sender: Any) {
+        performSegue(withIdentifier: Helper.EditProductSegueID, sender: nil)
+    }
+    
     
     deinit {
         print("deinit ProductDetailsVC")
