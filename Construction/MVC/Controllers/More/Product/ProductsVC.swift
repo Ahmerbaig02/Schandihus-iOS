@@ -24,17 +24,27 @@ class ProductsVC: UIViewController {
     var isForProductVendor: Bool = false
     var vendor: VendorData = VendorData()
     
+    var searchedProducts: [ProductData] = []
+    fileprivate var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        setupSearchController()
         
         self.productsTblView.sectionIndexColor = UIColor.primaryColor
         self.productsTblView.sectionIndexBackgroundColor = UIColor.groupTableViewBackground
         self.productsTblView.delegate = self
         self.productsTblView.dataSource = self
+        
+        self.productsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.searchController.isActive = false
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -44,14 +54,27 @@ class ProductsVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? ProductDetailsVC {
-            let indexPath = sender as! IndexPath
-            destinationVC.product = productsSectionedData[indexPath.section][indexPath.row]
+            let product = sender as! ProductData
+            destinationVC.product = product
         }
         if let destinationVC = segue.destination as? AddProductVendorsVC {
-            let indexPath = sender as! IndexPath
+            let product = sender as! ProductData
             destinationVC.vendor = vendor
-            destinationVC.product = productsSectionedData[indexPath.section][indexPath.row]
+            destinationVC.product = product
         }
+    }
+    
+    fileprivate func setupSearchController() {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.searchResultsUpdater = self
+        controller.searchBar.tintColor = UIColor.black
+        controller.dimsBackgroundDuringPresentation = false
+        controller.hidesNavigationBarDuringPresentation = false
+        navigationItem.searchController = controller
+        navigationItem.hidesSearchBarWhenScrolling = false
+        controller.searchBar.sizeToFit()
+        
+        self.searchController = controller
     }
     
     fileprivate func makeSectionIndicesOnFirstLetter() {
@@ -96,26 +119,44 @@ class ProductsVC: UIViewController {
 extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.searchController.isActive == true {
+            return 1
+        }
         return self.productsSectionedData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.searchController.isActive == true {
+            return self.searchedProducts.count
+        }
         return productsSectionedData[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = productsTblView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath)
-        cell.textLabel?.text = productsSectionedData[indexPath.section][indexPath.row].name ?? ""
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
+        let product = (self.searchController.isActive == true) ? self.searchedProducts[indexPath.row] : productsSectionedData[indexPath.section][indexPath.row]
+        cell.userInfoLbl.text = product.name ?? ""
+        cell.userInfoLbl.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
         return cell
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if self.searchController.isActive == true {
+            return []
+        }
         return self.uniqueInitials
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.searchController.isActive == true {
+            return "Searched Results"
+        }
         return self.uniqueInitials[section]
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return getCellHeaderSize(Width: tableView.frame.width, aspectRatio: 320/50, padding: 0).height
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -128,12 +169,25 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.productsTblView.deselectRow(at: indexPath, animated: true)
+        if self.searchController.isActive == true {
+            let product = searchedProducts[indexPath.row]
+            self.searchController.isActive = false
+            performSegue(withIdentifier: Helper.ProductDetailsSegueID, sender: product)
+            return
+        }
         if isForProductVendor == false {
-            performSegue(withIdentifier: Helper.ProductDetailsSegueID, sender: indexPath)
+            performSegue(withIdentifier: Helper.ProductDetailsSegueID, sender: productsSectionedData[indexPath.section][indexPath.row])
         } else {
-            performSegue(withIdentifier: Helper.AddVendorProductSegueID, sender: indexPath)
+            performSegue(withIdentifier: Helper.AddVendorProductSegueID, sender: productsSectionedData[indexPath.section][indexPath.row])
         }
         
     }
     
+}
+
+extension ProductsVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        self.searchedProducts = self.products.filter({ $0.name!.contains(searchController.searchBar.text!) })
+        self.productsTblView.reloadData()
+    }
 }

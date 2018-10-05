@@ -41,6 +41,7 @@ class Helper {
     static let GetVendorProductURL = "VendorProducts"
     static let GetVendorDetailsURL = "Vendor"
     static let GetProductDetailsURL = "Product"
+    static let GETNotesURL = "Notes"
     static let GetEstimatesURL = "Estimate"
     
     static let PostUsersURL = "users"
@@ -51,7 +52,9 @@ class Helper {
     static let PostVendorProductURL = "VendorProducts"
     static let PostProductParamsURL = "ProductParameter"
     
+    
     static let PostImageURL = "Images"
+    
     
     static var accessToken = ""
     
@@ -65,6 +68,7 @@ class Helper {
     static let VendorsCellID = "Vendors Cell"
     static let VendorDetailsCellID = "Vendor Details Cell"
     static let ProductsCellID = "Products Cell"
+    static  let EditProductSegueID = "Edit Product"
     static let ProductDetailsCellID = "Product Details Cell"
     static let SettingsCellID = "Settings Cell"
     static let ProspectsCellID = "Prospects Cell"
@@ -74,6 +78,7 @@ class Helper {
     static let GroupedProductsCellID = "Grouped Products Cell"
     static let EstimatesCellID = "Estimates Cell"
     static let AddEstimatesCellID = "Add Estimate Cell"
+    static let AddProductsCellID = "Add Product Cell"
     static let EstimateTextFieldCellID = "Estimate TextField Cell"
     
     static let SearchCellID = "searchCell"
@@ -96,7 +101,6 @@ class Helper {
     static  let UpdateSettingsSegueID = "Update Settings"
     static  let AddParametersSegueID = "Add Parameters"
     static  let EditVendorSegueID = "Edit Vendor"
-    static  let EditProductSegueID = "Edit Product"
     static  let ProspectDetailsSegueID = "Prospect Details"
     static  let AddProspectSegueID = "Add Prospect"
     static  let ProductVendorsSegueID = "Product Vendors"

@@ -54,12 +54,14 @@ class SettingsVC: UIViewController {
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetSettingsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[LookupData]>?, error) in
             UIViewController.hideLoader()
             if let err = error {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print(err)
                 return
             }
             if data?.success == true {
                 print(data?.data?.first ?? "Error fetching data")
                 self?.lookup = data?.data?.first ?? nil
+                LookupData.shared = self?.lookup
             } else {
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")

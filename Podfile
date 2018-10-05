@@ -24,4 +24,7 @@ target 'Construction' do
     
     pod 'Alamofire'
     
+    pod 'Parchment'
+    pod 'DropDown'
+    
 end

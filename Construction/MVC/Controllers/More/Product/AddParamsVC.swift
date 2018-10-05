@@ -27,7 +27,7 @@ class AddParamsVC: UIViewController {
     }
 
     fileprivate func postProductParamsFromManager() {
-        let params: [[String: Any]] = [["parameterName": paramNameTF.text!, "parameterValue": Int(paramValueTF.text!) ?? 0, "parameterUnit": paramUnitTF.text!]]
+        let params: [[String: Any]] = [["parameterName": paramNameTF.text!, "parameterValue": Double(paramValueTF.text!) ?? 0, "parameterUnit": paramUnitTF.text!]]
         UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString:  Helper.PostProductParamsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "parameters": params]) { [weak self] (response: BaseResponse?, error) in
             UIViewController.hideLoader()

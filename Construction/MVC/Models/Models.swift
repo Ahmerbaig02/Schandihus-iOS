@@ -42,6 +42,9 @@ struct VendorData: Codable {
 }
 
 struct LookupData: Codable {
+    
+    static var shared: LookupData?
+    
     var status: [StatusData]?
     var priority: [PriorityData]?
     var companyInfo: CompanyInfoData?
@@ -75,7 +78,7 @@ struct PriorityData: Codable {
 struct ParamsData: Codable {
     var productId: Int?
     var parameterName: String?
-    var parameterValue: Int?
+    var parameterValue: Double?
     var parameterUnit: String?
     var Product: ProductData?
 }
@@ -99,6 +102,15 @@ struct ProspectData: Codable {
     var Estimate: [String]?
 }
 
+struct NoteData: Codable {
+    var noteId: Int?
+    var referenceId: Int?
+    var noteType: Int?
+    var noteContent: String?
+    var noteHeading: String?
+    var createdDate: String?
+}
+
 struct EstimateData: Codable {
     var estimateId: Int?
     var projectName: String?
@@ -110,5 +122,3 @@ struct EstimateData: Codable {
     var Prospect: ProspectData?
     var Product: [ProductData]?
 }
-
-

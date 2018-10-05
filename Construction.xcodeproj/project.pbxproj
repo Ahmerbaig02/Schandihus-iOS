@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4209F7FF21669EB000396E00 /* AddEstimateFieldsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */; };
 		42457F4421388C9400D985A2 /* UpdateSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4321388C9400D985A2 /* UpdateSettingsVC.swift */; };
 		42457F4621388CB600D985A2 /* AddVendorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4521388CB600D985A2 /* AddVendorVC.swift */; };
 		42457F4821388CD300D985A2 /* AddProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457F4721388CD300D985A2 /* AddProductVC.swift */; };
@@ -42,6 +41,17 @@
 		42FEE8C92129F8B20013022B /* CustomFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEE8C82129F8B20013022B /* CustomFunctions.swift */; };
 		42FEE8CB212A0AA50013022B /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */; };
 		42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */; };
+		87A44F6F21654C7B008D043F /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F6E21654C7B008D043F /* NotesVC.swift */; };
+		87A44F7221654EC5008D043F /* NotesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F7021654EC5008D043F /* NotesTVCell.swift */; };
+		87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A44F7121654EC5008D043F /* NotesTVCell.xib */; };
+		87A44F7521655A70008D043F /* AddNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F7421655A70008D043F /* AddNotesVC.swift */; };
+		87A44F772166BAE9008D043F /* AddEstimateFieldsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */; };
+		CA1B819821674C9500493B55 /* RelativeProbabilitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819721674C9500493B55 /* RelativeProbabilitiesVC.swift */; };
+		CA1B819A21674CB100493B55 /* DashboardEstimateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819921674CB100493B55 /* DashboardEstimateVC.swift */; };
+		CA1B819C21674CC300493B55 /* ForcastedVolumesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819B21674CC300493B55 /* ForcastedVolumesVC.swift */; };
+		CA1B819F2167B6DC00493B55 /* ProductMainTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819D2167B6DC00493B55 /* ProductMainTVCell.swift */; };
+		CA1B81A02167B6DC00493B55 /* ProductMainTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */; };
+		CA1B81A22167BBB100493B55 /* AddEstimateSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */; };
 		CA3F945C9652C503B4C2D42D /* Pods_Construction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA74A6D9283DFCCBDE33DFF0 /* Pods_Construction.framework */; };
 		CA991171212A9EF60091AB7D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991170212A9EF60091AB7D /* Extensions.swift */; };
 		CA991173212A9FC60091AB7D /* AlamofireRequestFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */; };
@@ -67,7 +77,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEstimateFieldsCell.swift; sourceTree = "<group>"; };
 		42457F4321388C9400D985A2 /* UpdateSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettingsVC.swift; sourceTree = "<group>"; };
 		42457F4521388CB600D985A2 /* AddVendorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVendorVC.swift; sourceTree = "<group>"; };
 		42457F4721388CD300D985A2 /* AddProductVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductVC.swift; sourceTree = "<group>"; };
@@ -109,8 +118,19 @@
 		42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
 		42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParamsVC.swift; sourceTree = "<group>"; };
 		6B8B3CD9C8D5E65A750AB6B3 /* Pods_ConstructionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConstructionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87A44F6E21654C7B008D043F /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
+		87A44F7021654EC5008D043F /* NotesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTVCell.swift; sourceTree = "<group>"; };
+		87A44F7121654EC5008D043F /* NotesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTVCell.xib; sourceTree = "<group>"; };
+		87A44F7421655A70008D043F /* AddNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesVC.swift; sourceTree = "<group>"; };
+		87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEstimateFieldsCell.swift; sourceTree = "<group>"; };
 		A0DD9B1E0D356ED4D7D7279A /* Pods_ConstructionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConstructionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA74A6D9283DFCCBDE33DFF0 /* Pods_Construction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Construction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1B819721674C9500493B55 /* RelativeProbabilitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeProbabilitiesVC.swift; sourceTree = "<group>"; };
+		CA1B819921674CB100493B55 /* DashboardEstimateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardEstimateVC.swift; sourceTree = "<group>"; };
+		CA1B819B21674CC300493B55 /* ForcastedVolumesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForcastedVolumesVC.swift; sourceTree = "<group>"; };
+		CA1B819D2167B6DC00493B55 /* ProductMainTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductMainTVCell.swift; sourceTree = "<group>"; };
+		CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMainTVCell.xib; sourceTree = "<group>"; };
+		CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEstimateSettingsVC.swift; sourceTree = "<group>"; };
 		CA75B2F5B3793EC2A9668F8C /* Pods-Construction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Construction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Construction/Pods-Construction.debug.xcconfig"; sourceTree = "<group>"; };
 		CA991170212A9EF60091AB7D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireRequestFetch.swift; sourceTree = "<group>"; };
@@ -211,6 +231,7 @@
 		42CC6C132127642400B06418 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				87A44F6D21654C68008D043F /* Notes */,
 				CAD98125212AD0850035A064 /* More */,
 				CAD98124212AD07F0035A064 /* Prospects */,
 				CAD98123212AD07A0035A064 /* Estimate */,
@@ -234,6 +255,10 @@
 			children = (
 				42FEE8C22129EFBB0013022B /* UserInfoTVC.swift */,
 				42FEE8C32129EFBB0013022B /* UserInfoTVC.xib */,
+				87A44F7021654EC5008D043F /* NotesTVCell.swift */,
+				87A44F7121654EC5008D043F /* NotesTVCell.xib */,
+				CA1B819D2167B6DC00493B55 /* ProductMainTVCell.swift */,
+				CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */,
 			);
 			path = "View Cells";
 			sourceTree = "<group>";
@@ -257,6 +282,15 @@
 				42CC6C1C2127673700B06418 /* ConstructionTextField.swift */,
 			);
 			path = "Custom Text Fields";
+			sourceTree = "<group>";
+		};
+		87A44F6D21654C68008D043F /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				87A44F6E21654C7B008D043F /* NotesVC.swift */,
+				87A44F7421655A70008D043F /* AddNotesVC.swift */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 		CA991176212AA32E0091AB7D /* Application Delegate */ = {
@@ -313,6 +347,9 @@
 			isa = PBXGroup;
 			children = (
 				42CC6C202127721F00B06418 /* DashboardVC.swift */,
+				CA1B819721674C9500493B55 /* RelativeProbabilitiesVC.swift */,
+				CA1B819921674CB100493B55 /* DashboardEstimateVC.swift */,
+				CA1B819B21674CC300493B55 /* ForcastedVolumesVC.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -322,7 +359,8 @@
 			children = (
 				42CC6C262127727300B06418 /* EstimateVC.swift */,
 				42EB8F6521655E6E00CEF7A5 /* AddEstimateVC.swift */,
-				4209F7FE21669EB000396E00 /* AddEstimateFieldsCell.swift */,
+				CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */,
+				87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */,
 			);
 			path = Estimate;
 			sourceTree = "<group>";
@@ -351,8 +389,8 @@
 		CAD98126212AD09C0035A064 /* Product */ = {
 			isa = PBXGroup;
 			children = (
-				42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */,
 				42FEE8BC2129DEBE0013022B /* ProductsVC.swift */,
+				42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */,
 				42457F4721388CD300D985A2 /* AddProductVC.swift */,
 				42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */,
 				42D1EB3B213D6819009D4B0B /* ProductVendorsVC.swift */,
@@ -365,8 +403,8 @@
 		CAD98127212AD0A20035A064 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				42FEE8C62129F2D50013022B /* VendorDetailsVC.swift */,
 				42FEE8BE2129DEF00013022B /* VendorsVC.swift */,
+				42FEE8C62129F2D50013022B /* VendorDetailsVC.swift */,
 				42457F4521388CB600D985A2 /* AddVendorVC.swift */,
 				42D1EB39213D5DD7009D4B0B /* AddProductVendorsVC.swift */,
 				42D1EB3D213D75A6009D4B0B /* VendorProductsVC.swift */,
@@ -499,9 +537,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA1B81A02167B6DC00493B55 /* ProductMainTVCell.xib in Resources */,
 				42FEE8C52129EFBB0013022B /* UserInfoTVC.xib in Resources */,
 				42CC6BF02127484800B06418 /* LaunchScreen.storyboard in Resources */,
 				42CC6BED2127484700B06418 /* Assets.xcassets in Resources */,
+				87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */,
 				42CC6BEB2127483400B06418 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,12 +590,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Construction/Pods-Construction-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
 				"${BUILT_PRODUCTS_DIR}/PryntTrimmerView/PryntTrimmerView.framework",
 				"${BUILT_PRODUCTS_DIR}/SKActivityIndicatorView/SKActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
@@ -569,12 +611,14 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PryntTrimmerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
@@ -598,6 +642,8 @@
 			files = (
 				CA991175212A9FCF0091AB7D /* NetworkManager.swift in Sources */,
 				42FEE8C42129EFBB0013022B /* UserInfoTVC.swift in Sources */,
+				CA1B819F2167B6DC00493B55 /* ProductMainTVCell.swift in Sources */,
+				CA1B819C21674CC300493B55 /* ForcastedVolumesVC.swift in Sources */,
 				42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */,
 				42457F4621388CB600D985A2 /* AddVendorVC.swift in Sources */,
 				42D1EB3C213D6819009D4B0B /* ProductVendorsVC.swift in Sources */,
@@ -605,15 +651,18 @@
 				42FEE8BD2129DEBE0013022B /* ProductsVC.swift in Sources */,
 				42D66B46213C30A200684CF4 /* ProspectDetailsVC.swift in Sources */,
 				CA991173212A9FC60091AB7D /* AlamofireRequestFetch.swift in Sources */,
+				CA1B819A21674CB100493B55 /* DashboardEstimateVC.swift in Sources */,
 				42CC6C272127727300B06418 /* EstimateVC.swift in Sources */,
-				4209F7FF21669EB000396E00 /* AddEstimateFieldsCell.swift in Sources */,
+				87A44F6F21654C7B008D043F /* NotesVC.swift in Sources */,
 				42CC6C252127725200B06418 /* ProspectsVC.swift in Sources */,
+				87A44F7521655A70008D043F /* AddNotesVC.swift in Sources */,
 				42CC6BE82127483400B06418 /* SigninVC.swift in Sources */,
 				42EB8F6621655E6E00CEF7A5 /* AddEstimateVC.swift in Sources */,
 				42457F4421388C9400D985A2 /* UpdateSettingsVC.swift in Sources */,
 				42CC6C2B212773A200B06418 /* ColorUtil.swift in Sources */,
 				42FEE8C12129DF100013022B /* SettingsVC.swift in Sources */,
 				42FEE8C92129F8B20013022B /* CustomFunctions.swift in Sources */,
+				CA1B819821674C9500493B55 /* RelativeProbabilitiesVC.swift in Sources */,
 				42CC6C212127721F00B06418 /* DashboardVC.swift in Sources */,
 				42D1EB3A213D5DD8009D4B0B /* AddProductVendorsVC.swift in Sources */,
 				42CC6C292127728800B06418 /* MoreVC.swift in Sources */,
@@ -625,9 +674,12 @@
 				42D1EB40213DBA19009D4B0B /* AddProductsToVendor.swift in Sources */,
 				42D66B48213C30B800684CF4 /* AddProspectVC.swift in Sources */,
 				42D1EB3E213D75A6009D4B0B /* VendorProductsVC.swift in Sources */,
+				87A44F7221654EC5008D043F /* NotesTVCell.swift in Sources */,
 				42CC6C1D2127673700B06418 /* ConstructionTextField.swift in Sources */,
 				42FEE8BF2129DEF00013022B /* VendorsVC.swift in Sources */,
 				CA99117C212AA3BC0091AB7D /* Models.swift in Sources */,
+				CA1B81A22167BBB100493B55 /* AddEstimateSettingsVC.swift in Sources */,
+				87A44F772166BAE9008D043F /* AddEstimateFieldsCell.swift in Sources */,
 				42EB8F642164FF3200CEF7A5 /* GroupedProductsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -804,7 +856,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = U4862P8K87;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Construction/Property List Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -812,7 +864,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.devios.schandihus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Schandihus Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -825,7 +877,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = U4862P8K87;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Construction/Property List Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -833,7 +885,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.devios.schandihus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Schandihus Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

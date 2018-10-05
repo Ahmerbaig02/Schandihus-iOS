@@ -20,6 +20,7 @@ class AddProductVC: UIViewController {
     @IBOutlet weak var minRetailPriceTF: ConstructionTextField!
     @IBOutlet weak var maxRetailPriceTF: ConstructionTextField!
     @IBOutlet weak var markupTF: ConstructionTextField!
+    
     @IBOutlet weak var updateBtn: UIButton!
     
     var product: ProductData! = ProductData()
@@ -31,6 +32,7 @@ class AddProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.imgURL = #imageLiteral(resourceName: "baseline_account_circle_black_24pt").getURLFor(filename: "productImage")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,7 +46,6 @@ class AddProductVC: UIViewController {
             self.updateBtn.setTitle("Add Product", for: .normal)
         }
         self.descriptionTV.placeholder = "Description..."
-        self.imgURL = #imageLiteral(resourceName: "baseline_account_circle_black_24pt").getURLFor(filename: "productImage.jpg")
         print(imgURL)
     }
     override func viewWillLayoutSubviews() {
@@ -63,6 +64,14 @@ class AddProductVC: UIViewController {
         return validator
     }()
     
+    fileprivate func setValues() {
+        userNameTF.text = product.name ?? ""
+        descriptionTV.text = product.description ?? ""
+        minRetailPriceTF.text = String(product.minimumRetailPrice ?? 0)
+        maxRetailPriceTF.text = String(product.maximumRetailPrice ?? 0)
+        markupTF.text = String(product.markup ?? 0)
+    }
+    
     fileprivate func validateInputs() {
         self.validateFields(validator: self.validator) { [weak self] (success) in
             if success {
@@ -71,17 +80,18 @@ class AddProductVC: UIViewController {
                         field.errorMessage = nil
                     }
                 }
+                self!.getValues()
                 self!.postProductFromManager()
             }
         }
     }
     
-    fileprivate func setValues() {
-        userNameTF.text = product.name ?? ""
-        descriptionTV.text = product.description ?? ""
-        minRetailPriceTF.text = String(product.minimumRetailPrice ?? 0)
-        maxRetailPriceTF.text = String(product.maximumRetailPrice ?? 0)
-        markupTF.text = String(product.markup ?? 0)
+    fileprivate func getValues() {
+        product.name = userNameTF.text!
+        product.description = descriptionTV.text ?? ""
+        product.minimumRetailPrice = Int(minRetailPriceTF.text!)
+        product.maximumRetailPrice = Int(maxRetailPriceTF.text!)
+        product.markup = Int(markupTF.text!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,25 +102,23 @@ class AddProductVC: UIViewController {
     
     fileprivate func postProductFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
-        if product != nil {
+        if productId == nil {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": userNameTF.text!, "description": descriptionTV.text ?? "", "minimumRetailPrice": Int(minRetailPriceTF.text!) ?? 0, "maximumRetailPrice": Int(maxRetailPriceTF.text!) ?? 0, "markup": Int(markupTF.text!) ?? 0, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
-            UIViewController.hideLoader()
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
             if let err = error {
+                UIViewController.hideLoader()
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print(err)
                 return
             }
             if response?.success == true {
                 print("Posted Product")
-                if self?.navigationItem.title == "Add Product" {
-                    self?.productId = response?.data ?? 0
-                    self?.postProductImageFromManager()
-                } else {
-                    self?.navigationController?.popViewController(animated: true)
-                }
+                self?.productId = response?.data ?? 0
+                self?.postProductImageFromManager()
             } else {
+                UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
@@ -118,8 +126,8 @@ class AddProductVC: UIViewController {
     }
     
     fileprivate func postProductImageFromManager() {
-        
         NetworkManager.uploadFileOnServer(urlString: "\(Helper.PinterBaseURL)\(Helper.PostImageURL)?id=\(productId!)", fileURL: imgURL, filename: "product_\(productId!).jpg", withName: "UploadedImage") { [weak self] (response: BasicResponse<String>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -127,7 +135,7 @@ class AddProductVC: UIViewController {
             if response?.success == true {
                 print("Posted Image")
                 print(response?.data ?? "")
-                
+                clearImageFromCache(image_url: URL.init(string: "\(Helper.GetProductImageURL)\(self!.product.productId!).jpg")!)
                 self?.navigationController?.popViewController(animated: true)
             } else {
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
@@ -151,7 +159,7 @@ class AddProductVC: UIViewController {
         imgPicker.didFinishPicking { [unowned imgPicker, weak self] items, _ in
             if let photo = items.singlePhoto {
                 if let modifiedImage = photo.modifiedImage {
-                    if let url = modifiedImage.getURLFor(filename: "productImage.jpg") {
+                    if let url = modifiedImage.getURLFor(filename: "productImage") {
                         print(url)
                         self?.imgURL = url
                         self?.userImgView.image = modifiedImage

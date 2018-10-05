@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SwiftValidator
 import Alamofire
 import PINRemoteImage
 
 class ProductDetailsVC: UIViewController {
 
     @IBOutlet weak var productDetailsTblView: UITableView!
-    @IBOutlet weak var vendorsBtn: UIBarButtonItem!
+    @IBOutlet weak var vendorsBtn: UIButton!
     @IBOutlet weak var addBtn: UIBarButtonItem!
     
     var product: ProductData! = ProductData()
@@ -52,7 +53,6 @@ class ProductDetailsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.getProductParamsFromManager()
         self.getProductDetailsFromManager()
     }
     
@@ -73,7 +73,7 @@ class ProductDetailsVC: UIViewController {
             for index in 0...count {
                 let param = params[index]
                 paramTitles.append(param.parameterName!)
-                paramDescripts.append("\(param.parameterValue!) \(param.parameterUnit!)")
+                paramDescripts.append("\(param.parameterValue!.getRounded(uptoPlaces: 2)) \(param.parameterUnit!)")
             }
         } else {
             paramTitles.append("No Product Parameters")
@@ -104,10 +104,10 @@ class ProductDetailsVC: UIViewController {
         if let destinationVC = segue.destination as? ProductVendorsVC {
             destinationVC.product = product!
         }
-        if let destinationVC = segue.destination as? AddParamsVC {
+        if let destinationVC = segue.destination as? AddProductVC {
             destinationVC.product = product!
         }
-        if let destinationVC = segue.destination as? AddProductVC {
+        if let destinationVC = segue.destination as? AddParamsVC {
             destinationVC.product = product!
         }
         if let destinationVC = segue.destination as? GroupedProductsVC {
@@ -128,15 +128,17 @@ class ProductDetailsVC: UIViewController {
     fileprivate func getProductDetailsFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductDetailsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<ProductData>?, error) in
-            UIViewController.hideLoader()
             if let err = error {
+                UIViewController.hideLoader()
                 print(err)
                 return
             }
             if data?.success == true {
                 print(data?.data ?? "Error fetching data")
                 self?.product = data?.data ?? nil
+                self?.getProductParamsFromManager()
             } else {
+                UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
@@ -146,6 +148,7 @@ class ProductDetailsVC: UIViewController {
     fileprivate func getProductParamsFromManager() {
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductParamsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ParamsData]>?, error) in
             if let err = error {
+                UIViewController.hideLoader()
                 print(err)
                 return
             }
@@ -155,6 +158,8 @@ class ProductDetailsVC: UIViewController {
                 self?.product.ProductParameter = list?.data ?? []
                 self?.getGroupedProductsFromManager()
             } else {
+                UIViewController.hideLoader()
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
@@ -162,6 +167,7 @@ class ProductDetailsVC: UIViewController {
     
     fileprivate func getGroupedProductsFromManager() {
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetGroupedProductsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -171,14 +177,17 @@ class ProductDetailsVC: UIViewController {
                 self?.grouped = list?.data ?? []
                 self?.setValues()
             } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
     }
     
     fileprivate func deleteParametersFromManager(indexPath: IndexPath) {
+        UIViewController.showLoader(text: "Please Wait...")
         let param = params[indexPath.row]
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProductParamsURL, method: .delete, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId ?? 0, "parameterName": param.parameterName ?? ""]) { [weak self] (list: BaseResponse?, error) in
+            UIViewController.hideLoader()
             if let err = error {
                 print(err)
                 return
@@ -204,10 +213,16 @@ class ProductDetailsVC: UIViewController {
         performSegue(withIdentifier: Helper.ShowVendorsSegueID, sender: nil)
     }
     
-    @IBAction func editProductAction(_ sender: Any) {
-        performSegue(withIdentifier: Helper.EditProductSegueID, sender: nil)
+    @IBAction func showNotesAction(_ sender: Any) {
+        let VC = storyboard?.instantiateViewController(withIdentifier: "NotesVC") as! NotesVC
+        VC.noteType = 1
+        VC.referenceId = self.product.productId!
+        self.navigationController?.pushViewController(VC, animated: true)
     }
     
+    @IBAction func editProductAction(_ sender: Any) {
+        self.performSegue(withIdentifier: Helper.EditProductSegueID, sender: nil)
+    }
     
     deinit {
         print("deinit ProductDetailsVC")

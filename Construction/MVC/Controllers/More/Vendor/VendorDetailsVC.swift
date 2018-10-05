@@ -88,6 +88,13 @@ class VendorDetailsVC: UIViewController {
         performSegue(withIdentifier: Helper.VendorProductsSegueID, sender: nil)
     }
     
+    @IBAction func showNotesAction(_ sender: Any) {
+        let VC = storyboard?.instantiateViewController(withIdentifier: "NotesVC") as! NotesVC
+        VC.noteType = 2
+        VC.referenceId = self.vendor.vendorId!
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
     @IBAction func addVendorProductAction(_ sender: Any) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "ProductsVC") as! ProductsVC
         self.navigationController?.pushViewController(controller, animated: true)

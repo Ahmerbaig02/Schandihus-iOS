@@ -1,12 +1,14 @@
 PODS:
   - Alamofire (4.7.2)
   - DateToolsSwift (4.0.0)
+  - DropDown (2.3.3)
   - FLAnimatedImage (1.0.12)
   - IQKeyboardManagerSwift (6.0.4)
   - MarqueeLabel/Swift (3.1.6)
   - NotificationBannerSwift (1.6.3):
     - MarqueeLabel/Swift
     - SnapKit (~> 4.0)
+  - Parchment (1.4.1)
   - PINCache (2.3)
   - PINRemoteImage (2.1.4):
     - PINRemoteImage/FLAnimatedImage (= 2.1.4)
@@ -29,8 +31,10 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - DateToolsSwift
+  - DropDown
   - IQKeyboardManagerSwift
   - NotificationBannerSwift
+  - Parchment
   - PINCache
   - PINRemoteImage
   - SKActivityIndicatorView
@@ -43,10 +47,12 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - DateToolsSwift
+    - DropDown
     - FLAnimatedImage
     - IQKeyboardManagerSwift
     - MarqueeLabel
     - NotificationBannerSwift
+    - Parchment
     - PINCache
     - PINRemoteImage
     - PryntTrimmerView
@@ -70,10 +76,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
+  DropDown: 3ed140d49e2cdac81a7eea0ae2c63e8c5f408cac
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
   MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   NotificationBannerSwift: b231e4c3244848ef300e1c53ce027b9756b9b06f
+  Parchment: e6c2a3a0063739382dd207e21d48fe5e81f3324a
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINRemoteImage: 4ac4011c5caefd6befd99758e09becede05d3226
   PryntTrimmerView: 4260ae497a2f3e1bbfc0b71247eb74ab92bf0490
@@ -85,6 +93,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   YPImagePicker: b711992e87904056112795c3bc17af87e2585b71
 
-PODFILE CHECKSUM: 41c20072e5c86466a90cda42aff62f08c588f340
+PODFILE CHECKSUM: e64befbcefb069d17b6a70cb50a54a3bd7929847
 
 COCOAPODS: 1.5.3

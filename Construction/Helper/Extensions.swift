@@ -222,6 +222,17 @@ extension UIView {
         }
     }
     
+    func validateFieldInput(validator: Validator, textField: UITextField) {
+        let textField = textField as! ConstructionTextField
+        validator.validateField(textField) { (error) in
+            if let err = error {
+                textField.errorMessage = err.errorMessage
+            } else {
+                textField.errorMessage = nil
+            }
+        }
+    }
+    
     func setBorder( width: CGFloat, color: UIColor) {
         self.layer.borderWidth = width
         self.layer.borderColor = color.cgColor
@@ -307,26 +318,35 @@ extension UIView {
 extension UIImage {
     
     func getURLFor(filename: String) -> URL? {
-        // get the documents directory url
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        // choose a name for your image
-        let fileName = "image.jpg"
-        // create the destination file url to save your image
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        // get your UIImage jpeg data representation and check if the destination file url already exists
-        if let data = UIImageJPEGRepresentation(self, 0.8),
-            !FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                // writes the image data to disk
-                try data.write(to: fileURL)
-                print("file saved")
-                return fileURL
-            } catch {
-                print("error saving file:", error)
-                return nil
-            }
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        if let imagePath = documentsPath?.appendingPathComponent("\(filename).jpg") {
+            let data = UIImageJPEGRepresentation(self, 0.5)!
+            try! data.write(to: imagePath)
+            return imagePath
         }
-        return fileURL
+        return nil
+        
+//        // get the documents directory url
+//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        // choose a name for your image
+//        let fileName = "image.jpg"
+//        // create the destination file url to save your image
+//        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+//        // get your UIImage jpeg data representation and check if the destination file url already exists
+//        if let data = UIImageJPEGRepresentation(self, 0.8),
+//            !FileManager.default.fileExists(atPath: fileURL.path) {
+//            do {
+//                // writes the image data to disk
+//                try data.write(to: fileURL)
+//                print("file saved")
+//                return fileURL
+//            } catch {
+//                print("error saving file:", error)
+//                return nil
+//            }
+//        }
+//        return fileURL
     }
     
 }
@@ -390,7 +410,11 @@ extension String {
     }
     
     var dateFromISO8601: Date? {
-        return Formatter.iso8601.date(from: self)   // "Mar 22, 2017, 10:22 AM"
+        var dateStr =  self
+        if !dateStr.contains(".") {
+            dateStr.append(".000")
+        }
+        return Formatter.iso8601.date(from: dateStr)   // "Mar 22, 2017, 10:22 AM"
     }
     
 }
@@ -401,8 +425,8 @@ extension Formatter {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        formatter.timeZone = NSTimeZone.local
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         return formatter
     }()
     
@@ -426,7 +450,7 @@ extension Formatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMddyyyy"
         formatter.timeStyle = .none
-        formatter.dateStyle = .short
+        formatter.dateStyle = .full
         return formatter
     }()
     

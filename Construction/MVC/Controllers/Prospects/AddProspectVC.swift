@@ -21,7 +21,7 @@ class AddProspectVC: UIViewController {
     @IBOutlet weak var generalDiscountTF: ConstructionTextField!
     @IBOutlet weak var addProspectBtn: UIButton!
     
-    var statusArr: [String] = ["IMPORTANT","NORMAL","BAD"]
+    var statusArr: [String] = ["IMPORTANT","NORMAL","VIP"]
     var prospect: ProspectData!
     var urlStr: String = Helper.PostProspectURL
     var method: HTTPMethod = .post
@@ -35,6 +35,10 @@ class AddProspectVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let lookup = LookupData.shared {
+            self.statusArr = lookup.status!.map({ $0.value!})
+        }
         
         if prospect != nil {
             self.setValues()

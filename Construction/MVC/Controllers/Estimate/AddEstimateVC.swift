@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import SwiftValidator
 import Alamofire
+import SwiftValidator
 
 class AddEstimateVC: UIViewController {
 
@@ -17,8 +17,12 @@ class AddEstimateVC: UIViewController {
     @IBOutlet weak var totalLbl: UILabel!
     
     var prospect: ProspectData = ProspectData()
-    var products: [ProductData] = []
+    var products: [ProductData] = [ProductData]()
+    
     var validator = Validator()
+    
+    var isMaxPrice: Bool = false
+    var isDiscount: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,20 +37,16 @@ class AddEstimateVC: UIViewController {
         super.viewWillAppear(animated)
         
         self.estimateTblView.reloadData()
-        let total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
-        totalLbl.text = "\(String(total)) NOK"
-    }
-    
-    fileprivate func validateInputs() {
-        self.validateFields(validator: self.validator) { [weak self] (success) in
-            if success {
-                for (_, rule) in self!.validator.validations {
-                    if let field = rule.field as? ConstructionTextField {
-                        field.errorMessage = nil
-                    }
-                }
+        var total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
+        if isMaxPrice {
+            total = self.products.reduce(0, {$0 + $1.maximumRetailPrice!})
+        }
+        if isDiscount {
+            if let discount = prospect.generalDiscount {
+                total = total - Int(Double(total) * Double(discount)/100)
             }
         }
+        totalLbl.text = "\(total) NOK"
     }
     
     fileprivate lazy var addProspectBtn: UIButton = {
@@ -69,10 +69,35 @@ class AddEstimateVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? GroupedProductsVC {
+            destinationVC.selectedProducts = self.products
             destinationVC.delegate = self
         }
         if let destinationVC = segue.destination as? ProspectsVC {
             destinationVC.delegate = self
+        }
+        if let destinationVC = segue.destination as? AddEstimateSettingsVC {
+            destinationVC.controller = self
+        }
+    }
+    
+    fileprivate func validateInputs() {
+        self.validateFields(validator: self.validator) { [weak self] (success) in
+            if success {
+                for (_, rule) in self!.validator.validations {
+                    if let field = rule.field as? ConstructionTextField {
+                        field.errorMessage = nil
+                    }
+                }
+                if self!.prospect.prospectId == nil {
+                    self!.showBanner(title: "Add Prospect first", style: .danger)
+                    return
+                }
+                if self!.products.count == 0 {
+                    self!.showBanner(title: "Add Product(s) first", style: .danger)
+                    return
+                }
+                self!.postEstimateFromManager()
+            }
         }
     }
 
@@ -82,8 +107,9 @@ class AddEstimateVC: UIViewController {
             let product = products[index]
             productIds.append(product.productId ?? 0)
         }
-        if let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
-            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!, "prospectId": "\(prospect.prospectId ?? 0)", "estimateDate": cell.estimateDateTF.text!, "closingDate": cell.closingDateTF.text!, "priceGuaranteeDate": cell.priceGuaranteeDateTF.text!, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
+        if let cell = estimateTblView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
+            UIViewController.showLoader(text: "Please Wait...")
+            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!, "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
                 UIViewController.hideLoader()
                 if let err = error {
                     print(err)
@@ -98,7 +124,6 @@ class AddEstimateVC: UIViewController {
                 }
             }
         }
-        
     }
     
     @objc fileprivate func addProspectAction(btn: UIButton) {
@@ -111,7 +136,6 @@ class AddEstimateVC: UIViewController {
     
     @IBAction func addEstimateAction(_ sender: Any) {
         self.validateInputs()
-        self.postEstimateFromManager()
     }
     
     deinit {
@@ -129,13 +153,9 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else if section == 1 {
-            return 1
+            return self.prospect.prospectId == nil ? 0 : 1
         } else {
-            if products.count == 0 {
-                return products.count+1
-            } else {
-                return products.count
-            }
+            return products.count
         }
     }
     
@@ -156,6 +176,8 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
                 if !hView.subviews.contains(addBtn) {
                     hView.addSubview(addBtn)
                     addBtn.anchor(hView.topAnchor, left: nil, bottom: hView.bottomAnchor, right: hView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+                } else {
+                   // addBtn.removeFromSuperview()
                 }
             }
             hView.contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
@@ -167,6 +189,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: indexPath) as! AddEstimateFieldsCell
+            cell.validator = self.validator
             validator.registerField(cell.estimateNameTF, rules: [RequiredRule()])
             validator.registerField(cell.estimateDateTF, rules: [RequiredRule()])
             validator.registerField(cell.closingDateTF, rules: [RequiredRule()])
@@ -177,33 +200,21 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddEstimatesCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            if prospect.prospectId == nil {
-                cell.textLabel?.text = "No Prospect"
-                cell.detailTextLabel?.isHidden = true
-            } else {
-                cell.textLabel?.text = prospect.prospectName ?? ""
-                cell.detailTextLabel?.text = prospect.homeAddress ?? ""
-                cell.detailTextLabel?.isHidden = false
-            }
+            cell.textLabel?.text = prospect.prospectName ?? ""
+            cell.detailTextLabel?.text = "Address: \(prospect.homeAddress ?? "")\n Discount: \(prospect.generalDiscount ?? 0) %"
             return cell
         } else {
-            let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddEstimatesCellID, for: indexPath)
+            let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddProductsCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            if products.count == 0 {
-                cell.textLabel?.text = "No Products"
-                cell.detailTextLabel?.isHidden = true
-            } else {
-                cell.textLabel?.text = products[indexPath.row].name ?? ""
-                cell.detailTextLabel?.text = "Min \(String(products[indexPath.row].minimumRetailPrice ?? 0)) - Max \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
-                cell.detailTextLabel?.isHidden = false
-            }
+            cell.textLabel?.text = products[indexPath.row].name ?? ""
+            cell.detailTextLabel?.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0))\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.estimateTblView.deselectRow(at: indexPath, animated: true)
+        
     }
     
 }

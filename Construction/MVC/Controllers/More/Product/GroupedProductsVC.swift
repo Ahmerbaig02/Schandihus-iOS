@@ -124,9 +124,9 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         let cell = groupedProductsTblView.dequeueReusableCell(withIdentifier: Helper.GroupedProductsCellID, for: indexPath)
         cell.textLabel?.text = productsSectionedData[indexPath.section][indexPath.row].name ?? ""
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        cell.tintColor = UIColor.accentColor
         if selectedProducts.contains(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_check_circle_outline_black_18pt")
-            cell.tintColor = UIColor.accentColor
         } else {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_radio_button_unchecked_black_18pt")
         }

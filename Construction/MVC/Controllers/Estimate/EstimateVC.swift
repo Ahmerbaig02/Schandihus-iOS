@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import DropDown
 
 class EstimateVC: UIViewController {
     
@@ -40,9 +41,9 @@ class EstimateVC: UIViewController {
     fileprivate func makeSectionIndicesOnFirstLetter() {
         self.estimatesSectionedData.removeAll()
         self.uniqueInitials.removeAll()
-        uniqueInitials = Set(estimates.map({ String($0.projectName!.first!) })).sorted()
+        uniqueInitials = Set(estimates.map({ String($0.projectName!.first! ) })).sorted()
         for initial in uniqueInitials {
-            self.estimatesSectionedData.append(self.estimates.filter({ String($0.projectName!.first!) == initial }))
+            self.estimatesSectionedData.append(self.estimates.filter({ String($0.projectName!.first! ) == initial }))
         }
         self.estimatesTblView.reloadData()
     }
@@ -57,13 +58,39 @@ class EstimateVC: UIViewController {
             }
             if data?.success == true {
                 print(data?.data ?? "Error fetching data")
-                self?.estimates = (data?.data ?? nil)!
+                self?.estimates = (data?.data ?? []).filter({ $0.projectName != nil && $0.projectName?.isEmpty == false })
                 self?.estimatesTblView.reloadData()
             } else {
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
+    }
+    
+    fileprivate func filterDataBasedOn(type: String) {
+        if type == "prospect name" {
+            self.estimates = self.estimates.sorted(by: { $0.Prospect!.prospectName! < $1.Prospect!.prospectName! })
+        } else if type == "estimate name" {
+            self.estimates = self.estimates.sorted(by: { $0.projectName! < $1.projectName! })
+        } else if type == "closing date" {
+            self.estimates = self.estimates.sorted(by: { $0.closingDate! < $1.closingDate! })
+        } else if type == "price gurantee date" {
+            self.estimates = self.estimates.sorted(by: { $0.priceGuaranteeDate! < $1.priceGuaranteeDate! })
+        }
+        makeSectionIndicesOnFirstLetter()
+    }
+    
+    @IBAction func filterEstimatesAction(_ sender: Any) {
+        let dropDown = DropDown()
+        dropDown.dataSource = ["prospect name", "estimate name", "closing date", "price gurantee date"]
+        dropDown.anchorView = sender as! UIBarButtonItem
+        dropDown.sizeToFit()
+        dropDown.direction = .any
+        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            self!.filterDataBasedOn(type: item)
+        }
+        dropDown.show()
     }
     
     @IBAction func addEstimateAction(_ sender: Any) {

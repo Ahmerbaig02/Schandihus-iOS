@@ -23,7 +23,7 @@ class AddVendorVC: UIViewController {
     @IBOutlet weak var priorityTF: ConstructionTextField!
     @IBOutlet weak var updateBtn: UIButton!
     
-    var statusArr: [String] = ["IMPORTANT","NORMAL","BAD"]
+    var statusArr: [String] = ["IMPORTANT","NORMAL","VIP"]
     var priorityArr: [String] = ["LOW","MEDIUM","HIGH"]
     var vendor: VendorData?
     var urlStr: String = Helper.PostVendorURL
@@ -40,6 +40,11 @@ class AddVendorVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let lookup = LookupData.shared {
+            self.statusArr = lookup.status!.map({ $0.value!})
+            self.priorityArr = lookup.priority!.map({ $0.value!})
+        }
         
         if vendor != nil {
             self.setValues()

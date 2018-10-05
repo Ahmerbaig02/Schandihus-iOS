@@ -55,8 +55,9 @@ class ProspectDetailsVC: UIViewController {
     fileprivate func getProspectDetailsFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProspectsURL)/\(prospect.prospectId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<ProspectData>?, error) in
-            UIViewController.hideLoader()
             if let err = error {
+                UIViewController.hideLoader()
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print(err)
                 return
             }
@@ -65,6 +66,7 @@ class ProspectDetailsVC: UIViewController {
                 self?.prospect = data?.data ?? nil
                 self?.getEstimatesFromManager()
             } else {
+                UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
@@ -72,7 +74,6 @@ class ProspectDetailsVC: UIViewController {
     }
     
     fileprivate func getEstimatesFromManager() {
-        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[EstimateData]>?, error) in
             UIViewController.hideLoader()
             if let err = error {
@@ -94,6 +95,13 @@ class ProspectDetailsVC: UIViewController {
     
     @IBAction func editProspectAction(_ sender: Any) {
         self.performSegue(withIdentifier: "EditProspectSegue", sender: nil)
+    }
+    
+    @IBAction func showNotesAction(_ sender: Any) {
+        let VC = storyboard?.instantiateViewController(withIdentifier: "NotesVC") as! NotesVC
+        VC.noteType = 3
+        VC.referenceId = self.prospect.prospectId!
+        self.navigationController?.pushViewController(VC, animated: true)
     }
     
     deinit {

@@ -24,8 +24,17 @@ class VendorsVC: UIViewController {
     var isForVendorProduct: Bool = false
     var product: ProductData = ProductData()
     
+    var searchedVendors: [VendorData] = []
+    fileprivate var searchController: UISearchController!
+    
+    struct EstimateData: Codable {
+        var prospectId: Int?
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupSearchController()
         
         self.vendorsTblView.sectionIndexColor = UIColor.primaryColor
         self.vendorsTblView.sectionIndexBackgroundColor = UIColor.groupTableViewBackground
@@ -41,18 +50,39 @@ class VendorsVC: UIViewController {
             self.addVendorBtn.image = nil
         }
         getVendorListFromManager()
+        
+//        navigationItem.searchController?.isActive = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.searchController.isActive = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? VendorDetailsVC {
-            let indexPath = sender as! IndexPath
-            destinationVC.vendor = vendorsSectionedData[indexPath.section][indexPath.row]
+            let vendor = sender as! VendorData
+            destinationVC.vendor = vendor
         }
         if let destinationVC = segue.destination as? AddProductVendorsVC {
-            let indexPath = sender as! IndexPath
+            let vendor = sender as! VendorData
             destinationVC.product = product
-            destinationVC.vendor = vendorsSectionedData[indexPath.section][indexPath.row]
+            destinationVC.vendor = vendor
         }
+    }
+    
+    fileprivate func setupSearchController() {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.searchResultsUpdater = self
+        controller.searchBar.tintColor = UIColor.black
+        controller.hidesNavigationBarDuringPresentation = false
+        controller.dimsBackgroundDuringPresentation = false
+        navigationItem.searchController = controller
+        navigationItem.hidesSearchBarWhenScrolling = false
+        controller.searchBar.sizeToFit()
+        
+        self.searchController = controller
     }
     
     fileprivate func makeSectionIndicesOnFirstLetter() {
@@ -96,16 +126,25 @@ class VendorsVC: UIViewController {
 extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.searchController.isActive == true {
+            return 1
+        }
         return vendorsSectionedData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.searchController.isActive == true {
+            return self.searchedVendors.count
+        }
         return vendorsSectionedData[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = vendorsTblView.dequeueReusableCell(withIdentifier: Helper.VendorsCellID, for: indexPath)
-        cell.textLabel?.text = vendorsSectionedData[indexPath.section][indexPath.row].name ?? ""
+        let vendor = (self.searchController.isActive == true) ? searchedVendors[indexPath.row] : vendorsSectionedData[indexPath.section][indexPath.row]
+        cell.textLabel?.text = vendor.name ?? ""
+        cell.tintColor = UIColor.darkGray
+        cell.imageView?.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         return cell
@@ -116,10 +155,16 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if self.searchController.isActive == true {
+            return nil
+        }
         return self.uniqueInitials
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.searchController.isActive == true {
+            return "Searched Results"
+        }
         return self.uniqueInitials[section]
     }
     
@@ -133,11 +178,25 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.vendorsTblView.deselectRow(at: indexPath, animated: true)
+        if self.searchController.isActive == true {
+            let vendor = searchedVendors[indexPath.row]
+            self.searchController.isActive = false
+            performSegue(withIdentifier: Helper.VendorDetailsSegueID, sender: vendor)
+            return
+        }
         if isForVendorProduct == false {
-            performSegue(withIdentifier: Helper.VendorDetailsSegueID, sender: indexPath)
+            performSegue(withIdentifier: Helper.VendorDetailsSegueID, sender: vendorsSectionedData[indexPath.section][indexPath.row])
         } else {
-            performSegue(withIdentifier: Helper.AddProductVendorSegueID, sender: indexPath)
+            performSegue(withIdentifier: Helper.AddProductVendorSegueID, sender: vendorsSectionedData[indexPath.section][indexPath.row])
         }
     }
     
+}
+
+
+extension VendorsVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        self.searchedVendors = self.vendors.filter({ $0.name!.contains(searchController.searchBar.text!) })
+        self.vendorsTblView.reloadData()
+    }
 }

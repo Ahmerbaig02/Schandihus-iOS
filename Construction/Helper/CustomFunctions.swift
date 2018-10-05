@@ -8,6 +8,8 @@
 
 
 import UIKit
+import PINCache
+import PINRemoteImage
 
 func decodeObject <T: Codable>(data: Data) -> T? {
     let decoder = JSONDecoder()
@@ -25,6 +27,11 @@ func encodeObject <T: Codable>(param: T) -> Data? {
         return nil
     }
     return obj
+}
+
+func clearImageFromCache(image_url: URL) {
+    let cacheKey = PINRemoteImageManager.shared().cacheKey(for: image_url, processorKey: nil)
+    PINRemoteImageManager.shared().cache.removeObject(forKey: cacheKey, block: nil)
 }
 
 func setupLocalNotification(userInfo: [String:Any]) {
