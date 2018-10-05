@@ -45,7 +45,7 @@
                 <outlet property="userImgView" destination="RFj-3R-5mT" id="1No-Zj-LCQ"/>
                 <outlet property="userInfoLbl" destination="9cR-Ok-QJO" id="srh-Xz-Fcj"/>
             </connections>
-            <point key="canvasLocation" x="121.59999999999999" y="57.121439280359823"/>
+            <point key="canvasLocation" x="121.59999999999999" y="56.671664167916049"/>
         </tableViewCell>
     </objects>
     <resources>

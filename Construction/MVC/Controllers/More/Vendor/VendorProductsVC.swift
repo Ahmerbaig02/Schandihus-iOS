@@ -29,6 +29,8 @@ class VendorProductsVC: UIViewController {
         self.VendorProductsTblView.sectionIndexBackgroundColor = UIColor.groupTableViewBackground
         self.VendorProductsTblView.delegate = self
         self.VendorProductsTblView.dataSource = self
+        
+        self.VendorProductsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,8 +84,11 @@ extension VendorProductsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = VendorProductsTblView.dequeueReusableCell(withIdentifier: Helper.VendorProductsCellID, for: indexPath)
-        cell.textLabel?.text = productSectionedData[indexPath.section][indexPath.row].name ?? ""
+        let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
+        let product = productSectionedData[indexPath.section][indexPath.row]
+        cell.userInfoLbl.text = product.name ?? ""
+        cell.userInfoLbl.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
         return cell
     }
     

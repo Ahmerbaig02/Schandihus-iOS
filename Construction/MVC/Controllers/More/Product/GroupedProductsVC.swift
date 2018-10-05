@@ -123,7 +123,9 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupedProductsTblView.dequeueReusableCell(withIdentifier: Helper.GroupedProductsCellID, for: indexPath)
         cell.textLabel?.text = productsSectionedData[indexPath.section][indexPath.row].name ?? ""
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
+        cell.detailTextLabel?.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0))\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
         cell.tintColor = UIColor.accentColor
         if selectedProducts.contains(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_check_circle_outline_black_18pt")

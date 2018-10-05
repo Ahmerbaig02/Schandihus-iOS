@@ -92,6 +92,7 @@ class ProductDetailsVC: UIViewController {
     }
     
     func configureCell() {
+        self.productDetailsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
         let cellNib = UINib.init(nibName: "UserInfoTVC", bundle: nil)
         productDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
@@ -289,10 +290,11 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
-            let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
-            cell.textLabel?.text = groupedProducts[indexPath.row]
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
+            let product = self.grouped[indexPath.row]
+            cell.userInfoLbl.text = product.name ?? ""
+            cell.userInfoLbl.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+            cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
             return cell
         }
     }
