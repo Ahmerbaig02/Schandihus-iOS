@@ -533,7 +533,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iH9-ki-eVd">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iH9-ki-eVd">
                                                     <rect key="frame" x="310" y="21" width="50" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -768,17 +768,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-9G-Sjo">
-                                <rect key="frame" x="92" y="317" width="191" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Soon_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="0Np-Og-T2S">
+                                <rect key="frame" x="60" y="57.5" width="255" height="512"/>
+                                <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="FOv-9G-Sjo" firstAttribute="centerX" secondItem="EsF-qa-n63" secondAttribute="centerX" id="lHA-D3-giy"/>
-                            <constraint firstItem="FOv-9G-Sjo" firstAttribute="centerY" secondItem="EsF-qa-n63" secondAttribute="centerY" id="yz3-TD-fUj"/>
+                            <constraint firstItem="923-03-Ui8" firstAttribute="trailing" secondItem="0Np-Og-T2S" secondAttribute="trailing" constant="60" id="ca2-E6-lTC"/>
+                            <constraint firstItem="0Np-Og-T2S" firstAttribute="centerY" secondItem="EsF-qa-n63" secondAttribute="centerY" constant="-20" id="n70-uH-Z0d"/>
+                            <constraint firstItem="0Np-Og-T2S" firstAttribute="leading" secondItem="923-03-Ui8" secondAttribute="leading" constant="60" id="uMF-8y-bUG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="923-03-Ui8"/>
                     </view>
@@ -2036,17 +2036,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JA-E2-sVB">
-                                <rect key="frame" x="92" y="317" width="191" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Soon_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="MFm-kd-XNr">
+                                <rect key="frame" x="60" y="57.5" width="255" height="512"/>
+                                <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="8JA-E2-sVB" firstAttribute="centerY" secondItem="Wjk-Mk-h6z" secondAttribute="centerY" id="5a6-V3-tqd"/>
-                            <constraint firstItem="8JA-E2-sVB" firstAttribute="centerX" secondItem="Wjk-Mk-h6z" secondAttribute="centerX" id="Qng-X9-RrX"/>
+                            <constraint firstAttribute="trailing" secondItem="MFm-kd-XNr" secondAttribute="trailing" constant="60" id="4p9-27-mdo"/>
+                            <constraint firstItem="MFm-kd-XNr" firstAttribute="centerY" secondItem="Wjk-Mk-h6z" secondAttribute="centerY" constant="-20" id="PgL-Qq-DZg"/>
+                            <constraint firstItem="MFm-kd-XNr" firstAttribute="leading" secondItem="Wjk-Mk-h6z" secondAttribute="leading" constant="60" id="kC2-DN-AVy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LZo-JH-VS9"/>
                     </view>
@@ -2063,17 +2063,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVz-qA-f9r">
-                                <rect key="frame" x="92" y="317" width="191" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Soon_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="mt0-bz-On9">
+                                <rect key="frame" x="60" y="57.5" width="255" height="512"/>
+                                <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="mVz-qA-f9r" firstAttribute="centerX" secondItem="sJB-O4-mvd" secondAttribute="centerX" id="sYx-uf-B9n"/>
-                            <constraint firstItem="mVz-qA-f9r" firstAttribute="centerY" secondItem="sJB-O4-mvd" secondAttribute="centerY" id="xWQ-vE-NLM"/>
+                            <constraint firstItem="mt0-bz-On9" firstAttribute="centerY" secondItem="sJB-O4-mvd" secondAttribute="centerY" constant="-20" id="Evq-La-CoH"/>
+                            <constraint firstItem="mt0-bz-On9" firstAttribute="leading" secondItem="H7O-aj-5Ea" secondAttribute="leading" constant="60" id="Ukn-Xh-F7e"/>
+                            <constraint firstItem="H7O-aj-5Ea" firstAttribute="trailing" secondItem="mt0-bz-On9" secondAttribute="trailing" constant="60" id="rcH-jT-izR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="H7O-aj-5Ea"/>
                     </view>
@@ -2085,6 +2085,7 @@
     </scenes>
     <resources>
         <image name="AppLogo" width="512" height="512"/>
+        <image name="Soon_Icon" width="512" height="512"/>
         <image name="baseline_account_circle_black_24pt" width="48" height="48"/>
         <image name="baseline_add_circle_black_36pt" width="72" height="72"/>
         <image name="baseline_apps_black_24pt" width="48" height="48"/>

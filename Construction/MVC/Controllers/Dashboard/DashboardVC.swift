@@ -33,6 +33,15 @@ class DashboardVC: UIViewController {
         pagingViewControllers = [ probsVC, estVC, volumeVC ]
         
         let pageVC = FixedPagingViewController(viewControllers: pagingViewControllers)
+        
+        pageVC.selectedTextColor = UIColor.primaryColor
+        pageVC.indicatorColor = UIColor.primaryColor
+        pageVC.textColor = UIColor.lightGray
+        pageVC.indicatorOptions = .visible(
+            height: 1,
+            zIndex: Int.max - 1, spacing: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8),
+            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        
         pageVC.view.tintColor = UIColor.primaryColor
         self.addChildViewController(pageVC)
         self.view.addSubview(pageVC.view)

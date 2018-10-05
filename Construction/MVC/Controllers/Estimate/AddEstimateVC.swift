@@ -201,7 +201,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.text = prospect.prospectName ?? ""
-            cell.detailTextLabel?.text = "Address: \(prospect.homeAddress ?? "")\n Discount: \(prospect.generalDiscount ?? 0) %"
+            cell.detailTextLabel?.text = "Address: \(prospect.homeAddress ?? "")\nDiscount: \(prospect.generalDiscount ?? 0) %"
             return cell
         } else {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddProductsCellID, for: indexPath)

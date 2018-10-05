@@ -27,9 +27,12 @@ class AddEstimateFieldsCell: UITableViewCell {
         super.awakeFromNib()
         
         setupPickers()
-        estimateNameTF.text = Date().serverSideDate
-        closingDateTF.text = Date().serverSideDate
-        priceGuaranteeDateTF.text = Date().serverSideDate
+        estimateDateTF.text = Date().humanReadableDate
+        self.estimateDate = Date().serverSideDate
+        closingDateTF.text = Date().humanReadableDate
+        self.closingDate = Date().serverSideDate
+        priceGuaranteeDateTF.text = Date().humanReadableDate
+        self.priceGuaranteeDate = Date().serverSideDate
     }
     
     fileprivate func setupPickers() {
@@ -56,17 +59,17 @@ class AddEstimateFieldsCell: UITableViewCell {
     }
     
     @objc func estimateDatePickerAction(_ sender: UIDatePicker) {
-        self.estimateDateTF.text = sender.date.serverSideDate
+        self.estimateDateTF.text = sender.date.humanReadableDate
         self.estimateDate = sender.date.serverSideDate
     }
     
     @objc func closingDatePickerAction(_ sender: UIDatePicker) {
-        self.closingDateTF.text = sender.date.serverSideDate
+        self.closingDateTF.text = sender.date.humanReadableDate
         self.closingDate = sender.date.serverSideDate
     }
     
     @objc func priceGuaranteedDatePickerAction(_ sender: UIDatePicker) {
-        self.priceGuaranteeDateTF.text = sender.date.serverSideDate
+        self.priceGuaranteeDateTF.text = sender.date.humanReadableDate
         self.priceGuaranteeDate = sender.date.serverSideDate
     }
     
