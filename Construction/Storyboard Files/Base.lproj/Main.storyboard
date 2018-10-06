@@ -451,10 +451,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="i6B-Fr-E9C">
-                                                    <rect key="frame" x="5" y="5" width="365" height="174.5"/>
+                                                    <rect key="frame" x="5" y="5" width="310" height="174.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Estimate Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cie-9b-ycD" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                                            <rect key="frame" x="8" y="0.0" width="349" height="40"/>
+                                                            <rect key="frame" x="8" y="0.0" width="294" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="Cie-9b-ycD" secondAttribute="height" multiplier="349:40" id="Kyw-uE-js8"/>
                                                             </constraints>
@@ -463,19 +463,19 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Estimate Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DtJ-UC-JTz" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                                            <rect key="frame" x="8" y="45" width="349" height="40"/>
+                                                            <rect key="frame" x="8" y="45" width="294" height="40"/>
                                                             <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Closing Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Lg-PD-u2f" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                                            <rect key="frame" x="8" y="90" width="349" height="39.5"/>
+                                                            <rect key="frame" x="8" y="90" width="294" height="39.5"/>
                                                             <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price Guarantee Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PGq-rF-5Mj" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                                            <rect key="frame" x="8" y="134.5" width="349" height="40"/>
+                                                            <rect key="frame" x="8" y="134.5" width="294" height="40"/>
                                                             <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -960,7 +960,7 @@
                                         <rect key="frame" x="0.0" y="58" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Unit" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tHd-yW-VdH" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="116" width="345" height="48"/>
@@ -1241,19 +1241,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Maximum Retail Price ($)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-AT-cvu" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Markup" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmr-K7-mHD" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="116" width="345" height="47.5"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -1823,7 +1823,7 @@
                                         <rect key="frame" x="0.0" y="112" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -2033,6 +2033,7 @@
                     <connections>
                         <outlet property="contentTV" destination="VRB-st-5bM" id="TEl-a6-d5Z"/>
                         <outlet property="headerTF" destination="ROf-Fa-Enn" id="ZhV-Q0-AuL"/>
+                        <outlet property="submitBtnBottomConstraint" destination="iiz-1v-qZe" id="SYK-id-D55"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEk-GX-Bbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2114,7 +2115,7 @@
         <segue reference="kFE-wI-pX8"/>
         <segue reference="6kL-EV-Vnd"/>
         <segue reference="pCf-Si-tbB"/>
-        <segue reference="GI9-S1-f3E"/>
+        <segue reference="iGc-li-Sil"/>
         <segue reference="wRj-Fg-3YX"/>
         <segue reference="aJg-s0-x5T"/>
     </inferredMetricsTieBreakers>

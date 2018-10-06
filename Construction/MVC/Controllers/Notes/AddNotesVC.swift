@@ -8,10 +8,12 @@
 
 import UIKit
 import Alamofire
+import IQKeyboardManagerSwift
 import SwiftValidator
 
 class AddNotesVC: UIViewController {
 
+    @IBOutlet var submitBtnBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerTF: ConstructionTextField!
     @IBOutlet weak var contentTV: UITextView!
     
@@ -32,12 +34,51 @@ class AddNotesVC: UIViewController {
         self.headerTF.addTarget(self, action: #selector(self.textChangedListener(_:)), for: .editingChanged)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        IQKeyboardManager.shared.enable = false
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillShow,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillHide,
+            object: nil
+        )
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     @objc fileprivate func textChangedListener(_ textField: UITextField) {
         self.validateFieldInput(validator: self.validator, textField: textField)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.submitBtnBottomConstraint.constant = (notification.name == NSNotification.Name.UIKeyboardWillHide) ? 20 : keyboardHeight
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     fileprivate func validateInputs() {

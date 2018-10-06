@@ -273,13 +273,14 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
+            cell.textLabel?.textColor = (product.description == nil) ? UIColor.gray : UIColor.black
             cell.textLabel?.text = product.description ?? "No Description Added"
             return cell
             
         } else if indexPath.section == 2 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             if self.params.count == 0 {
-                cell.textLabel?.textColor = UIColor.black
+                cell.textLabel?.textColor = UIColor.gray
             } else {
                 cell.textLabel?.textColor = UIColor.primaryColor
             }
@@ -291,6 +292,13 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
+            if self.grouped.count == 0 {
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+                cell.textLabel?.text = groupedProducts[indexPath.row]
+                cell.textLabel?.textColor = UIColor.gray
+                return cell
+            }
             let product = self.grouped[indexPath.row]
             cell.userInfoLbl.numberOfLines = 0
             cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "", "\(product.minimumRetailPrice ?? 0) NOR", "\(product.maximumRetailPrice ?? 0) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), UIFont.systemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 13.0)], Colors: [UIColor.black, UIColor.gray, UIColor.gray], seperator: ["\n"," - ",""], Spacing: 3, atIndex: 0)
