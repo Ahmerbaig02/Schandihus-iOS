@@ -9,6 +9,7 @@
 import UIKit
 import Parchment
 import Alamofire
+import Crashlytics
 
 class DashboardVC: UIViewController {
     
@@ -19,6 +20,10 @@ class DashboardVC: UIViewController {
         
         self.setupControllers()
         self.getSettingsFromManager()
+        
+        
+        Crashlytics.sharedInstance().crash()
+
     }
     
     

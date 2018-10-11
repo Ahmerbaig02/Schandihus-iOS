@@ -38,8 +38,8 @@ public extension UIView {
     
     @discardableResult
     public func layout(_ objects: [Any]) -> [UIView] {
-        var previousMargin: CGFloat? = nil
-        var previousFlexibleMargin: SteviaFlexibleMargin? = nil
+        var previousMargin: CGFloat?
+        var previousFlexibleMargin: SteviaFlexibleMargin?
         for (i, o) in objects.enumerated() {
             
             switch o {
@@ -142,7 +142,7 @@ public extension UIView {
             default: ()
             }
         }
-        return objects.map {$0 as? UIView }.flatMap {$0}
+        return objects.map {$0 as? UIView }.compactMap {$0}
     }
     
     fileprivate func cgFloatMarginFromObject(_ o: Any) -> CGFloat {
@@ -178,10 +178,10 @@ public extension UIView {
         return stack(.vertical, points: points, v: v)
     }
     
-    fileprivate func stack(_ axis: UILayoutConstraintAxis,
+    fileprivate func stack(_ axis: NSLayoutConstraint.Axis,
                            points: CGFloat = 0, v: UIView) -> UIView {
-        let a: NSLayoutAttribute = axis == .vertical ? .top : .left
-        let b: NSLayoutAttribute = axis == .vertical ? .bottom : .right
+        let a: NSLayoutConstraint.Attribute = axis == .vertical ? .top : .left
+        let b: NSLayoutConstraint.Attribute = axis == .vertical ? .bottom : .right
         if let spv = superview {
             let c = constraint(item: v, attribute: a, toItem: self, attribute: b, constant: points)
             spv.addConstraint(c)

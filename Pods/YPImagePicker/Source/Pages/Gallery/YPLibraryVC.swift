@@ -78,9 +78,12 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         // When crop area changes in multiple selection mode,
         // we need to update the scrollView values in order to restore
         // them when user selects a previously selected item.
-        v.assetZoomableView.cropAreaDidChange = { [unowned self] in
-            if self.multipleSelectionEnabled {
-                self.updateCropInfo()
+        v.assetZoomableView.cropAreaDidChange = { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.multipleSelectionEnabled {
+                strongSelf.updateCropInfo()
             }
         }
     }
@@ -185,10 +188,13 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
     }
     
     func checkPermission() {
-        checkPermissionToAccessPhotoLibrary { [unowned self] hasPermission in
-            if hasPermission && !self.initialized {
-                self.initialize()
-                self.initialized = true
+        checkPermissionToAccessPhotoLibrary { [weak self] hasPermission in
+            guard let strongSelf = self else {
+                return
+            }
+            if hasPermission && !strongSelf.initialized {
+                strongSelf.initialize()
+                strongSelf.initialized = true
             }
         }
     }
@@ -232,13 +238,18 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
             v.collectionView.reloadData()
             v.collectionView.selectItem(at: IndexPath(row: 0, section: 0),
                                              animated: false,
-                                             scrollPosition: UICollectionViewScrollPosition())
+                                             scrollPosition: UICollectionView.ScrollPosition())
+        } else {
+            delegate?.noPhotosForOptions()
         }
         scrollToTop()
     }
     
     func buildPHFetchOptions() -> PHFetchOptions {
         // Sorting condition
+        if let userOpt = YPConfig.library.options {
+            return userOpt
+        }
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         options.predicate = YPConfig.library.mediaType.predicate()
@@ -263,26 +274,25 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         latestImageTapped = asset.localIdentifier
         delegate?.libraryViewStartedLoading()
         
+        let completion = {
+            self.v.hideLoader()
+            self.v.hideGrid()
+            self.delegate?.libraryViewFinishedLoading()
+            self.v.assetViewContainer.refreshSquareCropButton()
+        }
+        
         DispatchQueue.global(qos: .userInitiated).async {
             switch asset.mediaType {
             case .image:
                 self.v.assetZoomableView.setImage(asset,
                                                   mediaManager: self.mediaManager,
-                                                  storedCropPosition: self.fetchStoredCrop()) {
-                    self.v.hideLoader()
-                    self.v.hideGrid()
-                    self.delegate?.libraryViewFinishedLoading()
-                    self.v.assetViewContainer.refreshSquareCropButton()
-                }
+                                                  storedCropPosition: self.fetchStoredCrop(),
+                                                  completion: completion)
             case .video:
                 self.v.assetZoomableView.setVideo(asset,
                                                   mediaManager: self.mediaManager,
-                                                  storedCropPosition: self.fetchStoredCrop()) {
-                    self.v.hideLoader()
-                    self.v.hideGrid()
-                    self.delegate?.libraryViewFinishedLoading()
-                    self.v.assetViewContainer.refreshSquareCropButton()
-                }
+                                                  storedCropPosition: self.fetchStoredCrop(),
+                                                  completion: completion)
             case .audio, .unknown:
                 ()
             }
@@ -376,8 +386,8 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         }
     }
     
-    public func selectedMedia(photoCallback: @escaping (_ photo: UIImage, _ exifMeta : [String : Any]?) -> Void,
-                              videoCallback: @escaping (_ videoURL: URL) -> Void,
+    public func selectedMedia(photoCallback: @escaping (_ photo: YPMediaPhoto) -> Void,
+                              videoCallback: @escaping (_ videoURL: YPMediaVideo) -> Void,
                               multipleItemsCallback: @escaping (_ items: [YPMediaItem]) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             
@@ -404,7 +414,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     switch asset.asset.mediaType {
                     case .image:
                         self.fetchImageAndCrop(for: asset.asset, withCropRect: asset.cropRect) { image, exifMeta in
-                            let photo = YPMediaPhoto(image: image.resizedImageIfNeeded(), exifMeta: exifMeta)
+                            let photo = YPMediaPhoto(image: image.resizedImageIfNeeded(), exifMeta: exifMeta, asset: asset.asset)
                             resultMediaItems.append(YPMediaItem.photo(p: photo))
                             asyncGroup.leave()
                         }
@@ -412,7 +422,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     case .video:
                         self.checkVideoLengthAndCrop(for: asset.asset, withCropRect: asset.cropRect) { videoURL in
                             let videoItem = YPMediaVideo(thumbnail: thumbnailFromVideoPath(videoURL),
-                                                         videoURL: videoURL)
+                                                         videoURL: videoURL, asset: asset.asset)
                             resultMediaItems.append(YPMediaItem.video(v: videoItem))
                             asyncGroup.leave()
                         }
@@ -432,14 +442,19 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     self.checkVideoLengthAndCrop(for: asset, callback: { videoURL in
                         DispatchQueue.main.async {
                             self.delegate?.libraryViewFinishedLoading()
-                            videoCallback(videoURL)
+                            let video = YPMediaVideo(thumbnail: thumbnailFromVideoPath(videoURL),
+                                                     videoURL: videoURL, asset: asset)
+                            videoCallback(video)
                         }
                     })
                 case .image:
                     self.fetchImageAndCrop(for: asset) { image, exifMeta in
                         DispatchQueue.main.async {
                             self.delegate?.libraryViewFinishedLoading()
-                            photoCallback(image.resizedImageIfNeeded(), exifMeta)
+                            let photo = YPMediaPhoto(image: image.resizedImageIfNeeded(),
+                                                     exifMeta: exifMeta,
+                                                     asset: asset)
+                            photoCallback(photo)
                         }
                     }
                 case .audio, .unknown:
@@ -470,15 +485,5 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-}
-
-extension UIImage {
-    
-    func resized(to size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        defer { UIGraphicsEndImageContext() }
-        draw(in: CGRect(origin: .zero, size: size))
-        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }

@@ -1,13 +1,16 @@
 PODS:
-  - Alamofire (4.7.2)
+  - Alamofire (4.7.3)
+  - Crashlytics (3.10.9):
+    - Fabric (~> 1.7.13)
   - DateToolsSwift (4.0.0)
-  - DropDown (2.3.3)
+  - DropDown (2.3.9)
+  - Fabric (1.7.13)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManagerSwift (6.0.4)
-  - MarqueeLabel/Swift (3.1.6)
-  - NotificationBannerSwift (1.6.3):
-    - MarqueeLabel/Swift
-    - SnapKit (~> 4.0)
+  - IQKeyboardManagerSwift (6.2.0)
+  - MarqueeLabel/Swift (3.2.0)
+  - NotificationBannerSwift (1.7.3):
+    - MarqueeLabel/Swift (~> 3.2.0)
+    - SnapKit (~> 4.0.1)
   - Parchment (1.4.1)
   - PINCache (2.3)
   - PINRemoteImage (2.1.4):
@@ -17,21 +20,23 @@ PODS:
   - PINRemoteImage/FLAnimatedImage (2.1.4):
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
-  - PryntTrimmerView (2.0.1)
+  - PryntTrimmerView (3.0.0)
   - SKActivityIndicatorView (0.1.0)
-  - SkyFloatingLabelTextField (3.5.1)
-  - SnapKit (4.0.0)
-  - SteviaLayout (4.2.0)
+  - SkyFloatingLabelTextField (3.6.0)
+  - SnapKit (4.0.1)
+  - SteviaLayout (4.4.0)
   - SwiftValidator (4.0.0)
   - "UITextView+Placeholder (1.2.1)"
-  - YPImagePicker (3.3.1):
-    - PryntTrimmerView (~> 2.0)
-    - SteviaLayout (~> 4.2.0)
+  - YPImagePicker (3.5.2):
+    - PryntTrimmerView (~> 3.0.0)
+    - SteviaLayout (~> 4.4.0)
 
 DEPENDENCIES:
   - Alamofire
+  - Crashlytics
   - DateToolsSwift
   - DropDown
+  - Fabric
   - IQKeyboardManagerSwift
   - NotificationBannerSwift
   - Parchment
@@ -44,10 +49,12 @@ DEPENDENCIES:
   - YPImagePicker
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Crashlytics
     - DateToolsSwift
     - DropDown
+    - Fabric
     - FLAnimatedImage
     - IQKeyboardManagerSwift
     - MarqueeLabel
@@ -74,25 +81,27 @@ CHECKOUT OPTIONS:
     :git: https://github.com/jpotts18/SwiftValidator.git
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
-  DropDown: 3ed140d49e2cdac81a7eea0ae2c63e8c5f408cac
+  DropDown: d187d4abdfa708a2990aff0f4fcfab77c6b161df
+  Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
-  MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
-  NotificationBannerSwift: b231e4c3244848ef300e1c53ce027b9756b9b06f
+  IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
+  MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
+  NotificationBannerSwift: c9f4bc868d78df975ed59c0b2fccdbbe0e863efe
   Parchment: e6c2a3a0063739382dd207e21d48fe5e81f3324a
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINRemoteImage: 4ac4011c5caefd6befd99758e09becede05d3226
-  PryntTrimmerView: 4260ae497a2f3e1bbfc0b71247eb74ab92bf0490
+  PryntTrimmerView: 53ac64053c7ce63cb3e27f54090f52da0734891d
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
-  SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SteviaLayout: 0d2112caea45707695e8c718262c8ea3dd37ef17
+  SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SteviaLayout: dd74d1abd127bbf0ce346ac9430441684fe427d0
   SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
-  YPImagePicker: b711992e87904056112795c3bc17af87e2585b71
+  YPImagePicker: 26d5bf7bfe1cffd1c5eedea3ac60422b314e2a42
 
-PODFILE CHECKSUM: e64befbcefb069d17b6a70cb50a54a3bd7929847
+PODFILE CHECKSUM: 79e0ff9f301a7691d95a1048cb9d9d8b9a5aa3f5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

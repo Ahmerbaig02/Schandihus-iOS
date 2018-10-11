@@ -107,6 +107,8 @@ config.hidesStatusBar = false
 config.overlayView = myOverlayView
 config.library.maxNumberOfItems = 5
 config.library.minNumberOfItems = 3
+config.library.numberOfItemsInRow = 3
+config.library.spacingBetweenItems = 2
 config.isScrollToChangeModesEnabled = false
 
 // Build a picker with your configuration
@@ -200,7 +202,7 @@ picker.didFinishPicking { [unowned picker] items, cancelled in
 That's it !
 
 ## Languages
-🇺🇸 English, 🇪🇸 Spanish, 🇫🇷 French 🇷🇺 Russian, 🇳🇱 Dutch, 🇧🇷 Brazilian, 🇹🇷 Turkish,  Arabic, 🇩🇪 German, 🇮🇹 Italian, 🇯🇵 Japanese, 🇨🇳 Chinese
+🇺🇸 English, 🇪🇸 Spanish, 🇫🇷 French 🇷🇺 Russian, 🇳🇱 Dutch, 🇧🇷 Brazilian, 🇹🇷 Turkish, 🇸🇾 Arabic, 🇩🇪 German, 🇮🇹 Italian, 🇯🇵 Japanese, 🇨🇳 Chinese, 🇮🇩 Indonesian
 
 If your language is not supported, you can still customize the wordings via the `configuration.wordings` api:
 
@@ -312,11 +314,16 @@ Special thanks to [ihtiht](https://github.com/ihtiht) for the cool looking logo!
 ## Dependency
 YPImagePicker relies on [prynt/PryntTrimmerView](https://github.com/prynt/PryntTrimmerView) for provide video trimming and cover features. Big thanks to @HHK1 for making this open source :)
 
+## Obj-C support
+Objective-C is not supported and this is not on our roadmap.
+Swift is the future and dropping Obj-C is the price to pay to keep our velocity on this library :)
+
 ## License
 YPImagePicker is released under the MIT license.  
 See [LICENSE](LICENSE) for details.
 
 ## Swift Version
 
-- Swift 3 -> version [**1.2.1**](https://github.com/Yummypets/YPImagePicker/releases/tag/1.2.1)
-- Swift 4.1 -> version [**3.1.0**](https://github.com/Yummypets/YPImagePicker/releases/tag/3.1.0)
+- Swift 3 -> version [**1.2.0**](https://github.com/Yummypets/YPImagePicker/releases/tag/1.2.0)
+- Swift 4.1 -> version [**3.4.1**](https://github.com/Yummypets/YPImagePicker/releases/tag/3.4.0)
+- Swift 4.2 -> version [**3.5.2**](https://github.com/Yummypets/YPImagePicker/releases/tag/3.5.2)

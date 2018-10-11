@@ -22,7 +22,7 @@ class YPAssetViewContainer: UIView {
     public var onlySquare = YPConfig.library.onlySquare
     public var isShown = true
     
-    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let spinner = UIActivityIndicatorView(style: .white)
     private var shouldCropToSquare = false
     private var isMultipleSelection = false
 
@@ -63,7 +63,7 @@ class YPAssetViewContainer: UIView {
         
         spinner.startAnimating()
         spinnerView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        curtain.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        curtain.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         curtain.alpha = 0
         
         if !onlySquare {
@@ -89,14 +89,11 @@ class YPAssetViewContainer: UIView {
     @objc public func squareCropButtonTapped() {
         if let zoomableView = zoomableView {
             let z = zoomableView.zoomScale
-            if z >= 1 && z < zoomableView.squaredZoomScale {
-                shouldCropToSquare = true
-            } else {
-                shouldCropToSquare = false
-            }
+            shouldCropToSquare = (z >= 1 && z < zoomableView.squaredZoomScale)
         }
         zoomableView?.fitImage(shouldCropToSquare, animated: true)
     }
+    
     
     public func refreshSquareCropButton() {
         if onlySquare {
@@ -107,6 +104,9 @@ class YPAssetViewContainer: UIView {
                 squareCropButton.isHidden = isImageASquare
             }
         }
+        
+        let shouldFit = YPConfig.library.onlySquare ? true : shouldCropToSquare
+        zoomableView?.fitImage(shouldFit)
     }
     
     // MARK: - Multiple selection

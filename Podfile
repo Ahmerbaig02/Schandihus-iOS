@@ -27,4 +27,7 @@ target 'Construction' do
     pod 'Parchment'
     pod 'DropDown'
     
+    pod 'Fabric'
+    pod 'Crashlytics'
+    
 end
