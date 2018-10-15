@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Product/ProductDetailsVC.swift"
-            timestampString = "560551408.5126261"
+            timestampString = "561150674.241748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "223"
@@ -42,13 +42,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Product/AddProductVC.swift"
-            timestampString = "560296801.776713"
+            timestampString = "561198034.926856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "addUserImage(_:)"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "postProductImageFromManager()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Construction.AddProductVC.(postProductImageFromManager in _E82DA6476D6E05708030EA5DFBF74E99)() -&gt; ()"
+                  moduleName = "Construction"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahmerbaig/Documents/Projects/Construction/Construction/MVC/Controllers/More/Product/AddProductVC.swift"
+                  timestampString = "561150130.221139"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Construction.BasicResponse&lt;Swift.String&gt;&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Construction.AddProductVC.(postProductImageFromManager in _E82DA6476D6E05708030EA5DFBF74E99)() -&gt; ()"
+                  moduleName = "Construction"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahmerbaig/Documents/Projects/Construction/Construction/MVC/Controllers/More/Product/AddProductVC.swift"
+                  timestampString = "561150130.225338"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "61">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/More/Product/ProductDetailsVC.swift"
-            timestampString = "560551408.512862"
+            timestampString = "561150674.2422529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -177,6 +209,38 @@
             endingLineNumber = "22"
             landmarkName = "unknown"
             landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Construction/MVC/Controllers/More/Product/AddProductVC.swift"
+            timestampString = "561198034.932441"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "postProductFromManager()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Construction/MVC/Controllers/More/Product/AddProductVC.swift"
+            timestampString = "561198034.933599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "postProductFromManager()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

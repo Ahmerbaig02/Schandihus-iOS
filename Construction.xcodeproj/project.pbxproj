@@ -41,6 +41,7 @@
 		42FEE8C92129F8B20013022B /* CustomFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEE8C82129F8B20013022B /* CustomFunctions.swift */; };
 		42FEE8CB212A0AA50013022B /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */; };
 		42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */; };
+		87566945216F9FC4005D32DE /* EstimateTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566944216F9FC4005D32DE /* EstimateTVCell.swift */; };
 		87A44F6F21654C7B008D043F /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F6E21654C7B008D043F /* NotesVC.swift */; };
 		87A44F7221654EC5008D043F /* NotesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F7021654EC5008D043F /* NotesTVCell.swift */; };
 		87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A44F7121654EC5008D043F /* NotesTVCell.xib */; };
@@ -118,6 +119,7 @@
 		42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
 		42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParamsVC.swift; sourceTree = "<group>"; };
 		6B8B3CD9C8D5E65A750AB6B3 /* Pods_ConstructionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConstructionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87566944216F9FC4005D32DE /* EstimateTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTVCell.swift; sourceTree = "<group>"; };
 		87A44F6E21654C7B008D043F /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
 		87A44F7021654EC5008D043F /* NotesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTVCell.swift; sourceTree = "<group>"; };
 		87A44F7121654EC5008D043F /* NotesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTVCell.xib; sourceTree = "<group>"; };
@@ -284,6 +286,14 @@
 			path = "Custom Text Fields";
 			sourceTree = "<group>";
 		};
+		87566943216F9FAC005D32DE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				87566944216F9FC4005D32DE /* EstimateTVCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		87A44F6D21654C68008D043F /* Notes */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +371,7 @@
 				42EB8F6521655E6E00CEF7A5 /* AddEstimateVC.swift */,
 				CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */,
 				87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */,
+				87566943216F9FAC005D32DE /* Cells */,
 			);
 			path = Estimate;
 			sourceTree = "<group>";
@@ -390,8 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				42FEE8BC2129DEBE0013022B /* ProductsVC.swift */,
-				42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */,
 				42457F4721388CD300D985A2 /* AddProductVC.swift */,
+				42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */,
 				42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */,
 				42D1EB3B213D6819009D4B0B /* ProductVendorsVC.swift */,
 				42D1EB3F213DBA19009D4B0B /* AddProductsToVendor.swift */,
@@ -664,6 +675,7 @@
 				CA1B819F2167B6DC00493B55 /* ProductMainTVCell.swift in Sources */,
 				CA1B819C21674CC300493B55 /* ForcastedVolumesVC.swift in Sources */,
 				42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */,
+				87566945216F9FC4005D32DE /* EstimateTVCell.swift in Sources */,
 				42457F4621388CB600D985A2 /* AddVendorVC.swift in Sources */,
 				42D1EB3C213D6819009D4B0B /* ProductVendorsVC.swift in Sources */,
 				42FEE8CB212A0AA50013022B /* ProductDetailsVC.swift in Sources */,
@@ -873,7 +885,7 @@
 			baseConfigurationReference = CA75B2F5B3793EC2A9668F8C /* Pods-Construction.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = U4862P8K87;
 				INFOPLIST_FILE = "$(SRCROOT)/Construction/Property List Files/Info.plist";
@@ -883,7 +895,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.devios.schandihus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Schandihus Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Schandihus AdHoc Profile";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -894,7 +906,7 @@
 			baseConfigurationReference = F8083E6FC536F3A803355250 /* Pods-Construction.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = U4862P8K87;
 				INFOPLIST_FILE = "$(SRCROOT)/Construction/Property List Files/Info.plist";
@@ -904,7 +916,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.devios.schandihus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Schandihus Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Schandihus AdHoc Profile";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

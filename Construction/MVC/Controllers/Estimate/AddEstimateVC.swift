@@ -109,7 +109,7 @@ class AddEstimateVC: UIViewController {
         }
         if let cell = estimateTblView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
             UIViewController.showLoader(text: "Please Wait...")
-            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!, "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
+            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!.capitalizingFirstLetter(), "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
                 UIViewController.hideLoader()
                 if let err = error {
                     print(err)

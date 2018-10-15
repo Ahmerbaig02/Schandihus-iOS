@@ -60,7 +60,7 @@ class NotesVC: UIViewController {
                 return
             }
             if response?.success == true {
-                self!.notesData = response!.data!
+                self!.notesData = response!.data!.sorted(by: { $0.createdDate!.dateFromISO8601! > $1.createdDate!.dateFromISO8601! })
                 self!.notesTblView.reloadData()
             } else {
                 self!.showBanner(title: response?.error ?? "An error occurred. Please try again.", style: .danger)
@@ -85,7 +85,7 @@ extension NotesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotesTVCell", for: indexPath) as! NotesTVCell
         let note = self.notesData[indexPath.row]
-        cell.dateLbl.text = note.createdDate?.dateFromISO8601?.humanReadableDatewoTime ?? "N/A"
+        cell.dateLbl.text = note.createdDate?.dateFromISO8601?.humanReadableDate ?? "N/A"
         cell.headerLbl.text = note.noteHeading ?? "N/A"
         cell.imageView?.tintColor = UIColor.primaryColor
         cell.contentLbl.text = note.noteContent ?? "N/A"

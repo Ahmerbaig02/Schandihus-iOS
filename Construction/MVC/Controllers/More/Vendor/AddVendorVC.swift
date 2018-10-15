@@ -122,7 +122,7 @@ class AddVendorVC: UIViewController {
             urlStr = "\(Helper.PostVendorURL)/\(vendor!.vendorId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": nameTF.text!, "address": addressTF.text!, "registrationNumber": regNumTF.text!, "vatNumber": VATNumTF.text!, "bankName": bankNameTF.text!, "bankCode": bankCodeTF.text!, "bankAccountNumber": accountNumTF.text!, "status": statusTF.text!, "priority": priorityTF.text!]) { [weak self] (response: BasicResponse<BaseResponse>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": nameTF.text!.capitalizingFirstLetter(), "address": addressTF.text!, "registrationNumber": regNumTF.text!, "vatNumber": VATNumTF.text!, "bankName": bankNameTF.text!, "bankCode": bankCodeTF.text!, "bankAccountNumber": accountNumTF.text!, "status": statusTF.text!, "priority": priorityTF.text!]) { [weak self] (response: BasicResponse<BaseResponse>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)

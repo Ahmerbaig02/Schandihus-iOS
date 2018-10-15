@@ -25,6 +25,8 @@ class EstimateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.estimatesTblView.register(EstimateTVCell.self, forCellReuseIdentifier: Helper.EstimatesCellID)
+        
         self.estimatesTblView.sectionIndexColor = UIColor.primaryColor
         self.estimatesTblView.sectionIndexBackgroundColor = UIColor.groupTableViewBackground
         self.estimatesTblView.delegate = self
@@ -115,7 +117,8 @@ extension EstimateVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = estimatesTblView.dequeueReusableCell(withIdentifier: Helper.EstimatesCellID, for: indexPath)
+        let cell = estimatesTblView.dequeueReusableCell(withIdentifier: Helper.EstimatesCellID, for: indexPath) as! EstimateTVCell
+        cell.delegate = self
         cell.textLabel?.text = estimatesSectionedData[indexPath.section][indexPath.row].projectName ?? ""
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
@@ -143,4 +146,13 @@ extension EstimateVC : UITableViewDelegate, UITableViewDataSource {
         //performSegue(withIdentifier: Helper.ProspectDetailsSegueID, sender: indexPath)
     }
     
+}
+
+extension EstimateVC: EstimateTVCellDelegate {
+    func showQuickInfo(cell: EstimateTVCell) {
+        if let indexPath = self.estimatesTblView.indexPath(for: cell) {
+            let estimateData = self.estimatesSectionedData[indexPath.section][indexPath.row]
+            self.showAlert(title: estimateData.projectName ?? "#Name not available", message: "Estimate Date: \(estimateData.estimateDate?.dateFromISO8601?.humanReadableDate ?? "Not Available")\nClosing Date: \(estimateData.closingDate?.dateFromISO8601?.humanReadableDate ?? "Not Available")\nVolume: \(estimateData.volume?.getRounded(uptoPlaces: 2) ?? "Not Available")")
+        }
+    }
 }

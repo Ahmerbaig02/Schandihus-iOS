@@ -26,6 +26,9 @@ class SigninVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.emailTF.delegate = self
+        self.passwordTF.delegate = self
+        
         self.emailTF.keyboardType = .alphabet
         self.emailTF.addTarget(self, action: #selector(self.textChangedListener(_:)), for: .editingChanged)
         self.passwordTF.addTarget(self, action: #selector(self.textChangedListener(_:)), for: .editingChanged)
@@ -91,5 +94,17 @@ class SigninVC: UIViewController {
         print("deinit LoginVC")
     }
 
+}
+
+extension SigninVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTF {
+            passwordTF.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            validateInputs()
+        }
+        return true
+    }
 }
 

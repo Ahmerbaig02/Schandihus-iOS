@@ -20,9 +20,6 @@ class DashboardVC: UIViewController {
         
         self.setupControllers()
         self.getSettingsFromManager()
-        
-        
-        Crashlytics.sharedInstance().crash()
 
     }
     

@@ -38,7 +38,7 @@ class AddProductVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if product != nil {
+        if product.productId != nil {
             self.setValues()
             self.updateBtn.setTitle("Submit", for: .normal)
             self.navigationItem.title = "Edit Product"
@@ -87,7 +87,7 @@ class AddProductVC: UIViewController {
     }
     
     fileprivate func getValues() {
-        product.name = userNameTF.text!
+        product.name = userNameTF.text!.capitalizingFirstLetter()
         product.description = descriptionTV.text ?? ""
         product.minimumRetailPrice = Int(minRetailPriceTF.text!)
         product.maximumRetailPrice = Int(maxRetailPriceTF.text!)
@@ -102,7 +102,7 @@ class AddProductVC: UIViewController {
     
     fileprivate func postProductFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
-        if productId == nil {
+        if product.productId != nil {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
@@ -115,7 +115,8 @@ class AddProductVC: UIViewController {
             }
             if response?.success == true {
                 print("Posted Product")
-                self?.productId = response?.data ?? 0
+                self!.productId = response?.data!
+                self!.product.productId = self!.productId
                 self?.postProductImageFromManager()
             } else {
                 UIViewController.hideLoader()
@@ -174,6 +175,7 @@ class AddProductVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
+        self.view.endEditing(true)
         self.validateInputs()
     }
     
@@ -181,4 +183,27 @@ class AddProductVC: UIViewController {
         print("deinit AddProductVC")
     }
 
+}
+
+extension AddProductVC: UITextViewDelegate, UITextFieldDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        getValues()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        getValues()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        getValues()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        getValues()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        getValues()
+        return true
+    }
 }

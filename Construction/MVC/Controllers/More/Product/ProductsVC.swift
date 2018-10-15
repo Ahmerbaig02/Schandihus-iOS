@@ -137,7 +137,8 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
         let product = (self.searchController.isActive == true) ? self.searchedProducts[indexPath.row] : productsSectionedData[indexPath.section][indexPath.row]
         cell.userInfoLbl.text = product.name ?? ""
         cell.userInfoLbl.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
-        cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
+        cell.userImgView.pin_updateWithProgress = true
+        cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
         return cell
     }
     
