@@ -18,8 +18,10 @@ class AddEstimateVC: UIViewController {
     
     var prospect: ProspectData = ProspectData()
     var products: [ProductData] = [ProductData]()
-    
+    var estimate: EstimateData?
     var validator = Validator()
+    var urlStr: String = Helper.GetEstimatesURL
+    var method: HTTPMethod = .post
     
     var isMaxPrice: Bool = false
     var isDiscount: Bool = false
@@ -36,6 +38,9 @@ class AddEstimateVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if estimate != nil {
+            prospect = ((estimate?.Prospect ?? nil) ?? nil)!
+        }
         self.estimateTblView.reloadData()
         var total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
         if isMaxPrice {
@@ -102,6 +107,11 @@ class AddEstimateVC: UIViewController {
     }
 
     fileprivate func postEstimateFromManager() {
+        if estimate !=  nil {
+            urlStr = "\(Helper.GetEstimatesURL)/\(estimate!.estimateId ?? 0)"
+            method = .put
+        }
+
         var productIds: [Int] = []
         for index in 0...products.count-1 {
             let product = products[index]
@@ -109,7 +119,7 @@ class AddEstimateVC: UIViewController {
         }
         if let cell = estimateTblView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
             UIViewController.showLoader(text: "Please Wait...")
-            NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!.capitalizingFirstLetter(), "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
+            NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!.capitalizingFirstLetter(), "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
                 UIViewController.hideLoader()
                 if let err = error {
                     print(err)
@@ -189,6 +199,12 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: indexPath) as! AddEstimateFieldsCell
+            if estimate != nil {
+                cell.estimateNameTF.text = estimate?.projectName ?? ""
+                cell.estimateDateTF.text = estimate?.estimateDate ?? ""
+                cell.closingDateTF.text = estimate?.closingDate ?? ""
+                cell.priceGuaranteeDateTF.text = estimate?.priceGuaranteeDate ?? ""
+            }
             cell.validator = self.validator
             validator.registerField(cell.estimateNameTF, rules: [RequiredRule()])
             validator.registerField(cell.estimateDateTF, rules: [RequiredRule()])
@@ -214,7 +230,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        estimateTblView.deselectRow(at: indexPath, animated: true)
     }
     
 }

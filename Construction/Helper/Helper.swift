@@ -43,7 +43,7 @@ class Helper {
     static let GetProductDetailsURL = "Product"
     static let GETNotesURL = "Notes"
     static let GetEstimatesURL = "Estimate"
-    
+    static let GetEstimateProductsURL = "EstimateProducts"
     static let PostUsersURL = "users"
     static let PostCompanyInfoURL = "company"
     static let PostVendorURL = "vendor"
@@ -80,6 +80,7 @@ class Helper {
     static let AddEstimatesCellID = "Add Estimate Cell"
     static let AddProductsCellID = "Add Product Cell"
     static let EstimateTextFieldCellID = "Estimate TextField Cell"
+    static let EstimateDetailsCellID = "Estimate Details Cell"
     
     static let SearchCellID = "searchCell"
     
@@ -113,6 +114,8 @@ class Helper {
     static  let AddEstimateSegueID = "Add Estimate"
     static  let AddProductsSegueID = "Add Products"
     static  let AddProspectsSegueID = "Add Prospects"
+    static  let EstimateDetailsSegueID = "Estimate Details"
+    static  let EditEstimateSegueID = "Edit Estimate"
     
     
     // MARK: - Defaults ID

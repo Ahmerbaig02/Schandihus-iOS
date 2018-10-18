@@ -50,6 +50,14 @@ class EstimateVC: UIViewController {
         self.estimatesTblView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? EstimateDetailsVC {
+            let indexPath = sender as! IndexPath
+            let estimate = estimatesSectionedData[indexPath.section][indexPath.row]
+            destinationVC.estimateId = estimate.estimateId
+        }
+    }
+    
     fileprivate func getEstimatesFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetEstimatesURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[EstimateData]>?, error) in
@@ -143,7 +151,7 @@ extension EstimateVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.estimatesTblView.deselectRow(at: indexPath, animated: true)
-        //performSegue(withIdentifier: Helper.ProspectDetailsSegueID, sender: indexPath)
+        performSegue(withIdentifier: Helper.EstimateDetailsSegueID, sender: indexPath)
     }
     
 }
