@@ -9,15 +9,19 @@
 import UIKit
 import SwiftValidator
 
+protocol EstimateDelegate: class {
+    func EstimateDetails(cell: AddEstimateFieldsCell)
+}
+
 class AddEstimateFieldsCell: UITableViewCell {
 
+    weak var delegate: EstimateDelegate?
     @IBOutlet weak var estimateNameTF: ConstructionTextField!
     @IBOutlet weak var estimateDateTF: ConstructionTextField!
     @IBOutlet weak var closingDateTF: ConstructionTextField!
     @IBOutlet weak var priceGuaranteeDateTF: ConstructionTextField!
     
     var validator: Validator!
-    
     var estimateName: String = ""
     var estimateDate: String = ""
     var closingDate: String = ""
@@ -81,10 +85,12 @@ class AddEstimateFieldsCell: UITableViewCell {
 extension AddEstimateFieldsCell: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.validateFieldInput(validator: validator, textField: textField)
+        delegate?.EstimateDetails(cell: self)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.validateFieldInput(validator: validator, textField: textField)
+        delegate?.EstimateDetails(cell: self)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

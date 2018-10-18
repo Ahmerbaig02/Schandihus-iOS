@@ -637,6 +637,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="estimateTblView" destination="jrV-fJ-yLR" id="kwC-s2-DPr"/>
+                        <outlet property="submitBtn" destination="Jo1-M9-5iP" id="Y6a-hY-bMJ"/>
                         <outlet property="totalLbl" destination="83M-na-vES" id="wUF-69-m16"/>
                         <outlet property="totalView" destination="1o9-fH-hpg" id="LNg-2T-izd"/>
                         <segue destination="GjA-8K-pTm" kind="show" identifier="Add Prospects" id="aJg-s0-x5T"/>

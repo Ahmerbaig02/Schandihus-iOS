@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Construction/MVC/Controllers/Estimate/EstimateDetailsVC.swift"
-            timestampString = "561579358.6268179"
+            timestampString = "561587730.930057"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "editEstimateAction(_:)"
             landmarkType = "7">
          </BreakpointContent>

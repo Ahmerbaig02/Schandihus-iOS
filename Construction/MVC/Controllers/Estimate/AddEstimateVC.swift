@@ -15,6 +15,7 @@ class AddEstimateVC: UIViewController {
     @IBOutlet weak var estimateTblView: UITableView!
     @IBOutlet weak var totalView: UIView!
     @IBOutlet weak var totalLbl: UILabel!
+    @IBOutlet weak var submitBtn: UIButton!
     
     var prospect: ProspectData = ProspectData()
     var products: [ProductData] = [ProductData]()
@@ -39,7 +40,12 @@ class AddEstimateVC: UIViewController {
         super.viewWillAppear(animated)
         
         if estimate != nil {
+            self.navigationItem.title = "Edit Estimate"
+            self.submitBtn.setTitle("Update Estimate", for: .normal)
             prospect = ((estimate?.Prospect ?? nil) ?? nil)!
+        } else {
+            self.navigationItem.title = "Add Estimate"
+            self.submitBtn.setTitle("Add Estimate", for: .normal)
         }
         self.estimateTblView.reloadData()
         var total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
@@ -199,11 +205,17 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.EstimateTextFieldCellID, for: indexPath) as! AddEstimateFieldsCell
+            cell.delegate = self
             if estimate != nil {
-                cell.estimateNameTF.text = estimate?.projectName ?? ""
-                cell.estimateDateTF.text = estimate?.estimateDate ?? ""
-                cell.closingDateTF.text = estimate?.closingDate ?? ""
-                cell.priceGuaranteeDateTF.text = estimate?.priceGuaranteeDate ?? ""
+                cell.estimateName = estimate?.projectName ?? ""
+                cell.estimateDate = estimate?.estimateDate ?? ""
+                cell.closingDate = estimate?.closingDate ?? ""
+                cell.priceGuaranteeDate = estimate?.priceGuaranteeDate ?? ""
+                
+                cell.estimateNameTF.text = cell.estimateName
+                cell.estimateDateTF.text = cell.estimateDate.dateFromISO8601?.humanReadableDate
+                cell.closingDateTF.text = cell.closingDate.dateFromISO8601?.humanReadableDate
+                cell.priceGuaranteeDateTF.text = cell.priceGuaranteeDate.dateFromISO8601?.humanReadableDate
             }
             cell.validator = self.validator
             validator.registerField(cell.estimateNameTF, rules: [RequiredRule()])
@@ -235,7 +247,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension AddEstimateVC: ProductDelegate, ProspectDelegate {
+extension AddEstimateVC: ProductDelegate, ProspectDelegate, EstimateDelegate {
     
     func GroupedProducts(controller: GroupedProductsVC, products: [ProductData]) {
         self.products = products
@@ -247,7 +259,12 @@ extension AddEstimateVC: ProductDelegate, ProspectDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
+    func EstimateDetails(cell: AddEstimateFieldsCell) {
+        estimate?.projectName = cell.estimateName
+        estimate?.estimateDate = cell.estimateDate
+        estimate?.closingDate = cell.closingDate
+        estimate?.priceGuaranteeDate = cell.priceGuaranteeDate
+    }
 }
 
 

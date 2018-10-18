@@ -89,7 +89,6 @@ class EstimateDetailsVC: UIViewController {
     }
     
     fileprivate func getEstimateProductsFromManager() {
-        UIViewController.showLoader(text: "Please Wait...")
         NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetEstimateProductsURL)/\(estimateId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (data: BasicResponse<[ProductData]>?, error) in
             if let err = error {
                 UIViewController.hideLoader()
