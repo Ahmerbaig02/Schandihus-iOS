@@ -18,8 +18,8 @@ class EstimateDetailsVC: UIViewController {
     var estimate: EstimateData! = EstimateData()
     var estimateTitles: [String] = ["Name","Estimate Date","Closing Date","Price Guarantee Date"]
     var prospectTitles: [String] = ["Name","Discount","Status","Contact","Home Address","Work Address"]
-    var estimateDescripts: [String] = ["","","",""]
-    var prospectDescripts: [String] = ["","","","","",""]
+    var estimateDescripts: [String] = []
+    var prospectDescripts: [String] = []
     var products: [ProductData] = []
     var estimateId: Int!
     
@@ -121,6 +121,9 @@ class EstimateDetailsVC: UIViewController {
 extension EstimateDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if estimateDescripts.count == 0 {
+            return 0
+        }
         return 3
     }
     
@@ -189,6 +192,11 @@ extension EstimateDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.estimateDetailsTblView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 2 {
+            let productController = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            productController.product = self.products[indexPath.row]
+            self.navigationController?.pushViewController(productController, animated: true)
+        }
     }
     
 }

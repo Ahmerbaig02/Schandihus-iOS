@@ -261,7 +261,7 @@
                         <viewLayoutGuide key="safeArea" id="gWq-cZ-yh7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="9ks-Cg-ktV">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="CH2-99-11J">
+                        <barButtonItem key="rightBarButtonItem" image="ic_edit" id="CH2-99-11J">
                             <connections>
                                 <action selector="editProspectAction:" destination="N4N-jt-AvS" id="3YC-EG-aaw"/>
                             </connections>
@@ -381,13 +381,13 @@
         <!--Details-->
         <scene sceneID="F85-ja-3Hq">
             <objects>
-                <viewController storyboardIdentifier="EstimateDetailsVC" title="Details" hidesBottomBarWhenPushed="YES" id="WvP-aL-A6l" customClass="EstimateDetailsVC" customModule="Construction" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EstimateDetailsVC" title="Details" id="WvP-aL-A6l" customClass="EstimateDetailsVC" customModule="Construction" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yTF-MQ-dWz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uG2-yx-aqL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Estimate Details Cell" textLabel="5QB-I7-A8p" detailTextLabel="skw-si-eRN" style="IBUITableViewCellStyleSubtitle" id="7XH-Ec-qTe">
@@ -427,7 +427,7 @@
                         <viewLayoutGuide key="safeArea" id="r6A-4B-G8J"/>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="9Dg-qS-vC2">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="RjN-mW-1dI">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" image="ic_edit" id="RjN-mW-1dI">
                             <connections>
                                 <action selector="editEstimateAction:" destination="WvP-aL-A6l" id="cfH-v4-t18"/>
                             </connections>
@@ -1487,12 +1487,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="Ypf-14-7zi">
                         <rightBarButtonItems>
-                            <barButtonItem title="Add" id="XAV-Ak-wf6">
+                            <barButtonItem systemItem="add" id="XAV-Ak-wf6">
                                 <connections>
                                     <action selector="addProductVendorsAction:" destination="ZEH-U1-pwr" id="D7f-hn-LU0"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="edit" id="691-Ak-Tht">
+                            <barButtonItem image="ic_edit" id="691-Ak-Tht">
                                 <connections>
                                     <action selector="editProductAction:" destination="ZEH-U1-pwr" id="fJa-67-NQd"/>
                                     <segue destination="Leb-RK-bfc" kind="show" identifier="Edit Product" id="6kL-EV-Vnd"/>
@@ -1611,12 +1611,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="duc-5e-0hM">
                         <rightBarButtonItems>
-                            <barButtonItem title="Add" id="cmc-bR-Q4h">
+                            <barButtonItem systemItem="add" id="cmc-bR-Q4h">
                                 <connections>
                                     <action selector="addVendorProductAction:" destination="kez-YL-7b8" id="aQk-9o-faX"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="edit" id="D9R-y1-ObO">
+                            <barButtonItem image="ic_edit" id="D9R-y1-ObO">
                                 <connections>
                                     <action selector="editVendorDetails:" destination="kez-YL-7b8" id="mYr-9t-rNt"/>
                                 </connections>
@@ -2169,24 +2169,25 @@
     <resources>
         <image name="AppLogo" width="512" height="512"/>
         <image name="Soon_Icon" width="225" height="225"/>
-        <image name="baseline_account_circle_black_24pt" width="24" height="24"/>
-        <image name="baseline_add_circle_black_36pt" width="36" height="36"/>
-        <image name="baseline_apps_black_24pt" width="24" height="24"/>
-        <image name="baseline_restaurant_black_24pt" width="24" height="24"/>
-        <image name="baseline_schedule_black_24pt" width="24" height="24"/>
-        <image name="baseline_settings_black_18pt" width="18" height="18"/>
-        <image name="baseline_speaker_notes_black_18pt" width="18" height="18"/>
-        <image name="baseline_star_border_black_24pt" width="24" height="24"/>
-        <image name="ic_filter_list_white" width="24" height="24"/>
-        <image name="ic_people_white" width="24" height="24"/>
+        <image name="baseline_account_circle_black_24pt" width="48" height="48"/>
+        <image name="baseline_add_circle_black_36pt" width="72" height="72"/>
+        <image name="baseline_apps_black_24pt" width="48" height="48"/>
+        <image name="baseline_restaurant_black_24pt" width="48" height="48"/>
+        <image name="baseline_schedule_black_24pt" width="48" height="48"/>
+        <image name="baseline_settings_black_18pt" width="36" height="36"/>
+        <image name="baseline_speaker_notes_black_18pt" width="36" height="36"/>
+        <image name="baseline_star_border_black_24pt" width="48" height="48"/>
+        <image name="ic_edit" width="48" height="48"/>
+        <image name="ic_filter_list_white" width="48" height="48"/>
+        <image name="ic_people_white" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JHA-Q4-Opb"/>
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
         <segue reference="6kL-EV-Vnd"/>
-        <segue reference="jli-2B-Hr3"/>
-        <segue reference="iGc-li-Sil"/>
+        <segue reference="pCf-Si-tbB"/>
+        <segue reference="GI9-S1-f3E"/>
         <segue reference="KMp-1t-zkK"/>
         <segue reference="wRj-Fg-3YX"/>
         <segue reference="aJg-s0-x5T"/>

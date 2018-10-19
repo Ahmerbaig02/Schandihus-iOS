@@ -213,9 +213,9 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
                 cell.priceGuaranteeDate = estimate?.priceGuaranteeDate ?? ""
                 
                 cell.estimateNameTF.text = cell.estimateName
-                cell.estimateDateTF.text = cell.estimateDate.dateFromISO8601?.humanReadableDate
-                cell.closingDateTF.text = cell.closingDate.dateFromISO8601?.humanReadableDate
-                cell.priceGuaranteeDateTF.text = cell.priceGuaranteeDate.dateFromISO8601?.humanReadableDate
+                cell.estimateDateTF.text = cell.estimateDate.replacingOccurrences(of: " ", with: "T").dateFromISO8601?.humanReadableDate ?? ""
+                cell.closingDateTF.text = cell.closingDate.replacingOccurrences(of: " ", with: "T").dateFromISO8601?.humanReadableDate ?? ""
+                cell.priceGuaranteeDateTF.text = cell.priceGuaranteeDate.replacingOccurrences(of: " ", with: "T").dateFromISO8601?.humanReadableDate ?? ""
             }
             cell.validator = self.validator
             validator.registerField(cell.estimateNameTF, rules: [RequiredRule()])

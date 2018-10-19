@@ -65,16 +65,19 @@ class AddEstimateFieldsCell: UITableViewCell {
     @objc func estimateDatePickerAction(_ sender: UIDatePicker) {
         self.estimateDateTF.text = sender.date.humanReadableDate
         self.estimateDate = sender.date.serverSideDate
+        delegate?.EstimateDetails(cell: self)
     }
     
     @objc func closingDatePickerAction(_ sender: UIDatePicker) {
         self.closingDateTF.text = sender.date.humanReadableDate
         self.closingDate = sender.date.serverSideDate
+        delegate?.EstimateDetails(cell: self)
     }
     
     @objc func priceGuaranteedDatePickerAction(_ sender: UIDatePicker) {
         self.priceGuaranteeDateTF.text = sender.date.humanReadableDate
         self.priceGuaranteeDate = sender.date.serverSideDate
+        delegate?.EstimateDetails(cell: self)
     }
     
     deinit {
@@ -108,6 +111,7 @@ extension AddEstimateFieldsCell: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         self.validateFieldInput(validator: validator, textField: textField)
+        delegate?.EstimateDetails(cell: self)
         return true
     }
 }
