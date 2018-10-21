@@ -35,6 +35,7 @@
                 <constraints>
                     <constraint firstItem="RFj-3R-5mT" firstAttribute="leading" secondItem="gdw-A6-Upt" secondAttribute="leading" constant="10" id="Gco-yZ-aEc"/>
                     <constraint firstItem="RFj-3R-5mT" firstAttribute="centerY" secondItem="gdw-A6-Upt" secondAttribute="centerY" id="Y5n-lp-i7b"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RFj-3R-5mT" secondAttribute="bottom" constant="4.5" id="i7A-hC-DQH"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="leading" secondItem="RFj-3R-5mT" secondAttribute="trailing" constant="12" id="iBp-BG-Qqf"/>
                     <constraint firstAttribute="trailing" secondItem="9cR-Ok-QJO" secondAttribute="trailing" constant="16" id="jsP-kq-FPO"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="top" secondItem="RFj-3R-5mT" secondAttribute="top" id="mih-Eo-POu"/>

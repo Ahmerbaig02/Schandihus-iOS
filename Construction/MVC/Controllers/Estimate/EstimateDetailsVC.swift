@@ -23,6 +23,9 @@ class EstimateDetailsVC: UIViewController {
     var products: [ProductData] = []
     var estimateId: Int!
     
+    var HTMLContent: String = ""
+    var invoiceComposer = InvoiceComposer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +60,7 @@ class EstimateDetailsVC: UIViewController {
     }
     
     func configureCell() {
-        let cellNib = UINib.init(nibName: "UserInfoTVC", bundle: nil)
+        let cellNib = UINib.init(nibName: "ProductMainTVCell", bundle: nil)
         estimateDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
     
@@ -106,6 +109,33 @@ class EstimateDetailsVC: UIViewController {
                 print("Error fetching data")
             }
         }
+    }
+    
+    func createInvoiceAsHTML() {
+        invoiceComposer = InvoiceComposer()
+        let productsDict = products.map({ [$0.name ?? "": "\($0.minimumRetailPrice ?? 0) NOR - \($0.maximumRetailPrice ?? 0) NOR"] })
+        if let invoiceHTML = invoiceComposer.renderInvoice(invoiceDate: "\(Date().humanReadableDatewoTime)",
+            estimateTitles: estimateTitles,
+            estimateDescripts: estimateDescripts,
+            prospectTitles: prospectTitles,
+            prospectDescripts: prospectDescripts,
+            items: productsDict,
+            isEstimate: true) {
+            HTMLContent = invoiceHTML
+        }
+    }
+    
+    fileprivate func showPDFPreview() {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "PDFViewVC") as! PDFViewVC
+        controller.HTMLContent = self.HTMLContent
+        controller.estimate = self.estimate
+        controller.invoiceComposer = self.invoiceComposer
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func createPdfAction(_ sender: Any) {
+        self.createInvoiceAsHTML()
+        self.showPDFPreview()
     }
     
     @IBAction func editEstimateAction(_ sender: Any) {
@@ -173,20 +203,17 @@ extension EstimateDetailsVC : UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
-            let cell = estimateDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
-            let product = products[indexPath.row]
+            let cell = estimateDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! ProductMainTVCell
+            let product = self.products[indexPath.row]
+            cell.userInfoLbl.numberOfLines = 0
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "", "\(product.minimumRetailPrice ?? 0) NOR", "\(product.maximumRetailPrice ?? 0) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), UIFont.systemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 13.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n"," - ",""], Spacing: 3, atIndex: 0)
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
-            
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A","\(String(product.minimumRetailPrice ?? 0))$ - \(String(product.maximumRetailPrice ?? 0))$"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold),UIFont.systemFont(ofSize: 14.0)], Colors: [UIColor.primaryColor, UIColor.black], seperator: ["\n",""], Spacing: 5, atIndex: 0)
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 2 {
-            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 350/90, padding: 20).height
-        }
         return UITableViewAutomaticDimension
     }
     

@@ -378,6 +378,41 @@
             </objects>
             <point key="canvasLocation" x="5926" y="899"/>
         </scene>
+        <!--ViewVC-->
+        <scene sceneID="hrO-dj-Boa">
+            <objects>
+                <viewController storyboardIdentifier="PDFViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8sm-hs-VnA" customClass="PDFViewVC" customModule="Construction" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zkx-35-R2e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rm4-Dc-sZU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FTQ-fQ-X6s" firstAttribute="trailing" secondItem="Rm4-Dc-sZU" secondAttribute="trailing" id="6SO-9W-rt7"/>
+                            <constraint firstItem="FTQ-fQ-X6s" firstAttribute="bottom" secondItem="Rm4-Dc-sZU" secondAttribute="bottom" id="UE7-HM-L7j"/>
+                            <constraint firstItem="Rm4-Dc-sZU" firstAttribute="leading" secondItem="FTQ-fQ-X6s" secondAttribute="leading" id="VVc-JV-eSY"/>
+                            <constraint firstItem="Rm4-Dc-sZU" firstAttribute="top" secondItem="FTQ-fQ-X6s" secondAttribute="top" id="ra0-oY-r7O"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FTQ-fQ-X6s"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="webKitView" destination="Rm4-Dc-sZU" id="8ce-Tf-ix3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2HK-pz-wxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4844" y="-2928"/>
+        </scene>
         <!--Details-->
         <scene sceneID="F85-ja-3Hq">
             <objects>
@@ -387,7 +422,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uG2-yx-aqL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Estimate Details Cell" textLabel="5QB-I7-A8p" detailTextLabel="skw-si-eRN" style="IBUITableViewCellStyleSubtitle" id="7XH-Ec-qTe">
@@ -416,11 +451,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuh-qQ-D0Z">
+                                <rect key="frame" x="8" y="501" width="359" height="45"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Create PDF">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createPdfAction:" destination="WvP-aL-A6l" eventType="touchUpInside" id="4rc-rJ-Uow"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="r6A-4B-G8J" firstAttribute="bottom" secondItem="uG2-yx-aqL" secondAttribute="bottom" id="1p0-Cw-oar"/>
+                            <constraint firstItem="wuh-qQ-D0Z" firstAttribute="top" secondItem="uG2-yx-aqL" secondAttribute="bottom" constant="8" id="8eq-aG-jda"/>
+                            <constraint firstItem="r6A-4B-G8J" firstAttribute="bottom" secondItem="wuh-qQ-D0Z" secondAttribute="bottom" constant="8" id="OgH-vm-9Pu"/>
+                            <constraint firstItem="wuh-qQ-D0Z" firstAttribute="leading" secondItem="r6A-4B-G8J" secondAttribute="leading" constant="8" id="eLi-bQ-F9E"/>
                             <constraint firstItem="uG2-yx-aqL" firstAttribute="top" secondItem="r6A-4B-G8J" secondAttribute="top" id="g2m-Ht-olo"/>
+                            <constraint firstItem="wuh-qQ-D0Z" firstAttribute="width" secondItem="wuh-qQ-D0Z" secondAttribute="height" multiplier="359:45" id="iSQ-WC-ieL"/>
+                            <constraint firstItem="r6A-4B-G8J" firstAttribute="trailing" secondItem="wuh-qQ-D0Z" secondAttribute="trailing" constant="8" id="jFK-0a-8UT"/>
                             <constraint firstItem="uG2-yx-aqL" firstAttribute="leading" secondItem="r6A-4B-G8J" secondAttribute="leading" id="jff-Xe-7vB"/>
                             <constraint firstItem="r6A-4B-G8J" firstAttribute="trailing" secondItem="uG2-yx-aqL" secondAttribute="trailing" id="wod-2Z-o3c"/>
                         </constraints>
@@ -440,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBD-lp-bt1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5926" y="-1403"/>
+            <point key="canvasLocation" x="5925.6000000000004" y="-1403.7481259370315"/>
         </scene>
         <!--Add Estimate-->
         <scene sceneID="SWd-k1-LQq">
@@ -468,8 +524,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="addEstimateAction:" destination="guY-bk-1Yg" eventType="touchUpInside" id="8hN-mH-6Jb"/>
-                                    <action selector="addProspectAction:" destination="pHC-H2-XTb" eventType="touchUpInside" id="ISk-d3-ebf"/>
-                                    <action selector="updateCompanyInfo:" destination="eBZ-R7-JdS" eventType="touchUpInside" id="rYY-4K-wh8"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1o9-fH-hpg">
@@ -1522,7 +1576,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lrt-kf-Hzi">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="498"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="435.5"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Vendor Details Cell" textLabel="jmZ-r0-UIO" detailTextLabel="Ueu-7e-ydt" style="IBUITableViewCellStyleSubtitle" id="HMc-DN-2SD">
@@ -1551,17 +1605,59 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-k2-ZTv">
-                                <rect key="frame" x="0.0" y="506" width="375" height="40"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vgy-GI-Dnx">
+                                <rect key="frame" x="0.0" y="443.5" width="375" height="102.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2YF-mG-67s">
-                                        <rect key="frame" x="8" y="0.0" width="174.5" height="40"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-k2-ZTv">
+                                        <rect key="frame" x="8" y="8" width="359" height="38"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2YF-mG-67s">
+                                                <rect key="frame" x="0.0" y="0.0" width="174.5" height="38"/>
+                                                <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Notes" image="baseline_speaker_notes_black_18pt">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="showNotesAction:" destination="kez-YL-7b8" eventType="touchUpInside" id="lbk-RX-vEE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bna-Ds-zlG">
+                                                <rect key="frame" x="184.5" y="0.0" width="174.5" height="38"/>
+                                                <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Products" image="baseline_restaurant_black_24pt">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="showVendorProductsAction:" destination="kez-YL-7b8" eventType="touchUpInside" id="Bqk-iZ-ZKL"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="bhw-k2-ZTv" secondAttribute="height" multiplier="75:8" id="0NP-zE-t81"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-sL-XkS">
+                                        <rect key="frame" x="8" y="56" width="359" height="38.5"/>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Notes" image="baseline_speaker_notes_black_18pt">
+                                        <state key="normal" title="Create PDF">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1570,42 +1666,22 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="showNotesAction:" destination="kez-YL-7b8" eventType="touchUpInside" id="lbk-RX-vEE"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bna-Ds-zlG">
-                                        <rect key="frame" x="192.5" y="0.0" width="174.5" height="40"/>
-                                        <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Products" image="baseline_restaurant_black_24pt">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="showVendorProductsAction:" destination="kez-YL-7b8" eventType="touchUpInside" id="Bqk-iZ-ZKL"/>
+                                            <action selector="createPdfAction:" destination="kez-YL-7b8" eventType="touchUpInside" id="lhL-ud-xVO"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bhw-k2-ZTv" secondAttribute="height" multiplier="75:8" id="0NP-zE-t81"/>
-                                </constraints>
-                                <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="D6c-7T-6Yd" firstAttribute="trailing" secondItem="bhw-k2-ZTv" secondAttribute="trailing" id="3iY-Kt-pc3"/>
-                            <constraint firstItem="bhw-k2-ZTv" firstAttribute="leading" secondItem="D6c-7T-6Yd" secondAttribute="leading" id="4XL-rC-ILt"/>
-                            <constraint firstItem="D6c-7T-6Yd" firstAttribute="bottom" secondItem="bhw-k2-ZTv" secondAttribute="bottom" constant="8" id="EeX-D3-vSF"/>
+                            <constraint firstItem="Vgy-GI-Dnx" firstAttribute="bottom" secondItem="D6c-7T-6Yd" secondAttribute="bottom" constant="-8" id="9Wi-84-25Q"/>
                             <constraint firstItem="D6c-7T-6Yd" firstAttribute="trailing" secondItem="lrt-kf-Hzi" secondAttribute="trailing" id="Eu7-bs-ZVs"/>
                             <constraint firstItem="lrt-kf-Hzi" firstAttribute="leading" secondItem="D6c-7T-6Yd" secondAttribute="leading" id="I6j-kR-XTn"/>
-                            <constraint firstItem="bhw-k2-ZTv" firstAttribute="top" secondItem="lrt-kf-Hzi" secondAttribute="bottom" constant="8" id="Lf5-YY-aaN"/>
+                            <constraint firstItem="Vgy-GI-Dnx" firstAttribute="leading" secondItem="D6c-7T-6Yd" secondAttribute="leading" id="Igx-1M-cwf"/>
                             <constraint firstItem="lrt-kf-Hzi" firstAttribute="top" secondItem="D6c-7T-6Yd" secondAttribute="top" id="bnx-02-00w"/>
+                            <constraint firstAttribute="trailing" secondItem="Vgy-GI-Dnx" secondAttribute="trailing" id="dxf-wL-5tc"/>
+                            <constraint firstItem="Vgy-GI-Dnx" firstAttribute="top" secondItem="lrt-kf-Hzi" secondAttribute="bottom" constant="8" id="gSt-fM-Qxd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D6c-7T-6Yd"/>
                     </view>
@@ -2186,7 +2262,7 @@
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
         <segue reference="6kL-EV-Vnd"/>
-        <segue reference="pCf-Si-tbB"/>
+        <segue reference="jli-2B-Hr3"/>
         <segue reference="GI9-S1-f3E"/>
         <segue reference="KMp-1t-zkK"/>
         <segue reference="wRj-Fg-3YX"/>

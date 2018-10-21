@@ -13,11 +13,15 @@ class VendorDetailsVC: UIViewController {
 
     @IBOutlet weak var vendorDetailsTblView: UITableView!
     
+    var products: [ProductData] = []
     var vendor: VendorData!
     var accountTitles: [String] = ["VAT Number","Priority","Status","Address"]
     var accountDescripts: [String] = ["","","",""]
     var bankTitles: [String] = ["Bank Name","Bank Account Number","Bank Code"]
     var bankDescripts: [String] = ["","",""]
+    
+    var HTMLContent: String = ""
+    var invoiceComposer = InvoiceComposer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +84,48 @@ class VendorDetailsVC: UIViewController {
         }
     }
     
+    fileprivate func getVendorProductsFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetVendorProductURL)/\(vendor.vendorId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if list?.success == true {
+                print(list?.data ?? "Error fetching data")
+                self?.products = list?.data ?? []
+                self?.createInvoiceAsHTML()
+                self?.showPDFPreview()
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
+    func createInvoiceAsHTML() {
+        invoiceComposer = InvoiceComposer()
+        let productsDict = products.map({ [$0.name ?? "": "\($0.minimumRetailPrice ?? 0) NOR - \($0.maximumRetailPrice ?? 0) NOR"] })
+        if let invoiceHTML = invoiceComposer.renderInvoice(invoiceDate: "\(Date().humanReadableDatewoTime)",
+            estimateTitles: accountTitles,
+            estimateDescripts: accountDescripts,
+            prospectTitles: bankTitles,
+            prospectDescripts: bankDescripts,
+            items: productsDict,
+            isEstimate: false) {
+            HTMLContent = invoiceHTML
+        }
+    }
+    
+    fileprivate func showPDFPreview() {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "PDFViewVC") as! PDFViewVC
+        controller.HTMLContent = self.HTMLContent
+        controller.vendor = self.vendor
+        controller.invoiceComposer = self.invoiceComposer
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @IBAction func editVendorDetails(_ sender: Any) {
         performSegue(withIdentifier: Helper.EditVendorSegueID, sender: vendor)
     }
@@ -93,6 +139,10 @@ class VendorDetailsVC: UIViewController {
         VC.noteType = 2
         VC.referenceId = self.vendor.vendorId!
         self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    @IBAction func createPdfAction(_ sender: Any) {
+        self.getVendorProductsFromManager()
     }
     
     @IBAction func addVendorProductAction(_ sender: Any) {
