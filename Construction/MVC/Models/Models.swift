@@ -56,6 +56,8 @@ struct ProductData: Codable {
     var minimumRetailPrice: Int?
     var maximumRetailPrice: Int?
     var markup: Int?
+    var productCost: Int?
+    var productSalePrice: Int?
     var name: String?
     var description: String?
     var ProductParameter: [ParamsData]?

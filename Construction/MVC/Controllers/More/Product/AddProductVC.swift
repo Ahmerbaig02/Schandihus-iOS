@@ -20,6 +20,8 @@ class AddProductVC: UIViewController {
     @IBOutlet weak var minRetailPriceTF: ConstructionTextField!
     @IBOutlet weak var maxRetailPriceTF: ConstructionTextField!
     @IBOutlet weak var markupTF: ConstructionTextField!
+    @IBOutlet weak var productCostTF: ConstructionTextField!
+    @IBOutlet weak var productSalePriceTF: ConstructionTextField!
     
     @IBOutlet weak var updateBtn: UIButton!
     
@@ -61,6 +63,8 @@ class AddProductVC: UIViewController {
         validator.registerField(self.minRetailPriceTF, rules: [RequiredRule()])
         validator.registerField(self.maxRetailPriceTF, rules: [RequiredRule()])
         validator.registerField(self.markupTF, rules: [RequiredRule()])
+        validator.registerField(self.productCostTF, rules: [RequiredRule()])
+        validator.registerField(self.productSalePriceTF, rules: [RequiredRule()])
         return validator
     }()
     
@@ -70,6 +74,8 @@ class AddProductVC: UIViewController {
         minRetailPriceTF.text = String(product.minimumRetailPrice ?? 0)
         maxRetailPriceTF.text = String(product.maximumRetailPrice ?? 0)
         markupTF.text = String(product.markup ?? 0)
+        productCostTF.text = String(product.productCost ?? 0)
+        productSalePriceTF.text = String(product.productSalePrice ?? 0)
     }
     
     fileprivate func validateInputs() {
@@ -92,6 +98,8 @@ class AddProductVC: UIViewController {
         product.minimumRetailPrice = Int(minRetailPriceTF.text!)
         product.maximumRetailPrice = Int(maxRetailPriceTF.text!)
         product.markup = Int(markupTF.text!)
+        product.productCost = Int(productCostTF.text!)
+        product.productSalePrice = Int(productSalePriceTF.text!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -106,7 +114,7 @@ class AddProductVC: UIViewController {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
             if let err = error {
                 UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
