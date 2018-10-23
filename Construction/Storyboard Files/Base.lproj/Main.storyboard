@@ -1317,10 +1317,11 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y50-sg-Kqb">
-                                <rect key="frame" x="227.5" y="70" width="30" height="30"/>
+                                <rect key="frame" x="201.5" y="70" width="30" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="6y9-lM-zrK"/>
-                                    <constraint firstAttribute="width" constant="30" id="k7m-Lx-RBk"/>
+                                    <constraint firstAttribute="width" secondItem="Y50-sg-Kqb" secondAttribute="height" multiplier="1:1" id="oZR-gE-DT3"/>
                                 </constraints>
                                 <color key="tintColor" red="0.97776442770000005" green="0.4094216228" blue="0.14934563640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="baseline_add_circle_black_36pt"/>
@@ -1341,7 +1342,6 @@
                                 <rect key="frame" x="15" y="178" width="345" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Suk-gz-QNE"/>
                                     <constraint firstAttribute="width" secondItem="GaF-Rz-E07" secondAttribute="height" multiplier="69:20" id="f6T-pV-UrE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1441,12 +1441,13 @@
                             <constraint firstItem="GaF-Rz-E07" firstAttribute="top" secondItem="gJg-Qf-LHA" secondAttribute="bottom" constant="10" id="mrS-xc-c70"/>
                             <constraint firstItem="mx1-2D-lL7" firstAttribute="trailing" secondItem="gJg-Qf-LHA" secondAttribute="trailing" constant="15" id="uZJ-op-dt9"/>
                             <constraint firstItem="Qrm-xd-Nj1" firstAttribute="centerX" secondItem="yz9-KQ-qjd" secondAttribute="centerX" id="uyc-cU-2b0"/>
-                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="leading" secondItem="Qrm-xd-Nj1" secondAttribute="trailing" id="xF2-GW-ccW"/>
+                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="leading" secondItem="Qrm-xd-Nj1" secondAttribute="trailing" constant="-26" id="xF2-GW-ccW"/>
                             <constraint firstItem="Y50-sg-Kqb" firstAttribute="bottom" secondItem="Qrm-xd-Nj1" secondAttribute="bottom" id="xjJ-02-xzg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mx1-2D-lL7"/>
                     </view>
                     <connections>
+                        <outlet property="addImageIconView" destination="Y50-sg-Kqb" id="WhB-6m-Asf"/>
                         <outlet property="descriptionTV" destination="GaF-Rz-E07" id="7RK-v8-PaE"/>
                         <outlet property="markupTF" destination="Dmr-K7-mHD" id="vEK-sS-7xY"/>
                         <outlet property="maxRetailPriceTF" destination="5Jj-AT-cvu" id="bDS-vW-uVx"/>
@@ -2265,17 +2266,17 @@
     <resources>
         <image name="AppLogo" width="512" height="512"/>
         <image name="Soon_Icon" width="225" height="225"/>
-        <image name="baseline_account_circle_black_24pt" width="24" height="24"/>
-        <image name="baseline_add_circle_black_36pt" width="36" height="36"/>
-        <image name="baseline_apps_black_24pt" width="24" height="24"/>
-        <image name="baseline_restaurant_black_24pt" width="24" height="24"/>
-        <image name="baseline_schedule_black_24pt" width="24" height="24"/>
-        <image name="baseline_settings_black_18pt" width="18" height="18"/>
-        <image name="baseline_speaker_notes_black_18pt" width="18" height="18"/>
-        <image name="baseline_star_border_black_24pt" width="24" height="24"/>
-        <image name="ic_edit" width="24" height="24"/>
-        <image name="ic_filter_list_white" width="24" height="24"/>
-        <image name="ic_people_white" width="24" height="24"/>
+        <image name="baseline_account_circle_black_24pt" width="48" height="48"/>
+        <image name="baseline_add_circle_black_36pt" width="72" height="72"/>
+        <image name="baseline_apps_black_24pt" width="48" height="48"/>
+        <image name="baseline_restaurant_black_24pt" width="48" height="48"/>
+        <image name="baseline_schedule_black_24pt" width="48" height="48"/>
+        <image name="baseline_settings_black_18pt" width="36" height="36"/>
+        <image name="baseline_speaker_notes_black_18pt" width="36" height="36"/>
+        <image name="baseline_star_border_black_24pt" width="48" height="48"/>
+        <image name="ic_edit" width="48" height="48"/>
+        <image name="ic_filter_list_white" width="48" height="48"/>
+        <image name="ic_people_white" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JHA-Q4-Opb"/>

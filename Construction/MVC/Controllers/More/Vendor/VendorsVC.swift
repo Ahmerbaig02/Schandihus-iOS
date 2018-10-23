@@ -144,6 +144,7 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
         let vendor = (self.searchController.isActive == true) ? searchedVendors[indexPath.row] : vendorsSectionedData[indexPath.section][indexPath.row]
         cell.textLabel?.text = vendor.name ?? ""
         cell.tintColor = UIColor.darkGray
+        cell.textLabel?.textColor = UIColor.darkGray
         cell.imageView?.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)

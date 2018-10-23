@@ -221,9 +221,9 @@ extension VendorDetailsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 300/80, padding: 20).height
-        }
+//        if indexPath.section == 0 && indexPath.row == 0 {
+//            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 300/80, padding: 20).height
+//        }
         return UITableViewAutomaticDimension
         
     }

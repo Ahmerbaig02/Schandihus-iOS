@@ -30,6 +30,8 @@ class AddEstimateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.estimateTblView.register(UINib(nibName: "AddEstimateProductTVCell", bundle: nil), forCellReuseIdentifier: "AddEstimateProductTVCell")
+        
         self.estimateTblView.delegate = self
         self.estimateTblView.dataSource = self
         
@@ -48,9 +50,13 @@ class AddEstimateVC: UIViewController {
             self.submitBtn.setTitle("Add Estimate", for: .normal)
         }
         self.estimateTblView.reloadData()
-        var total = self.products.reduce(0, {$0 + $1.minimumRetailPrice!})
+        self.calculateAmount()
+    }
+    
+    fileprivate func calculateAmount() {
+        var total = self.products.reduce(0, {$0 + $1.minimumRetailPrice! * $1.quantity!})
         if isMaxPrice {
-            total = self.products.reduce(0, {$0 + $1.maximumRetailPrice!})
+            total = self.products.reduce(0, {$0 + $1.maximumRetailPrice! * $1.quantity!})
         }
         if isDiscount {
             if let discount = prospect.generalDiscount {
@@ -91,6 +97,21 @@ class AddEstimateVC: UIViewController {
         }
     }
     
+    fileprivate func showAlertForQuantity(indexPath: IndexPath) {
+        let alertVC = UIAlertController(title: "Product Quantity", message: "Enter Quantity for \(self.products[indexPath.row].name ?? "") below", preferredStyle: .alert)
+        alertVC.addTextField { (textField) in
+            textField.placeholder = "e.g.. 3"
+            textField.keyboardType = .numberPad
+        }
+        alertVC.addAction(UIAlertAction.init(title: "Submit", style: .default, handler: { [weak self] (action) in
+            self?.products[indexPath.row].quantity = (alertVC.textFields![0].text as NSString?)!.integerValue
+            self?.calculateAmount()
+            self?.estimateTblView.reloadData()
+        }))
+        alertVC.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
     fileprivate func validateInputs() {
         self.validateFields(validator: self.validator) { [weak self] (success) in
             if success {
@@ -118,26 +139,24 @@ class AddEstimateVC: UIViewController {
             method = .put
         }
 
-        var productIds: [Int] = []
+        var productParams: [[String: Any]] = []
         for index in 0...products.count-1 {
             let product = products[index]
-            productIds.append(product.productId ?? 0)
+            productParams.append(["quantity": product.quantity ?? 0, "productId": product.productId ?? 0])
         }
-        if let cell = estimateTblView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddEstimateFieldsCell {
-            UIViewController.showLoader(text: "Please Wait...")
-            NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": cell.estimateNameTF.text!.capitalizingFirstLetter(), "prospectId": "\(prospect.prospectId!)", "estimateDate": cell.estimateDate, "closingDate": cell.closingDate, "priceGuaranteeDate": cell.priceGuaranteeDate, "products": productIds]) { [weak self] (response: BaseResponse?, error) in
-                UIViewController.hideLoader()
-                if let err = error {
-                    print(err)
-                    return
-                }
-                if response?.success == true {
-                    print("Posted Estimate")
-                    self?.navigationController?.popViewController(animated: true)
-                } else {
-                    self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
-                    print("Error fetching data")
-                }
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["projectName": self.estimate?.projectName?.capitalizingFirstLetter() ?? "", "prospectId": "\(prospect.prospectId!)", "estimateDate": self.estimate?.estimateDate ?? Date().serverSideDate, "closingDate": self.estimate?.closingDate ?? Date().serverSideDate, "priceGuaranteeDate": self.estimate?.priceGuaranteeDate ?? Date().serverSideDate, "products": productParams]) { [weak self] (response: BaseResponse?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if response?.success == true {
+                print("Posted Estimate")
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
             }
         }
     }
@@ -229,20 +248,26 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.text = prospect.prospectName ?? ""
+            cell.detailTextLabel?.textColor = UIColor.darkGray
             cell.detailTextLabel?.text = "Address: \(prospect.homeAddress ?? "")\nDiscount: \(prospect.generalDiscount ?? 0) %"
             return cell
         } else {
-            let cell = estimateTblView.dequeueReusableCell(withIdentifier: Helper.AddProductsCellID, for: indexPath)
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            cell.textLabel?.text = products[indexPath.row].name ?? ""
-            cell.detailTextLabel?.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0))\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
+            let cell = estimateTblView.dequeueReusableCell(withIdentifier: "AddEstimateProductTVCell", for: indexPath) as! AddEstimateProductTVCell
+            cell.nameLbl.text = "\(products[indexPath.row].name ?? "") * \(products[indexPath.row].quantity ?? 0)"
+            cell.infoLbl.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0)) NOR\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0)) NOR\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"
             return cell
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         estimateTblView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 2 {
+            self.showAlertForQuantity(indexPath: indexPath)
+        }
     }
     
 }

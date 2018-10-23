@@ -43,6 +43,8 @@
 		42FEE8CB212A0AA50013022B /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEE8CA212A0AA40013022B /* ProductDetailsVC.swift */; };
 		42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */; };
 		87566945216F9FC4005D32DE /* EstimateTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566944216F9FC4005D32DE /* EstimateTVCell.swift */; };
+		8778687B217FB2AA000F38B2 /* AddEstimateProductTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87786879217FB2AA000F38B2 /* AddEstimateProductTVCell.swift */; };
+		8778687C217FB2AA000F38B2 /* AddEstimateProductTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8778687A217FB2AA000F38B2 /* AddEstimateProductTVCell.xib */; };
 		879AED66217B2CCF006D9DC2 /* PDFViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879AED65217B2CCF006D9DC2 /* PDFViewVC.swift */; };
 		879AED6B217B403F006D9DC2 /* invoice.html in Resources */ = {isa = PBXBuildFile; fileRef = 879AED68217B403E006D9DC2 /* invoice.html */; };
 		879AED6C217B403F006D9DC2 /* single_item.html in Resources */ = {isa = PBXBuildFile; fileRef = 879AED69217B403E006D9DC2 /* single_item.html */; };
@@ -128,6 +130,8 @@
 		42FFFC092138E12B009DBFD0 /* AddParamsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParamsVC.swift; sourceTree = "<group>"; };
 		6B8B3CD9C8D5E65A750AB6B3 /* Pods_ConstructionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConstructionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87566944216F9FC4005D32DE /* EstimateTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTVCell.swift; sourceTree = "<group>"; };
+		87786879217FB2AA000F38B2 /* AddEstimateProductTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEstimateProductTVCell.swift; sourceTree = "<group>"; };
+		8778687A217FB2AA000F38B2 /* AddEstimateProductTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEstimateProductTVCell.xib; sourceTree = "<group>"; };
 		879AED65217B2CCF006D9DC2 /* PDFViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewVC.swift; sourceTree = "<group>"; };
 		879AED68217B403E006D9DC2 /* invoice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invoice.html; sourceTree = "<group>"; };
 		879AED69217B403E006D9DC2 /* single_item.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = single_item.html; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				87A44F7121654EC5008D043F /* NotesTVCell.xib */,
 				CA1B819D2167B6DC00493B55 /* ProductMainTVCell.swift */,
 				CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */,
+				87786879217FB2AA000F38B2 /* AddEstimateProductTVCell.swift */,
+				8778687A217FB2AA000F38B2 /* AddEstimateProductTVCell.xib */,
 			);
 			path = "View Cells";
 			sourceTree = "<group>";
@@ -395,9 +401,9 @@
 		CAD98123212AD07A0035A064 /* Estimate */ = {
 			isa = PBXGroup;
 			children = (
-				42FBB376217840DF00088398 /* EstimateDetailsVC.swift */,
 				42CC6C262127727300B06418 /* EstimateVC.swift */,
 				42EB8F6521655E6E00CEF7A5 /* AddEstimateVC.swift */,
+				42FBB376217840DF00088398 /* EstimateDetailsVC.swift */,
 				CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */,
 				87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */,
 				87566943216F9FAC005D32DE /* Cells */,
@@ -583,6 +589,7 @@
 				42FEE8C52129EFBB0013022B /* UserInfoTVC.xib in Resources */,
 				879AED6D217B403F006D9DC2 /* last_item.html in Resources */,
 				879AED6C217B403F006D9DC2 /* single_item.html in Resources */,
+				8778687C217FB2AA000F38B2 /* AddEstimateProductTVCell.xib in Resources */,
 				42CC6BF02127484800B06418 /* LaunchScreen.storyboard in Resources */,
 				42CC6BED2127484700B06418 /* Assets.xcassets in Resources */,
 				87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */,
@@ -709,6 +716,7 @@
 				42FFFC0A2138E12B009DBFD0 /* AddParamsVC.swift in Sources */,
 				87566945216F9FC4005D32DE /* EstimateTVCell.swift in Sources */,
 				42457F4621388CB600D985A2 /* AddVendorVC.swift in Sources */,
+				8778687B217FB2AA000F38B2 /* AddEstimateProductTVCell.swift in Sources */,
 				42D1EB3C213D6819009D4B0B /* ProductVendorsVC.swift in Sources */,
 				879AED6F217B40BA006D9DC2 /* InvoiceComposer.swift in Sources */,
 				42FEE8CB212A0AA50013022B /* ProductDetailsVC.swift in Sources */,

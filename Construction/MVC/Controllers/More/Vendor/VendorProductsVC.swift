@@ -87,8 +87,7 @@ extension VendorProductsVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
         let product = productSectionedData[indexPath.section][indexPath.row]
         cell.userInfoLbl.numberOfLines = 0
-        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "", "\(product.minimumRetailPrice ?? 0) NOR", "\(product.maximumRetailPrice ?? 0) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), UIFont.systemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 13.0)], Colors: [UIColor.black, UIColor.gray, UIColor.gray], seperator: ["\n"," - ",""], Spacing: 3, atIndex: 0)
-        cell.userInfoLbl.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
         cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"))
         return cell
     }

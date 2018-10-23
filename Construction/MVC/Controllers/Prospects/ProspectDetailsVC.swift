@@ -139,7 +139,7 @@ extension ProspectDetailsVC : UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = prospectDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
             cell.userImgView.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [prospect?.prospectName ?? "No Name",prospect.contactNumber ?? "N/A"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.bold), UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)], Colors: [UIColor.primaryColor, UIColor.black], seperator: ["\n",""], Spacing: 5, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [prospect?.prospectName ?? "No Name",prospect.contactNumber ?? "N/A"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.bold), UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)], Colors: [UIColor.primaryColor, UIColor.black], seperator: ["\n",""], Spacing: 3, atIndex: 0)
             return cell
             
         } else if indexPath.section == 1 {
@@ -170,9 +170,9 @@ extension ProspectDetailsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 300/80, padding: 20).height
-        }
+//        if indexPath.section == 0 && indexPath.row == 0 {
+//            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 300/80, padding: 20).height
+//        }
         return UITableViewAutomaticDimension
         
     }

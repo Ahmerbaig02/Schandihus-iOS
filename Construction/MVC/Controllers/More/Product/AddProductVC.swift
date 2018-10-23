@@ -14,6 +14,7 @@ import Alamofire
 
 class AddProductVC: UIViewController {
 
+    @IBOutlet var addImageIconView: UIButton!
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var userNameTF: ConstructionTextField!
     @IBOutlet weak var descriptionTV: UITextView!
@@ -31,6 +32,8 @@ class AddProductVC: UIViewController {
     var imgURL: URL!
     var productId: Int?
     
+    var shouldUpdatePhoto: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +47,10 @@ class AddProductVC: UIViewController {
             self.setValues()
             self.updateBtn.setTitle("Submit", for: .normal)
             self.navigationItem.title = "Edit Product"
+            self.userImgView.pin_updateWithProgress = true
+            self.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
         } else {
+            self.shouldUpdatePhoto = true
             self.updateBtn.setTitle("Add Product", for: .normal)
         }
         self.descriptionTV.placeholder = "Description..."
@@ -53,8 +59,10 @@ class AddProductVC: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        userImgView.getRounded(cornerRaius: userImgView.frame.width/2)
-        self.userImgView.layer.borderColor = UIColor.accentColor.cgColor
+        self.userImgView.getRounded(cornerRaius: userImgView.frame.width/2)
+        self.addImageIconView.getRounded(cornerRaius: self.addImageIconView.frame.width/2)
+        self.addImageIconView.setBorder(width: 1, color: UIColor.accentColor)
+        self.userImgView.setBorder(width: 1, color: UIColor.accentColor)
     }
     
     fileprivate lazy var validator: Validator = {
@@ -98,8 +106,8 @@ class AddProductVC: UIViewController {
         product.minimumRetailPrice = Int(minRetailPriceTF.text!)
         product.maximumRetailPrice = Int(maxRetailPriceTF.text!)
         product.markup = Int(markupTF.text!)
-        product.productCost = Int(productCostTF.text!)
-        product.productSalePrice = Int(productSalePriceTF.text!)
+        product.productCost = (productCostTF.text as NSString?)!.doubleValue
+        product.productSalePrice = (productSalePriceTF.text as NSString?)!.doubleValue
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,7 +133,12 @@ class AddProductVC: UIViewController {
                 print("Posted Product")
                 self!.productId = response?.data!
                 self!.product.productId = self!.productId
-                self?.postProductImageFromManager()
+                if self?.shouldUpdatePhoto == true {
+                    self?.postProductImageFromManager()
+                } else {
+                    UIViewController.hideLoader()
+                    _ = self?.navigationController?.popViewController(animated: true)
+                }
             } else {
                 UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
@@ -170,6 +183,7 @@ class AddProductVC: UIViewController {
                 if let modifiedImage = photo.modifiedImage {
                     if let url = modifiedImage.getURLFor(filename: "productImage") {
                         print(url)
+                        self?.shouldUpdatePhoto = true
                         self?.imgURL = url
                         self?.userImgView.image = modifiedImage
                     } else {

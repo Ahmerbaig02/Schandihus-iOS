@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Placeholder Image" translatesAutoresizingMaskIntoConstraints="NO" id="RFj-3R-5mT">
-                        <rect key="frame" x="10" y="5" width="40" height="40"/>
+                        <rect key="frame" x="10" y="4" width="40" height="40"/>
                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="OA9-Dm-4qP"/>
@@ -27,19 +27,22 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arsam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cR-Ok-QJO">
-                        <rect key="frame" x="62" y="5" width="242" height="36.5"/>
+                        <rect key="frame" x="62" y="4" width="242" height="37.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="fdo-6O-FHN"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="RFj-3R-5mT" firstAttribute="leading" secondItem="gdw-A6-Upt" secondAttribute="leading" constant="10" id="Gco-yZ-aEc"/>
-                    <constraint firstItem="RFj-3R-5mT" firstAttribute="centerY" secondItem="gdw-A6-Upt" secondAttribute="centerY" id="Y5n-lp-i7b"/>
+                    <constraint firstItem="RFj-3R-5mT" firstAttribute="top" secondItem="gdw-A6-Upt" secondAttribute="top" constant="4" id="Haf-hM-mMi"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RFj-3R-5mT" secondAttribute="bottom" constant="4.5" id="i7A-hC-DQH"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="leading" secondItem="RFj-3R-5mT" secondAttribute="trailing" constant="12" id="iBp-BG-Qqf"/>
                     <constraint firstAttribute="trailing" secondItem="9cR-Ok-QJO" secondAttribute="trailing" constant="16" id="jsP-kq-FPO"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="top" secondItem="RFj-3R-5mT" secondAttribute="top" id="mih-Eo-POu"/>
-                    <constraint firstAttribute="bottom" secondItem="9cR-Ok-QJO" secondAttribute="bottom" constant="8" id="opE-jS-ljq"/>
+                    <constraint firstAttribute="bottom" secondItem="9cR-Ok-QJO" secondAttribute="bottom" constant="8" id="vRW-KF-wn4"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

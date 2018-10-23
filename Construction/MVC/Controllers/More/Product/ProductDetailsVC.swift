@@ -267,7 +267,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
             
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A","Product ID: \(String(product.productId ?? 0))","\(String(product.minimumRetailPrice ?? 0))$ - \(String(product.maximumRetailPrice ?? 0))$", "Cost: \(String(product.productCost ?? 0))$", "Sale Price: \(String(product.productSalePrice ?? 0))$"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 14.0),UIFont.systemFont(ofSize: 14.0), UIFont.systemFont(ofSize: 14.0), UIFont.systemFont(ofSize: 14.0)], Colors: [UIColor.primaryColor, UIColor.black, UIColor.black, UIColor.black, UIColor.black], seperator: ["\n","\n","\n","\n",""], Spacing: 5, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0) NOR - \(product.maximumRetailPrice ?? 0) NOR ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
             return cell
             
         } else if indexPath.section == 1 {
@@ -302,7 +302,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             }
             let product = self.grouped[indexPath.row]
             cell.userInfoLbl.numberOfLines = 0
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "", "\(product.minimumRetailPrice ?? 0) NOR", "\(product.maximumRetailPrice ?? 0) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), UIFont.systemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 13.0)], Colors: [UIColor.black, UIColor.gray, UIColor.gray], seperator: ["\n"," - ",""], Spacing: 3, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
             return cell
@@ -328,7 +328,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
-            return getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 350/90, padding: 20).height
+            return UITableViewAutomaticDimension // getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 350/90, padding: 20).height
         }
         return UITableViewAutomaticDimension
     }

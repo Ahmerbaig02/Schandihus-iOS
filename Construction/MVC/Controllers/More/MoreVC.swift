@@ -41,22 +41,22 @@ extension MoreVC : UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             cell.textLabel?.text = "Products"
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_local_offer_black_18pt")
-            cell.imageView?.tintColor = UIColor.gray
+            cell.imageView?.tintColor = UIColor.primaryColor
             
         } else if indexPath.row == 1 {
             cell.textLabel?.text = "Vendors"
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_card_travel_black_18pt")
-            cell.imageView?.tintColor = UIColor.gray
+            cell.imageView?.tintColor = UIColor.primaryColor
             
         } else if indexPath.row == 2 {
             cell.textLabel?.text = "Settings"
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_settings_black_18pt")
-            cell.imageView?.tintColor = UIColor.gray
+            cell.imageView?.tintColor = UIColor.primaryColor
             
         } else {
             cell.textLabel?.text = "Logout"
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_power_settings_new_black_18pt")
-            cell.imageView?.tintColor = UIColor.gray
+            cell.imageView?.tintColor = UIColor.primaryColor
         }
         return cell
     }

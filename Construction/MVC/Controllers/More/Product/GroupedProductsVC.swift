@@ -95,6 +95,22 @@ class GroupedProductsVC: UIViewController {
         }
     }
     
+    fileprivate func showAlertForQuantity(indexPath: IndexPath) {
+        let alertVC = UIAlertController(title: "Product Quantity", message: "Enter Quantity for \(self.products[indexPath.row].name ?? "") below", preferredStyle: .alert)
+        alertVC.addTextField { (textField) in
+            textField.placeholder = "e.g.. 3"
+            textField.keyboardType = .numberPad
+        }
+        alertVC.addAction(UIAlertAction.init(title: "Submit", style: .default, handler: { [weak self] (action) in
+            var newProduct = self!.productsSectionedData[indexPath.section][indexPath.row]
+            newProduct.quantity = (alertVC.textFields![0].text as NSString?)!.integerValue
+            self?.selectedProducts.append(newProduct)
+            self?.groupedProductsTblView.reloadData()
+        }))
+        alertVC.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
     @IBAction func addGroupedProducts(_ sender: Any) {
         if delegate != nil {
             delegate?.GroupedProducts(controller: self, products: selectedProducts)
@@ -125,7 +141,8 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = productsSectionedData[indexPath.section][indexPath.row].name ?? ""
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-        cell.detailTextLabel?.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0))\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0))"
+        cell.detailTextLabel?.textColor = UIColor.darkGray
+        cell.detailTextLabel?.text = "\(String(products[indexPath.row].minimumRetailPrice ?? 0)) NOR - \(String(products[indexPath.row].maximumRetailPrice ?? 0)) NOR\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"
         cell.tintColor = UIColor.accentColor
         if selectedProducts.contains(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_check_circle_outline_black_18pt")
@@ -156,7 +173,11 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         if let index = selectedProducts.index(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             selectedProducts.remove(at: index)
         } else {
-            selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
+            if self.delegate == nil {
+                selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
+            } else {
+                self.showAlertForQuantity(indexPath: indexPath)
+            }
         }
         self.groupedProductsTblView.reloadData()
     }
