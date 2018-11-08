@@ -254,7 +254,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: "AddEstimateProductTVCell", for: indexPath) as! AddEstimateProductTVCell
             cell.nameLbl.text = "\(products[indexPath.row].name ?? "") * \(products[indexPath.row].quantity ?? 0)"
-            cell.infoLbl.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0)) NOR\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0)) NOR\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"
+            cell.infoLbl.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0)) €\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0)) €\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) €\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) €"
             return cell
         }
     }

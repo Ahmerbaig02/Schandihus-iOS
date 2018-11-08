@@ -113,7 +113,7 @@ class EstimateDetailsVC: UIViewController {
     
     func createInvoiceAsHTML() {
         invoiceComposer = InvoiceComposer()
-        let productsDict = products.map({ [$0.name ?? "": "\($0.minimumRetailPrice ?? 0) NOR - \($0.maximumRetailPrice ?? 0) NOR"] })
+        let productsDict = products.map({ [$0.name ?? "": "\($0.minimumRetailPrice ?? 0) € - \($0.maximumRetailPrice ?? 0) €"] })
         if let invoiceHTML = invoiceComposer.renderInvoice(invoiceDate: "\(Date().humanReadableDatewoTime)",
             estimateTitles: estimateTitles,
             estimateDescripts: estimateDescripts,
@@ -206,7 +206,7 @@ extension EstimateDetailsVC : UITableViewDelegate, UITableViewDataSource {
             let cell = estimateDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! ProductMainTVCell
             let product = self.products[indexPath.row]
             cell.userInfoLbl.numberOfLines = 0
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", " (\(product.quantity ?? 0))", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.boldSystemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["" ,"\n","\n",""], Spacing: 3, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", " (\(product.quantity ?? 0))", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) €", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) €"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.boldSystemFont(ofSize: 13.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["" ,"\n","\n",""], Spacing: 3, atIndex: 0)
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
             return cell

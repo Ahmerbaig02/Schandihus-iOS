@@ -73,9 +73,9 @@ class GroupedProductsVC: UIViewController {
         }
     }
     
-    fileprivate func postGroupedProductsFromManager(productIds: [Int]) {
+    fileprivate func postGroupedProductsFromManager(productIds: [[String:Any]]) {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetGroupedProductsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId! , "groupedProducts": productIds ]) { [weak self] (response: BaseResponse?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetGroupedProductsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId! , "groupedProducts": productIds]) { [weak self] (response: BaseResponse?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)
@@ -116,7 +116,7 @@ class GroupedProductsVC: UIViewController {
             delegate?.GroupedProducts(controller: self, products: selectedProducts)
             return
         }
-        let productIds = self.selectedProducts.map( { $0.productId! })
+        let productIds = self.selectedProducts.map( { ["groupedProductId": $0.productId!, "quantity": $0.quantity!] })
         postGroupedProductsFromManager(productIds: productIds)
     }
     
@@ -142,7 +142,7 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         cell.detailTextLabel?.textColor = UIColor.darkGray
-        cell.detailTextLabel?.text = "\(String(products[indexPath.row].minimumRetailPrice ?? 0)) NOR - \(String(products[indexPath.row].maximumRetailPrice ?? 0)) NOR\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"
+        cell.detailTextLabel?.text = "\(String(products[indexPath.row].minimumRetailPrice ?? 0))€ - \(String(products[indexPath.row].maximumRetailPrice ?? 0))€\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2))€\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"
         cell.tintColor = UIColor.accentColor
         if selectedProducts.contains(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_check_circle_outline_black_18pt")
@@ -173,11 +173,12 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         if let index = selectedProducts.index(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             selectedProducts.remove(at: index)
         } else {
-            if self.delegate == nil {
-                selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
-            } else {
-                self.showAlertForQuantity(indexPath: indexPath)
-            }
+//            if self.delegate == nil {
+//                selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
+//            } else {
+//                self.showAlertForQuantity(indexPath: indexPath)
+//            }
+            self.showAlertForQuantity(indexPath: indexPath)
         }
         self.groupedProductsTblView.reloadData()
     }

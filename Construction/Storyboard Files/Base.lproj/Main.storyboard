@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bg9-B8-Ik2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bg9-B8-Ik2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1332,7 +1332,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-Qf-LHA" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                 <rect key="frame" x="15" y="120" width="345" height="48"/>
                                 <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Leb-RK-bfc" id="C2o-Kv-Q1u"/>
@@ -1973,7 +1973,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7u-wA-1Xn">
-                                <rect key="frame" x="15" y="15" width="345" height="160"/>
+                                <rect key="frame" x="15" y="15" width="345" height="271.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-FL-arO" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
@@ -1993,11 +1993,21 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Units" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-cb-tvE" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="168" width="345" height="47.5"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="223.5" width="345" height="48"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="g27-j1-SPy" firstAttribute="width" secondItem="g27-j1-SPy" secondAttribute="height" multiplier="36:5" id="9ri-gV-Mya"/>
                                     <constraint firstItem="t7Y-WJ-nqN" firstAttribute="width" secondItem="t7Y-WJ-nqN" secondAttribute="height" multiplier="36:5" id="Wr7-MY-vuq"/>
-                                    <constraint firstItem="Agu-FL-arO" firstAttribute="width" secondItem="Agu-FL-arO" secondAttribute="height" multiplier="36:5" id="hgJ-1w-778"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30U-Uj-SVm">
@@ -2032,8 +2042,10 @@
                         <viewLayoutGuide key="safeArea" id="Vhz-4D-F4E"/>
                     </view>
                     <connections>
+                        <outlet property="expectedTimeTF" destination="mMm-Ta-qHf" id="SHX-gd-gQC"/>
                         <outlet property="priceTF" destination="t7Y-WJ-nqN" id="Kuk-cL-Kaa"/>
                         <outlet property="productNameTF" destination="Agu-FL-arO" id="kvG-5v-dXC"/>
+                        <outlet property="unitsTF" destination="Owh-cb-tvE" id="wof-4I-0PG"/>
                         <outlet property="vendorNameTF" destination="g27-j1-SPy" id="xw6-e6-FRf"/>
                     </connections>
                 </viewController>

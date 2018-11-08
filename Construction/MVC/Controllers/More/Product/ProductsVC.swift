@@ -105,8 +105,22 @@ class ProductsVC: UIViewController {
         }
     }
     
+    fileprivate func showAddProductTypeAlert() {
+        let sheet = UIAlertController(title: "Add Product", message: "Select Product type from below", preferredStyle: UIAlertControllerStyle.actionSheet)
+        sheet.addAction(UIAlertAction(title: "Single Product", style: .default, handler: { [weak self] (action) in
+            guard let self = self else {return}
+            self.performSegue(withIdentifier: Helper.AddProductSegueID, sender: true)
+        }))
+        sheet.addAction(UIAlertAction(title: "Grouped Product", style: .default, handler: { [weak self] (action) in
+            guard let self = self else {return}
+            self.performSegue(withIdentifier: Helper.AddProductSegueID, sender: true)
+        }))
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
     @IBAction func addProduct(_ sender: Any) {
-        performSegue(withIdentifier: Helper.AddProductSegueID, sender: nil)
+        self.showAddProductTypeAlert()
     }
     
     deinit {
@@ -135,7 +149,7 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
         let product = (self.searchController.isActive == true) ? self.searchedProducts[indexPath.row] : productsSectionedData[indexPath.section][indexPath.row]
-        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2)) NOR", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) NOR"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
+        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
         cell.userImgView.pin_updateWithProgress = true
         cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
         return cell
