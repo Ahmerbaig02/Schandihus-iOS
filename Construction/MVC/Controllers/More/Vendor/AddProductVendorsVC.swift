@@ -12,6 +12,7 @@ import Alamofire
 
 class AddProductVendorsVC: UIViewController {
     
+    @IBOutlet var expectedPriceLbl: UILabel!
     @IBOutlet weak var productNameTF: ConstructionTextField!
     @IBOutlet weak var vendorNameTF: ConstructionTextField!
     @IBOutlet weak var priceTF: ConstructionTextField!
@@ -26,11 +27,17 @@ class AddProductVendorsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let price = product.suggestedVendorPrice, price > 0.0 {
+            self.expectedPriceLbl.text = "Suggested Price by Vendor: \(price.getRounded(uptoPlaces: 2))€"
+            self.expectedPriceLbl.isHidden = false
+        } else {
+            self.expectedPriceLbl.isHidden = true
+        }
         
         self.productNameTF.text = product.name ?? ""
         self.vendorNameTF.text = vendor.name ?? ""

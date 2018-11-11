@@ -35,7 +35,7 @@ class AddEstimateVC: UIViewController {
         self.estimateTblView.delegate = self
         self.estimateTblView.dataSource = self
         
-        totalLbl.text = "0 NOK"
+        totalLbl.text = "0€"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +63,7 @@ class AddEstimateVC: UIViewController {
                 total = total - Int(Double(total) * Double(discount)/100)
             }
         }
-        totalLbl.text = "\(total) NOK"
+        totalLbl.text = "\(total)€"
     }
     
     fileprivate lazy var addProspectBtn: UIButton = {
@@ -254,7 +254,7 @@ extension AddEstimateVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = estimateTblView.dequeueReusableCell(withIdentifier: "AddEstimateProductTVCell", for: indexPath) as! AddEstimateProductTVCell
             cell.nameLbl.text = "\(products[indexPath.row].name ?? "") * \(products[indexPath.row].quantity ?? 0)"
-            cell.infoLbl.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0)) €\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0)) €\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2)) €\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2)) €"
+            cell.infoLbl.text = "Min: \(String(products[indexPath.row].minimumRetailPrice ?? 0))€\nMax: \(String(products[indexPath.row].maximumRetailPrice ?? 0))€\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2))€\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"
             return cell
         }
     }

@@ -64,6 +64,7 @@ struct ProductData: Codable {
     var units: Int?
     var vendorUnits: Int?
     var vendorPrice: Double?
+    var suggestedVendorPrice: Double?
     var vendorId: Int?
     var expectedDeliveryTime: String?
     var ProductParameter: [ParamsData]?

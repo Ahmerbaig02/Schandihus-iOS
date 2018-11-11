@@ -1353,7 +1353,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Bdb-1F-eoS">
                                 <rect key="frame" x="15" y="288" width="345" height="247.5"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Minimum Retail Price ($)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-XV-QVd" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Minimum Retail Price (€)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-XV-QVd" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1362,7 +1362,7 @@
                                             <outlet property="delegate" destination="Leb-RK-bfc" id="GCM-7L-C6k"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Maximum Retail Price ($)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-AT-cvu" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Maximum Retail Price (€)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-AT-cvu" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1973,7 +1973,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7u-wA-1Xn">
-                                <rect key="frame" x="15" y="15" width="345" height="271.5"/>
+                                <rect key="frame" x="15" y="15" width="345" height="327.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-FL-arO" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
@@ -1999,8 +1999,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-FP-wyS">
                                         <rect key="frame" x="0.0" y="223.5" width="345" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="279.5" width="345" height="48"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2042,6 +2048,7 @@
                         <viewLayoutGuide key="safeArea" id="Vhz-4D-F4E"/>
                     </view>
                     <connections>
+                        <outlet property="expectedPriceLbl" destination="Dz8-FP-wyS" id="CnB-DX-nOB"/>
                         <outlet property="expectedTimeTF" destination="mMm-Ta-qHf" id="SHX-gd-gQC"/>
                         <outlet property="priceTF" destination="t7Y-WJ-nqN" id="Kuk-cL-Kaa"/>
                         <outlet property="productNameTF" destination="Agu-FL-arO" id="kvG-5v-dXC"/>
