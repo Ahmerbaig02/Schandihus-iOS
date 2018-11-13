@@ -35,7 +35,7 @@ class Helper {
     static let GetProductsURL = "product"
     static let GetSettingsURL = "lookup"
     static let GetProductParamsURL = "ProductParameter"
-    static let GetGroupedProductsURL = "GroupedProducts"
+    static let GetGroupedProductsURL = "Product?grouped=true"
     static let GetProspectsURL = "Prospect"
     static let GetProductVendorURL = "ProductVendors"
     static let GetVendorProductURL = "VendorProducts"

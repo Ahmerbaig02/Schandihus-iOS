@@ -32,6 +32,7 @@ class AddProductVC: UIViewController {
     var imgURL: URL!
     var productId: Int?
     
+    var isGroupedProduct: Bool = false
     var shouldUpdatePhoto: Bool = false
     
     override func viewDidLoad() {
@@ -45,6 +46,7 @@ class AddProductVC: UIViewController {
         
         if product.productId != nil {
             self.setValues()
+            self.isGroupedProduct = product.grouped ?? false
             self.updateBtn.setTitle("Submit", for: .normal)
             self.navigationItem.title = "Edit Product"
             self.userImgView.pin_updateWithProgress = true
@@ -56,6 +58,7 @@ class AddProductVC: UIViewController {
         self.descriptionTV.placeholder = "Description..."
         print(imgURL)
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -122,7 +125,7 @@ class AddProductVC: UIViewController {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [], "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [],"grouped": isGroupedProduct, "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
             if let err = error {
                 UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)

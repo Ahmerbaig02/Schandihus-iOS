@@ -19,10 +19,18 @@ class ProductsVC: UIViewController {
             self.makeSectionIndicesOnFirstLetter()
         }
     }
+    
+    var groupedProducts : [GroupedProductData] = [] {
+        didSet {
+            self.makeSectionIndicesOnFirstLetterForGroupedProducts()
+        }
+    }
     var productsSectionedData:[[ProductData]] = []
     var uniqueInitials: [String] = []
     var isForProductVendor: Bool = false
     var vendor: VendorData = VendorData()
+    
+    fileprivate var isGroupedProductsEnabled: Bool = false
     
     var searchedProducts: [ProductData] = []
     fileprivate var searchController: UISearchController!
@@ -48,8 +56,11 @@ class ProductsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        getProductListFromManager()
+        if self.isGroupedProductsEnabled {
+            self.getGroupedProductListFromManager()
+        } else {
+            getProductListFromManager()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,6 +72,10 @@ class ProductsVC: UIViewController {
             let product = sender as! ProductData
             destinationVC.vendor = vendor
             destinationVC.product = product
+        }
+        if let destinationVC = segue.destination as? AddProductVC {
+            let grouped = sender as? Bool ?? false
+            destinationVC.isGroupedProduct = grouped
         }
     }
     
@@ -86,6 +101,16 @@ class ProductsVC: UIViewController {
         }
         self.productsTblView.reloadData()
     }
+    
+    fileprivate func makeSectionIndicesOnFirstLetterForGroupedProducts() {
+        self.productsSectionedData.removeAll()
+        self.uniqueInitials.removeAll()
+        uniqueInitials = []
+        for groupedProduct in groupedProducts {
+            self.productsSectionedData.append(groupedProduct.products ?? [])
+        }
+        self.productsTblView.reloadData()
+    }
 
     fileprivate func getProductListFromManager() {
         UIViewController.showLoader(text: "Please Wait...")
@@ -96,8 +121,28 @@ class ProductsVC: UIViewController {
                 return
             }
             if list?.success == true {
+                self?.isGroupedProductsEnabled = false
                 print(list?.data ?? "Error fetching data")
                 self?.products = list?.data ?? []
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
+    fileprivate func getGroupedProductListFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetGroupedProductsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[GroupedProductData]>?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if list?.success == true {
+                self?.isGroupedProductsEnabled = true
+                print(list?.data ?? "Error fetching data")
+                self?.groupedProducts = list?.data ?? []
             } else {
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
@@ -121,6 +166,16 @@ class ProductsVC: UIViewController {
     
     @IBAction func addProduct(_ sender: Any) {
         self.showAddProductTypeAlert()
+    }
+    
+    @IBAction func switchToGroupedAction(_ sender: Any) {
+        if self.isGroupedProductsEnabled {
+            UIViewController.showLoader(text: "Switching to Single Products")
+            self.getProductListFromManager()
+        } else {
+            UIViewController.showLoader(text: "Switching to Grouped Products")
+            self.getGroupedProductListFromManager()
+        }
     }
     
     deinit {
@@ -165,6 +220,9 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if self.searchController.isActive == true {
             return "Searched Results"
+        }
+        if isGroupedProductsEnabled {
+            return groupedProducts[section].groupedProductName ?? "-"
         }
         return self.uniqueInitials[section]
     }

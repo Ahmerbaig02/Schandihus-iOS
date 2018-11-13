@@ -135,6 +135,8 @@ extension UINavigationController {
 
 extension UIViewController {
     
+    static var isAnimatingLoader: Bool = false
+    
     static var banner: StatusBarNotificationBanner?
     
     func showBanner(title: String, style: BannerStyle) {
@@ -150,11 +152,15 @@ extension UIViewController {
     }
     
     class func showLoader(text: String) {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        SKActivityIndicator.show(text)
+        if UIViewController.isAnimatingLoader == false {
+            UIViewController.isAnimatingLoader = true
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            SKActivityIndicator.show(text)
+        }
     }
     
     class func hideLoader() {
+        UIViewController.isAnimatingLoader = false
         UIApplication.shared.endIgnoringInteractionEvents()
         SKActivityIndicator.dismiss()
     }

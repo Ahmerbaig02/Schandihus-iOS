@@ -1032,11 +1032,18 @@
                         <viewLayoutGuide key="safeArea" id="PO2-sP-RaB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Products" id="5fk-K2-qmf">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XJd-mb-mx9">
-                            <connections>
-                                <action selector="addProduct:" destination="2Rv-ai-z4h" id="GnU-Zk-iSN"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="XJd-mb-mx9">
+                                <connections>
+                                    <action selector="addProduct:" destination="2Rv-ai-z4h" id="GnU-Zk-iSN"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="baseline_swap_horizontal_circle_black_24pt" id="mHY-Ep-9MY">
+                                <connections>
+                                    <action selector="switchToGroupedAction:" destination="2Rv-ai-z4h" id="DuF-CD-4nE"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="productsTblView" destination="B5u-0D-00I" id="hVe-Jt-RGx"/>
@@ -1548,7 +1555,7 @@
                                 <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dPi-aP-MSA" firstAttribute="leading" secondItem="hNH-Hz-BlE" secondAttribute="leading" id="26C-HK-2wv"/>
                             <constraint firstItem="hNH-Hz-BlE" firstAttribute="bottom" secondItem="dPi-aP-MSA" secondAttribute="bottom" constant="8" id="K5B-U7-sYw"/>
@@ -1973,7 +1980,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7u-wA-1Xn">
-                                <rect key="frame" x="15" y="15" width="345" height="327.5"/>
+                                <rect key="frame" x="15" y="15" width="345" height="271.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-FL-arO" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
@@ -1987,26 +1994,20 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-FP-wyS">
-                                        <rect key="frame" x="0.0" y="112" width="345" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7Y-WJ-nqN" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="168" width="345" height="47.5"/>
+                                        <rect key="frame" x="0.0" y="112" width="345" height="48"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Units" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-cb-tvE" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="223.5" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="168" width="345" height="47.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="279.5" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="223.5" width="345" height="48"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2035,13 +2036,22 @@
                                     <action selector="submitAction:" destination="YaS-Cp-SB4" eventType="touchUpInside" id="sKI-iv-dK0"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-FP-wyS">
+                                <rect key="frame" x="15" y="294.5" width="345" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Vhz-4D-F4E" firstAttribute="trailing" secondItem="Dz8-FP-wyS" secondAttribute="trailing" constant="15" id="Ake-bw-SoP"/>
                             <constraint firstItem="Vhz-4D-F4E" firstAttribute="trailing" secondItem="E7u-wA-1Xn" secondAttribute="trailing" constant="15" id="Ifa-Pa-nCY"/>
                             <constraint firstItem="E7u-wA-1Xn" firstAttribute="top" secondItem="Vhz-4D-F4E" secondAttribute="top" constant="15" id="OWS-CN-aT0"/>
                             <constraint firstItem="30U-Uj-SVm" firstAttribute="leading" secondItem="Vhz-4D-F4E" secondAttribute="leading" constant="8" id="QyU-UD-UF6"/>
+                            <constraint firstItem="Dz8-FP-wyS" firstAttribute="leading" secondItem="Vhz-4D-F4E" secondAttribute="leading" constant="15" id="U9j-65-q5s"/>
                             <constraint firstItem="30U-Uj-SVm" firstAttribute="bottom" secondItem="Vhz-4D-F4E" secondAttribute="bottom" constant="-8" id="mKf-lM-sL0"/>
+                            <constraint firstItem="Dz8-FP-wyS" firstAttribute="top" secondItem="E7u-wA-1Xn" secondAttribute="bottom" constant="8" id="tdL-G7-tBH"/>
                             <constraint firstAttribute="trailing" secondItem="30U-Uj-SVm" secondAttribute="trailing" constant="8" id="wCI-Xf-7du"/>
                             <constraint firstItem="E7u-wA-1Xn" firstAttribute="leading" secondItem="yPE-Kz-can" secondAttribute="leading" constant="15" id="zqC-7V-hLT"/>
                         </constraints>
@@ -2293,17 +2303,18 @@
         <image name="baseline_settings_black_18pt" width="36" height="36"/>
         <image name="baseline_speaker_notes_black_18pt" width="36" height="36"/>
         <image name="baseline_star_border_black_24pt" width="48" height="48"/>
+        <image name="baseline_swap_horizontal_circle_black_24pt" width="48" height="48"/>
         <image name="ic_edit" width="48" height="48"/>
         <image name="ic_filter_list_white" width="48" height="48"/>
         <image name="ic_people_white" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JHA-Q4-Opb"/>
+        <segue reference="Hk5-sD-9eP"/>
         <segue reference="hag-rn-7oA"/>
         <segue reference="kFE-wI-pX8"/>
-        <segue reference="6kL-EV-Vnd"/>
-        <segue reference="jli-2B-Hr3"/>
-        <segue reference="iGc-li-Sil"/>
+        <segue reference="HcN-66-Gxy"/>
+        <segue reference="pCf-Si-tbB"/>
+        <segue reference="GI9-S1-f3E"/>
         <segue reference="KMp-1t-zkK"/>
         <segue reference="wRj-Fg-3YX"/>
         <segue reference="aJg-s0-x5T"/>

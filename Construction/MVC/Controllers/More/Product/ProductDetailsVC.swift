@@ -56,6 +56,26 @@ class ProductDetailsVC: UIViewController {
         self.getProductDetailsFromManager()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? VendorsVC {
+            destinationVC.isForVendorProduct = true
+            destinationVC.product = product!
+        }
+        if let destinationVC = segue.destination as? ProductVendorsVC {
+            destinationVC.product = product!
+        }
+        if let destinationVC = segue.destination as? AddProductVC {
+            destinationVC.product = product!
+        }
+        if let destinationVC = segue.destination as? AddParamsVC {
+            destinationVC.product = product!
+        }
+        if let destinationVC = segue.destination as? GroupedProductsVC {
+            destinationVC.product = product!
+            destinationVC.selectedProducts = grouped ?? []
+        }
+    }
+    
     @objc fileprivate func addProductParametersAction(btn: UIButton) {
         self.performSegue(withIdentifier: Helper.AddProductParametersSegueID, sender: nil)
     }
@@ -95,26 +115,6 @@ class ProductDetailsVC: UIViewController {
         self.productDetailsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
         let cellNib = UINib.init(nibName: "UserInfoTVC", bundle: nil)
         productDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? VendorsVC {
-            destinationVC.isForVendorProduct = true
-            destinationVC.product = product!
-        }
-        if let destinationVC = segue.destination as? ProductVendorsVC {
-            destinationVC.product = product!
-        }
-        if let destinationVC = segue.destination as? AddProductVC {
-            destinationVC.product = product!
-        }
-        if let destinationVC = segue.destination as? AddParamsVC {
-            destinationVC.product = product!
-        }
-        if let destinationVC = segue.destination as? GroupedProductsVC {
-            destinationVC.product = product!
-            destinationVC.selectedProducts = grouped ?? []
-        }
     }
     
     func showDeleteAlert(indexPath: IndexPath) {
@@ -157,7 +157,12 @@ class ProductDetailsVC: UIViewController {
                 print(list?.data ?? "Error fetching data")
                 self?.params = list?.data ?? []
                 self?.product.ProductParameter = list?.data ?? []
-                self?.getGroupedProductsFromManager()
+                if self?.product.grouped == true {
+                    self?.getGroupedProductsFromManager()
+                } else {
+                    UIViewController.hideLoader()
+                    self?.setValues()
+                }
             } else {
                 UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
@@ -234,11 +239,17 @@ class ProductDetailsVC: UIViewController {
 extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        if self.product.grouped == true {
+            return 4
+        }
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            if let price = self.product.suggestedVendorPrice, price > 0.0 {
+                return 2
+            }
             return 1
         } else if section == 1 {
             return 1
@@ -263,13 +274,21 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
-            cell.userImgView.pin_updateWithProgress = true
-            cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
-            
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€ ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
+            if indexPath.row == 0 {
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
+                cell.userImgView.pin_updateWithProgress = true
+                cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
+                
+                cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€ ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
+                return cell
+            }
+            let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
+            cell.textLabel?.textColor = UIColor.primaryColor
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
+            cell.textLabel?.text = "Suggested Price by Vendor"
+            cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? ""
             return cell
-            
         } else if indexPath.section == 1 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
@@ -277,7 +296,6 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.textColor = (product.description == nil) ? UIColor.gray : UIColor.black
             cell.textLabel?.text = product.description ?? "No Description Added"
             return cell
-            
         } else if indexPath.section == 2 {
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             if self.params.count == 0 {

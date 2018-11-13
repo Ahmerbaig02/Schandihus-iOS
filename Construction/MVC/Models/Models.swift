@@ -72,6 +72,14 @@ struct ProductData: Codable {
     var Product1: [ProductData]?
     var Product2: [ProductData]?
     var Estimate: [Int]?
+    var grouped: Bool?
+}
+
+struct GroupedProductData: Codable {
+    var groupedProductId: Int?
+    var groupedProductName: String?
+    var quantity: Int?
+    var products: [ProductData]?
 }
 
 struct StatusData: Codable {

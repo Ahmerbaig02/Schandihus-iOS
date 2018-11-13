@@ -63,7 +63,11 @@ class InvoiceComposer: NSObject {
             HTMLContent = HTMLContent.replacingOccurrences(of: "#Prospect Info#", with: isEstimate ? "Prospect Info" : "Bank Info")
             HTMLContent = HTMLContent.replacingOccurrences(of: "#Estimate Info#", with: isEstimate ? "Estimate Info" : "Vendor Info")
             
-            HTMLContent = HTMLContent.replacingOccurrences(of: "#TOTAL_AMOUNT#", with: "")
+            let totalAmount = items.reduce(0.0) { (res, dict) -> Double in
+                return res + (dict.values.first as NSString?)!.doubleValue
+            }
+            
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#TOTAL_AMOUNT#", with:  totalAmount.getRounded(uptoPlaces: 2))
             
             var estimateInfo = ""
             for i in 0..<estimateTitles.count {
