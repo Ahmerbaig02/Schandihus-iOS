@@ -172,7 +172,7 @@ class ProductDetailsVC: UIViewController {
     }
     
     fileprivate func getGroupedProductsFromManager() {
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetGroupedProductsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductGroupedProductsURL)/\(product.productId ?? 0)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)

@@ -95,9 +95,9 @@ class ProductsVC: UIViewController {
     fileprivate func makeSectionIndicesOnFirstLetter() {
         self.productsSectionedData.removeAll()
         self.uniqueInitials.removeAll()
-        uniqueInitials = Set(products.map({ String($0.name!.first!) })).sorted()
+        uniqueInitials = Set(products.map({ String($0.name!.capitalized.first!) })).sorted()
         for initial in uniqueInitials {
-            self.productsSectionedData.append(self.products.filter({ String($0.name!.first!) == initial }))
+            self.productsSectionedData.append(self.products.filter({ String($0.name!.capitalized.first!) == initial }))
         }
         self.productsTblView.reloadData()
     }
@@ -204,7 +204,7 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
         let product = (self.searchController.isActive == true) ? self.searchedProducts[indexPath.row] : productsSectionedData[indexPath.section][indexPath.row]
-        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
+        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name?.capitalizingFirstLetter() ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
         cell.userImgView.pin_updateWithProgress = true
         cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
         return cell

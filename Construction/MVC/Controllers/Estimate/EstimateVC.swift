@@ -43,9 +43,9 @@ class EstimateVC: UIViewController {
     fileprivate func makeSectionIndicesOnFirstLetter() {
         self.estimatesSectionedData.removeAll()
         self.uniqueInitials.removeAll()
-        uniqueInitials = Set(estimates.map({ String($0.projectName!.first! ) })).sorted()
+        uniqueInitials = Set(estimates.map({ String($0.projectName!.capitalized.first! ) })).sorted()
         for initial in uniqueInitials {
-            self.estimatesSectionedData.append(self.estimates.filter({ String($0.projectName!.first! ) == initial }))
+            self.estimatesSectionedData.append(self.estimates.filter({ String($0.projectName!.capitalized.first! ) == initial }))
         }
         self.estimatesTblView.reloadData()
     }
@@ -127,7 +127,7 @@ extension EstimateVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = estimatesTblView.dequeueReusableCell(withIdentifier: Helper.EstimatesCellID, for: indexPath) as! EstimateTVCell
         cell.delegate = self
-        cell.textLabel?.text = estimatesSectionedData[indexPath.section][indexPath.row].projectName ?? ""
+        cell.textLabel?.text = estimatesSectionedData[indexPath.section][indexPath.row].projectName?.capitalizingFirstLetter() ?? ""
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         return cell

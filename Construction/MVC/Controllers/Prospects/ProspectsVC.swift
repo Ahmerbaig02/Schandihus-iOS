@@ -78,9 +78,9 @@ class ProspectsVC: UIViewController {
     fileprivate func makeSectionIndicesOnFirstLetter() {
         self.prospectsSectionedData.removeAll()
         self.uniqueInitials.removeAll()
-        uniqueInitials = Set(prospects.map({ String($0.prospectName!.first!) })).sorted()
+        uniqueInitials = Set(prospects.map({ String($0.prospectName!.capitalized.first!) })).sorted()
         for initial in uniqueInitials {
-            self.prospectsSectionedData.append(self.prospects.filter({ String($0.prospectName!.first!) == initial }))
+            self.prospectsSectionedData.append(self.prospects.filter({ String($0.prospectName!.capitalized.first!) == initial }))
         }
         self.prospectsTblView.reloadData()
     }
@@ -136,7 +136,7 @@ extension ProspectsVC : UITableViewDelegate, UITableViewDataSource {
         let prospect = (self.searchController.isActive == true) ? self.searchedProspects[indexPath.row] : prospectsSectionedData[indexPath.section][indexPath.row]
         cell.tintColor = UIColor.darkGray
         cell.imageView?.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")
-        cell.textLabel?.text = prospect.prospectName ?? ""
+        cell.textLabel?.text = prospect.prospectName?.capitalizingFirstLetter() ?? ""
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         return cell

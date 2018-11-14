@@ -85,8 +85,8 @@ class AddProductVC: UIViewController {
         minRetailPriceTF.text = String(product.minimumRetailPrice ?? 0)
         maxRetailPriceTF.text = String(product.maximumRetailPrice ?? 0)
         markupTF.text = String(product.markup ?? 0)
-        productCostTF.text = String(product.productCost ?? 0)
-        productSalePriceTF.text = String(product.productSalePrice ?? 0)
+        productCostTF.text = String(product.productCost?.getRounded(uptoPlaces: 2) ?? "")
+        productSalePriceTF.text = String(product.productSalePrice?.getRounded(uptoPlaces: 2) ?? "")
     }
     
     fileprivate func validateInputs() {
@@ -125,7 +125,8 @@ class AddProductVC: UIViewController {
             urlStr = "\(Helper.PostProductURL)/\(product!.productId ?? 0)"
             method = .put
         }
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [],"grouped": isGroupedProduct, "parameters": []]) { [weak self] (response: BasicResponse<Int>?, error) in
+        let params: [String: Any] = ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [],"grouped": isGroupedProduct, "parameters": [], "units": product.units ?? 1]
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: urlStr, method: method, headers: nil, encoding: JSONEncoding.default, parameters: params) { [weak self] (response: BasicResponse<Int>?, error) in
             if let err = error {
                 UIViewController.hideLoader()
                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)

@@ -88,9 +88,9 @@ class VendorsVC: UIViewController {
     fileprivate func makeSectionIndicesOnFirstLetter() {
         self.vendorsSectionedData.removeAll()
         self.uniqueInitials.removeAll()
-        uniqueInitials = Set(vendors.map({ String($0.name!.first!) })).sorted()
+        uniqueInitials = Set(vendors.map({ String($0.name!.capitalized.first!) })).sorted()
         for initial in uniqueInitials {
-            self.vendorsSectionedData.append(self.vendors.filter({ String($0.name!.first!) == initial }))
+            self.vendorsSectionedData.append(self.vendors.filter({ String($0.name!.capitalized.first!) == initial }))
         }
         self.vendorsTblView.reloadData()
     }
@@ -142,7 +142,7 @@ extension VendorsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = vendorsTblView.dequeueReusableCell(withIdentifier: Helper.VendorsCellID, for: indexPath)
         let vendor = (self.searchController.isActive == true) ? searchedVendors[indexPath.row] : vendorsSectionedData[indexPath.section][indexPath.row]
-        cell.textLabel?.text = vendor.name ?? ""
+        cell.textLabel?.text = vendor.name?.capitalizingFirstLetter() ?? ""
         cell.tintColor = UIColor.darkGray
         cell.textLabel?.textColor = UIColor.darkGray
         cell.imageView?.image = #imageLiteral(resourceName: "baseline_account_circle_black_24pt")

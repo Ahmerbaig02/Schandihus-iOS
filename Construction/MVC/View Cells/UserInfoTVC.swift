@@ -27,5 +27,6 @@ class UserInfoTVC: UITableViewCell {
         super.layoutSubviews()
         
         userImgView.getRounded(cornerRaius: userImgView.frame.width/2)
+        userImgView.setBorder(width: 0.5, color: UIColor.primaryColor)
     }
 }

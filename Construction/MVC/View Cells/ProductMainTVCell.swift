@@ -10,6 +10,7 @@ import UIKit
 
 class ProductMainTVCell: UITableViewCell {
 
+    @IBOutlet var imageBGView: UIView!
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var userInfoLbl: UILabel!
     
@@ -27,6 +28,8 @@ class ProductMainTVCell: UITableViewCell {
         super.layoutSubviews()
         
         userImgView.getRounded(cornerRaius: userImgView.frame.width/2)
+        imageBGView.getRounded(cornerRaius: imageBGView.frame.width/2)
+        imageBGView.setBorder(width: 0.5, color: UIColor.primaryColor)
     }
     
 }
