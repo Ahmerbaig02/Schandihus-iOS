@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import DropDown
 
 class ProductsVC: UIViewController {
 
@@ -56,11 +57,8 @@ class ProductsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.isGroupedProductsEnabled {
-            self.getGroupedProductListFromManager()
-        } else {
-            getProductListFromManager()
-        }
+        
+        fetchProductData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,6 +74,14 @@ class ProductsVC: UIViewController {
         if let destinationVC = segue.destination as? AddProductVC {
             let grouped = sender as? Bool ?? false
             destinationVC.isGroupedProduct = grouped
+        }
+    }
+    
+    fileprivate func fetchProductData(sortType: String = "asc") {
+        if self.isGroupedProductsEnabled {
+            self.getGroupedProductListFromManager(sortType: sortType)
+        } else {
+            getProductListFromManager(sortType: sortType)
         }
     }
     
@@ -112,9 +118,9 @@ class ProductsVC: UIViewController {
         self.productsTblView.reloadData()
     }
 
-    fileprivate func getProductListFromManager() {
+    fileprivate func getProductListFromManager(sortType: String = "asc") {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProductsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetProductsURL)?sort=\(sortType)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[ProductData]>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)
@@ -131,9 +137,9 @@ class ProductsVC: UIViewController {
         }
     }
     
-    fileprivate func getGroupedProductListFromManager() {
+    fileprivate func getGroupedProductListFromManager(sortType: String = "asc") {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetGroupedProductsURL, method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[GroupedProductData]>?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.GetGroupedProductsURL)&sort=\(sortType)", method: .get, headers: nil, encoding: JSONEncoding.default, parameters: nil) { [weak self] (list: BasicResponse<[GroupedProductData]>?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)
@@ -178,11 +184,24 @@ class ProductsVC: UIViewController {
         }
     }
     
+    @IBAction func sortAction(_ sender: Any) {
+        let dropDown = DropDown()
+        let dict:[String: String] = ["Ascending": "asc", "Descending": "desc"]
+        dropDown.dataSource = ["Ascending", "Descending"]
+        dropDown.anchorView = sender as! UIBarButtonItem
+        dropDown.sizeToFit()
+        dropDown.direction = .any
+        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            guard let self = self else {return}
+            self.fetchProductData(sortType: dict[item] ?? "")
+        }
+        dropDown.show()
+    }
+    
     deinit {
         print("deinit ProductsVC")
     }
-    
-
 }
 
 extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
@@ -204,7 +223,7 @@ extension ProductsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
         let product = (self.searchController.isActive == true) ? self.searchedProducts[indexPath.row] : productsSectionedData[indexPath.section][indexPath.row]
-        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name?.capitalizingFirstLetter() ?? "N/A", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
+        cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name?.capitalizingFirstLetter() ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
         cell.userImgView.pin_updateWithProgress = true
         cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
         return cell

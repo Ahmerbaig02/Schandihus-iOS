@@ -142,7 +142,8 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
         cell.detailTextLabel?.textColor = UIColor.darkGray
-        cell.detailTextLabel?.text = "\(String(products[indexPath.row].minimumRetailPrice ?? 0))€ - \(String(products[indexPath.row].maximumRetailPrice ?? 0))€\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2))€\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"
+        cell.detailTextLabel?.attributedText = getAttributedText(Titles: [product.name?.capitalizingFirstLetter() ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray], seperator: ["\n","\n",""], Spacing: 3, atIndex: 0)
+//        cell.detailTextLabel?.text = "\(String(products[indexPath.row].minimumRetailPrice ?? 0))€ - \(String(products[indexPath.row].maximumRetailPrice ?? 0))€\nCost: \((products[indexPath.row].productCost ?? 0.0).getRounded(uptoPlaces: 2))€\nSale Price: \((self.products[indexPath.row].productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"
         cell.tintColor = UIColor.accentColor
         if selectedProducts.contains(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             cell.imageView?.image = #imageLiteral(resourceName: "baseline_check_circle_outline_black_18pt")

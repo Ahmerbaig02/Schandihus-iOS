@@ -1038,9 +1038,14 @@
                                     <action selector="addProduct:" destination="2Rv-ai-z4h" id="GnU-Zk-iSN"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="baseline_swap_horizontal_circle_black_24pt" id="mHY-Ep-9MY">
+                            <barButtonItem image="baseline_sort_black_24pt" id="mHY-Ep-9MY">
                                 <connections>
-                                    <action selector="switchToGroupedAction:" destination="2Rv-ai-z4h" id="DuF-CD-4nE"/>
+                                    <action selector="sortAction:" destination="2Rv-ai-z4h" id="7Ht-3R-ilf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="baseline_vertical_split_black_24pt" id="5Fj-el-YMB">
+                                <connections>
+                                    <action selector="switchToGroupedAction:" destination="2Rv-ai-z4h" id="kdu-uN-ISY"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -2301,9 +2306,10 @@
         <image name="baseline_restaurant_black_24pt" width="48" height="48"/>
         <image name="baseline_schedule_black_24pt" width="48" height="48"/>
         <image name="baseline_settings_black_18pt" width="36" height="36"/>
+        <image name="baseline_sort_black_24pt" width="48" height="48"/>
         <image name="baseline_speaker_notes_black_18pt" width="36" height="36"/>
         <image name="baseline_star_border_black_24pt" width="48" height="48"/>
-        <image name="baseline_swap_horizontal_circle_black_24pt" width="48" height="48"/>
+        <image name="baseline_vertical_split_black_24pt" width="48" height="48"/>
         <image name="ic_edit" width="48" height="48"/>
         <image name="ic_filter_list_white" width="48" height="48"/>
         <image name="ic_people_white" width="48" height="48"/>

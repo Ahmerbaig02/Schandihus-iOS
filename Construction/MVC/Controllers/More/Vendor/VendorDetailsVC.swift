@@ -40,13 +40,13 @@ class VendorDetailsVC: UIViewController {
     fileprivate func setValues() {
         accountDescripts.removeAll()
         bankDescripts.removeAll()
-        accountDescripts.append(vendor?.vatNumber ?? "Not Added")
-        accountDescripts.append(vendor?.priority ?? "Not Added")
-        accountDescripts.append(vendor?.status ?? "Not Added")
-        accountDescripts.append(vendor?.address ?? "Not Added")
-        bankDescripts.append(vendor?.bankName ?? "Not Added")
-        bankDescripts.append(vendor?.bankAccountNumber ?? "Not Added")
-        bankDescripts.append(vendor?.bankCode ?? "Not Added")
+        accountDescripts.append(vendor?.vatNumber ?? "Not Available")
+        accountDescripts.append(vendor?.priority ?? "Not Available")
+        accountDescripts.append(vendor?.status ?? "Not Available")
+        accountDescripts.append(vendor?.address ?? "Not Available")
+        bankDescripts.append(vendor?.bankName ?? "Not Available")
+        bankDescripts.append(vendor?.bankAccountNumber ?? "Not Available")
+        bankDescripts.append(vendor?.bankCode ?? "Not Available")
         
     }
     
