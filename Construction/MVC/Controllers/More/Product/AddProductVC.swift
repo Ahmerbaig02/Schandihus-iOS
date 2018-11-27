@@ -32,6 +32,17 @@ class AddProductVC: UIViewController {
     var imgURL: URL!
     var productId: Int?
     
+    fileprivate lazy var validator: Validator = {
+        let validator = Validator()
+        validator.registerField(self.userNameTF, rules: [RequiredRule()])
+        validator.registerField(self.minRetailPriceTF, rules: [RequiredRule()])
+        validator.registerField(self.maxRetailPriceTF, rules: [RequiredRule()])
+        validator.registerField(self.markupTF, rules: [RequiredRule()])
+        validator.registerField(self.productCostTF, rules: [RequiredRule()])
+        validator.registerField(self.productSalePriceTF, rules: [RequiredRule()])
+        return validator
+    }()
+    
     var isGroupedProduct: Bool = false
     var shouldUpdatePhoto: Bool = false
     
@@ -39,6 +50,8 @@ class AddProductVC: UIViewController {
         super.viewDidLoad()
         
         self.imgURL = #imageLiteral(resourceName: "baseline_account_circle_black_24pt").getURLFor(filename: "productImage")
+        self.userImgView.isUserInteractionEnabled = true
+        self.userImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageViewTapAction(_:))))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,22 +75,14 @@ class AddProductVC: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.userImgView.getRounded(cornerRaius: userImgView.frame.width/2)
         self.addImageIconView.getRounded(cornerRaius: self.addImageIconView.frame.width/2)
         self.addImageIconView.setBorder(width: 1, color: UIColor.accentColor)
-        self.userImgView.setBorder(width: 1, color: UIColor.accentColor)
+        self.userImgView.setBorder(width: 1, color: UIColor.lightGray)
     }
     
-    fileprivate lazy var validator: Validator = {
-        let validator = Validator()
-        validator.registerField(self.userNameTF, rules: [RequiredRule()])
-        validator.registerField(self.minRetailPriceTF, rules: [RequiredRule()])
-        validator.registerField(self.maxRetailPriceTF, rules: [RequiredRule()])
-        validator.registerField(self.markupTF, rules: [RequiredRule()])
-        validator.registerField(self.productCostTF, rules: [RequiredRule()])
-        validator.registerField(self.productSalePriceTF, rules: [RequiredRule()])
-        return validator
-    }()
+    @objc fileprivate func imageViewTapAction(_ gesture: UITapGestureRecognizer) {
+        self.showImagePickerView()
+    }
     
     fileprivate func setValues() {
         userNameTF.text = product.name ?? ""
@@ -170,14 +175,15 @@ class AddProductVC: UIViewController {
         }
     }
     
-    @IBAction func addUserImage(_ sender: Any) {
+    @objc fileprivate func showImagePickerView() {
         print("pic upload")
         var config = YPImagePickerConfiguration()
         config.library.mediaType = .photo
-        config.showsCrop = .rectangle(ratio: 320.0/320.0)
-        config.onlySquareImagesFromCamera = true
+        let size = getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 375.0/150.0, padding: 0)
+        config.showsCrop = .rectangle(ratio: Double(size.width/size.height))
+        config.onlySquareImagesFromCamera = false
         config.targetImageSize = .original
-        config.usesFrontCamera = true
+        config.usesFrontCamera = false
         config.showsFilters = false
         config.shouldSaveNewPicturesToAlbum = false
         
@@ -198,6 +204,10 @@ class AddProductVC: UIViewController {
             imgPicker.dismiss(animated: true, completion: nil)
         }
         present(imgPicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func addUserImage(_ sender: Any) {
+        showImagePickerView()
     }
     
     @IBAction func submit(_ sender: Any) {

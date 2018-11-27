@@ -37,7 +37,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arsam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cR-Ok-QJO">
-                        <rect key="frame" x="57.5" y="4" width="246.5" height="37.5"/>
+                        <rect key="frame" x="57.5" y="4" width="246.5" height="41.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="fdo-6O-FHN"/>
                         </constraints>
@@ -51,7 +51,7 @@
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="leading" secondItem="P37-kS-5Wo" secondAttribute="trailing" constant="8" id="hs1-ae-0cP"/>
                     <constraint firstAttribute="trailing" secondItem="9cR-Ok-QJO" secondAttribute="trailing" constant="16" id="jsP-kq-FPO"/>
                     <constraint firstItem="P37-kS-5Wo" firstAttribute="top" secondItem="gdw-A6-Upt" secondAttribute="top" constant="4" id="kYZ-7N-Pgy"/>
-                    <constraint firstAttribute="bottom" secondItem="9cR-Ok-QJO" secondAttribute="bottom" constant="8" id="vRW-KF-wn4"/>
+                    <constraint firstAttribute="bottom" secondItem="9cR-Ok-QJO" secondAttribute="bottom" constant="4" id="vRW-KF-wn4"/>
                     <constraint firstItem="P37-kS-5Wo" firstAttribute="leading" secondItem="gdw-A6-Upt" secondAttribute="leading" constant="8" id="yPU-Ie-Vux"/>
                 </constraints>
             </tableViewCellContentView>

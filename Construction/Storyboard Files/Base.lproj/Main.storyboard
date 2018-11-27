@@ -1319,17 +1319,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_account_circle_black_24pt" translatesAutoresizingMaskIntoConstraints="NO" id="Qrm-xd-Nj1">
-                                <rect key="frame" x="147.5" y="20" width="80" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="galleryImage" translatesAutoresizingMaskIntoConstraints="NO" id="Qrm-xd-Nj1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Qrm-xd-Nj1" secondAttribute="height" multiplier="1:1" id="5It-p7-BdJ"/>
-                                    <constraint firstAttribute="height" constant="80" id="Ksa-97-T97"/>
+                                    <constraint firstAttribute="width" secondItem="Qrm-xd-Nj1" secondAttribute="height" multiplier="5:2" id="Rfx-Zf-Qhx"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y50-sg-Kqb">
-                                <rect key="frame" x="201.5" y="70" width="30" height="30"/>
+                                <rect key="frame" x="335" y="112" width="30" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="6y9-lM-zrK"/>
@@ -1342,7 +1341,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJg-Qf-LHA" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                <rect key="frame" x="15" y="120" width="345" height="48"/>
+                                <rect key="frame" x="15" y="158" width="345" height="48"/>
                                 <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1351,9 +1350,10 @@
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GaF-Rz-E07">
-                                <rect key="frame" x="15" y="178" width="345" height="100"/>
+                                <rect key="frame" x="15" y="216" width="345" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Fdv-oX-hDN"/>
                                     <constraint firstAttribute="width" secondItem="GaF-Rz-E07" secondAttribute="height" multiplier="69:20" id="f6T-pV-UrE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1363,10 +1363,10 @@
                                 </connections>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Bdb-1F-eoS">
-                                <rect key="frame" x="15" y="288" width="345" height="247.5"/>
+                                <rect key="frame" x="15" y="326" width="345" height="212"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Minimum Retail Price (€)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-XV-QVd" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="40.5"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1375,7 +1375,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Maximum Retail Price (€)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-AT-cvu" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="42.5" width="345" height="41"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1384,7 +1384,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Markup" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmr-K7-mHD" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="100" width="345" height="47.5"/>
+                                        <rect key="frame" x="0.0" y="85.5" width="345" height="41"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1393,7 +1393,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Cost" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T3L-pA-xq8" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149.5" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="128.5" width="345" height="40.5"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1402,7 +1402,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Sale Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Bo-5c-qZI" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="199.5" width="345" height="48"/>
+                                        <rect key="frame" x="0.0" y="171" width="345" height="41"/>
                                         <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1411,11 +1411,6 @@
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="Fly-XV-QVd" firstAttribute="width" secondItem="Fly-XV-QVd" secondAttribute="height" multiplier="36:5" id="3Qo-fI-BLT"/>
-                                    <constraint firstItem="Dmr-K7-mHD" firstAttribute="width" secondItem="Dmr-K7-mHD" secondAttribute="height" multiplier="36:5" id="hdN-qS-tqd"/>
-                                    <constraint firstItem="5Jj-AT-cvu" firstAttribute="width" secondItem="5Jj-AT-cvu" secondAttribute="height" multiplier="36:5" id="sOx-WL-PrR"/>
-                                </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98d-RO-rCQ">
                                 <rect key="frame" x="8" y="550" width="359" height="45"/>
@@ -1438,11 +1433,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gJg-Qf-LHA" firstAttribute="top" secondItem="Qrm-xd-Nj1" secondAttribute="bottom" constant="20" id="35U-W8-E0q"/>
+                            <constraint firstItem="Qrm-xd-Nj1" firstAttribute="leading" secondItem="mx1-2D-lL7" secondAttribute="leading" id="16A-IH-pLB"/>
+                            <constraint firstItem="gJg-Qf-LHA" firstAttribute="top" secondItem="Qrm-xd-Nj1" secondAttribute="bottom" constant="8" id="35U-W8-E0q"/>
                             <constraint firstItem="GaF-Rz-E07" firstAttribute="leading" secondItem="mx1-2D-lL7" secondAttribute="leading" constant="15" id="8ig-ga-qOH"/>
-                            <constraint firstItem="Qrm-xd-Nj1" firstAttribute="top" secondItem="mx1-2D-lL7" secondAttribute="top" constant="20" id="Bh8-Dh-Iis"/>
+                            <constraint firstItem="Qrm-xd-Nj1" firstAttribute="top" secondItem="mx1-2D-lL7" secondAttribute="top" id="Bh8-Dh-Iis"/>
                             <constraint firstItem="Bdb-1F-eoS" firstAttribute="top" secondItem="GaF-Rz-E07" secondAttribute="bottom" constant="10" id="HQz-eR-nBN"/>
-                            <constraint firstItem="98d-RO-rCQ" firstAttribute="bottom" secondItem="mx1-2D-lL7" secondAttribute="bottom" constant="-8" id="KDd-2a-e93"/>
+                            <constraint firstItem="98d-RO-rCQ" firstAttribute="top" secondItem="Bdb-1F-eoS" secondAttribute="bottom" constant="12" id="Kip-BG-mke"/>
+                            <constraint firstAttribute="bottom" secondItem="98d-RO-rCQ" secondAttribute="bottom" constant="8" id="RB4-C2-78V"/>
                             <constraint firstItem="gJg-Qf-LHA" firstAttribute="width" secondItem="gJg-Qf-LHA" secondAttribute="height" multiplier="36:5" id="XcJ-wq-tlJ"/>
                             <constraint firstItem="gJg-Qf-LHA" firstAttribute="leading" secondItem="yz9-KQ-qjd" secondAttribute="leading" constant="15" id="Y0n-P0-kkf"/>
                             <constraint firstItem="mx1-2D-lL7" firstAttribute="trailing" secondItem="98d-RO-rCQ" secondAttribute="trailing" constant="8" id="ZyL-Wd-Jec"/>
@@ -1451,10 +1448,10 @@
                             <constraint firstItem="Bdb-1F-eoS" firstAttribute="leading" secondItem="mx1-2D-lL7" secondAttribute="leading" constant="15" id="lmD-9V-4fD"/>
                             <constraint firstItem="mx1-2D-lL7" firstAttribute="trailing" secondItem="Bdb-1F-eoS" secondAttribute="trailing" constant="15" id="lsd-Me-XFH"/>
                             <constraint firstItem="GaF-Rz-E07" firstAttribute="top" secondItem="gJg-Qf-LHA" secondAttribute="bottom" constant="10" id="mrS-xc-c70"/>
+                            <constraint firstItem="mx1-2D-lL7" firstAttribute="trailing" secondItem="Qrm-xd-Nj1" secondAttribute="trailing" id="r9K-Vj-KYl"/>
                             <constraint firstItem="mx1-2D-lL7" firstAttribute="trailing" secondItem="gJg-Qf-LHA" secondAttribute="trailing" constant="15" id="uZJ-op-dt9"/>
-                            <constraint firstItem="Qrm-xd-Nj1" firstAttribute="centerX" secondItem="yz9-KQ-qjd" secondAttribute="centerX" id="uyc-cU-2b0"/>
-                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="leading" secondItem="Qrm-xd-Nj1" secondAttribute="trailing" constant="-26" id="xF2-GW-ccW"/>
-                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="bottom" secondItem="Qrm-xd-Nj1" secondAttribute="bottom" id="xjJ-02-xzg"/>
+                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="leading" secondItem="Qrm-xd-Nj1" secondAttribute="trailing" constant="-40" id="xF2-GW-ccW"/>
+                            <constraint firstItem="Y50-sg-Kqb" firstAttribute="bottom" secondItem="Qrm-xd-Nj1" secondAttribute="bottom" constant="-8" id="xjJ-02-xzg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mx1-2D-lL7"/>
                     </view>
@@ -1984,44 +1981,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E7u-wA-1Xn">
-                                <rect key="frame" x="15" y="15" width="345" height="271.5"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4OX-RG-3az">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-FL-arO" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Vendor Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g27-j1-SPy" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="345" height="48"/>
-                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7Y-WJ-nqN" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="112" width="345" height="48"/>
-                                        <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Units" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-cb-tvE" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="168" width="345" height="47.5"/>
-                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="223.5" width="345" height="48"/>
-                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="E7u-wA-1Xn">
+                                        <rect key="frame" x="15" y="15" width="375" height="401"/>
+                                        <subviews>
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3n-zf-OPo" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="b3n-zf-OPo" secondAttribute="height" multiplier="115:16" id="SFC-hM-y8K"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-FL-arO" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="64" width="375" height="52.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Agu-FL-arO" secondAttribute="height" multiplier="115:16" id="Hic-24-6zH"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-FP-wyS">
+                                                <rect key="frame" x="0.0" y="128.5" width="375" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Vendor Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g27-j1-SPy" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="156.5" width="375" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="g27-j1-SPy" secondAttribute="height" multiplier="115:16" id="NGU-10-hGS"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Vendor Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7Y-WJ-nqN" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="220.5" width="375" height="52"/>
+                                                <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Units" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-cb-tvE" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="284.5" width="375" height="52.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Owh-cb-tvE" secondAttribute="height" multiplier="115:16" id="eY0-oI-vCT"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expected Delivery Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-Ta-qHf" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="349" width="375" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="mMm-Ta-qHf" secondAttribute="height" multiplier="115:16" id="ncD-q2-H7g"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="t7Y-WJ-nqN" firstAttribute="width" secondItem="t7Y-WJ-nqN" secondAttribute="height" multiplier="36:5" id="Wr7-MY-vuq"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="t7Y-WJ-nqN" firstAttribute="width" secondItem="t7Y-WJ-nqN" secondAttribute="height" multiplier="36:5" id="Wr7-MY-vuq"/>
+                                    <constraint firstItem="E7u-wA-1Xn" firstAttribute="leading" secondItem="4OX-RG-3az" secondAttribute="leading" constant="15" id="8DT-hk-Myb"/>
+                                    <constraint firstItem="E7u-wA-1Xn" firstAttribute="width" secondItem="4OX-RG-3az" secondAttribute="width" id="Lfa-nL-fny"/>
+                                    <constraint firstItem="E7u-wA-1Xn" firstAttribute="height" secondItem="4OX-RG-3az" secondAttribute="height" priority="250" id="M9s-0y-7gL"/>
+                                    <constraint firstItem="E7u-wA-1Xn" firstAttribute="top" secondItem="4OX-RG-3az" secondAttribute="top" constant="15" id="gJB-Zn-mLP"/>
+                                    <constraint firstItem="E7u-wA-1Xn" firstAttribute="right" secondItem="4OX-RG-3az" secondAttribute="right" constant="15" id="mgI-BT-9yT"/>
+                                    <constraint firstAttribute="bottom" secondItem="E7u-wA-1Xn" secondAttribute="bottom" constant="15" id="qoM-Jc-anO"/>
                                 </constraints>
-                            </stackView>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30U-Uj-SVm">
                                 <rect key="frame" x="8" y="550" width="359" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2041,31 +2078,24 @@
                                     <action selector="submitAction:" destination="YaS-Cp-SB4" eventType="touchUpInside" id="sKI-iv-dK0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-FP-wyS">
-                                <rect key="frame" x="15" y="294.5" width="345" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Vhz-4D-F4E" firstAttribute="trailing" secondItem="Dz8-FP-wyS" secondAttribute="trailing" constant="15" id="Ake-bw-SoP"/>
-                            <constraint firstItem="Vhz-4D-F4E" firstAttribute="trailing" secondItem="E7u-wA-1Xn" secondAttribute="trailing" constant="15" id="Ifa-Pa-nCY"/>
-                            <constraint firstItem="E7u-wA-1Xn" firstAttribute="top" secondItem="Vhz-4D-F4E" secondAttribute="top" constant="15" id="OWS-CN-aT0"/>
                             <constraint firstItem="30U-Uj-SVm" firstAttribute="leading" secondItem="Vhz-4D-F4E" secondAttribute="leading" constant="8" id="QyU-UD-UF6"/>
-                            <constraint firstItem="Dz8-FP-wyS" firstAttribute="leading" secondItem="Vhz-4D-F4E" secondAttribute="leading" constant="15" id="U9j-65-q5s"/>
+                            <constraint firstItem="4OX-RG-3az" firstAttribute="top" secondItem="yPE-Kz-can" secondAttribute="top" id="UG8-I5-ITI"/>
+                            <constraint firstItem="4OX-RG-3az" firstAttribute="leading" secondItem="yPE-Kz-can" secondAttribute="leading" id="clg-JB-pqw"/>
+                            <constraint firstItem="30U-Uj-SVm" firstAttribute="top" secondItem="4OX-RG-3az" secondAttribute="bottom" constant="8" id="ex8-CL-V0c"/>
                             <constraint firstItem="30U-Uj-SVm" firstAttribute="bottom" secondItem="Vhz-4D-F4E" secondAttribute="bottom" constant="-8" id="mKf-lM-sL0"/>
-                            <constraint firstItem="Dz8-FP-wyS" firstAttribute="top" secondItem="E7u-wA-1Xn" secondAttribute="bottom" constant="8" id="tdL-G7-tBH"/>
+                            <constraint firstAttribute="trailing" secondItem="4OX-RG-3az" secondAttribute="trailing" id="pb1-4f-Wbu"/>
                             <constraint firstAttribute="trailing" secondItem="30U-Uj-SVm" secondAttribute="trailing" constant="8" id="wCI-Xf-7du"/>
-                            <constraint firstItem="E7u-wA-1Xn" firstAttribute="leading" secondItem="yPE-Kz-can" secondAttribute="leading" constant="15" id="zqC-7V-hLT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vhz-4D-F4E"/>
                     </view>
                     <connections>
-                        <outlet property="expectedPriceLbl" destination="Dz8-FP-wyS" id="CnB-DX-nOB"/>
                         <outlet property="expectedTimeTF" destination="mMm-Ta-qHf" id="SHX-gd-gQC"/>
+                        <outlet property="prductDescriptionLbl" destination="Dz8-FP-wyS" id="xzL-Ii-kSo"/>
                         <outlet property="priceTF" destination="t7Y-WJ-nqN" id="Kuk-cL-Kaa"/>
+                        <outlet property="productCodeTF" destination="b3n-zf-OPo" id="6nQ-Tv-zrR"/>
                         <outlet property="productNameTF" destination="Agu-FL-arO" id="kvG-5v-dXC"/>
                         <outlet property="unitsTF" destination="Owh-cb-tvE" id="wof-4I-0PG"/>
                         <outlet property="vendorNameTF" destination="g27-j1-SPy" id="xw6-e6-FRf"/>
@@ -2310,6 +2340,7 @@
         <image name="baseline_speaker_notes_black_18pt" width="36" height="36"/>
         <image name="baseline_star_border_black_24pt" width="48" height="48"/>
         <image name="baseline_vertical_split_black_24pt" width="48" height="48"/>
+        <image name="galleryImage" width="710" height="398"/>
         <image name="ic_edit" width="48" height="48"/>
         <image name="ic_filter_list_white" width="48" height="48"/>
         <image name="ic_people_white" width="48" height="48"/>
@@ -2320,7 +2351,7 @@
         <segue reference="kFE-wI-pX8"/>
         <segue reference="HcN-66-Gxy"/>
         <segue reference="pCf-Si-tbB"/>
-        <segue reference="GI9-S1-f3E"/>
+        <segue reference="iGc-li-Sil"/>
         <segue reference="KMp-1t-zkK"/>
         <segue reference="wRj-Fg-3YX"/>
         <segue reference="aJg-s0-x5T"/>

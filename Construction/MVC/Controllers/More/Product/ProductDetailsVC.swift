@@ -12,7 +12,7 @@ import Alamofire
 import PINRemoteImage
 
 class ProductDetailsVC: UIViewController {
-
+    
     @IBOutlet weak var productDetailsTblView: UITableView!
     @IBOutlet weak var vendorsBtn: UIButton!
     @IBOutlet weak var addBtn: UIBarButtonItem!
@@ -49,7 +49,7 @@ class ProductDetailsVC: UIViewController {
         self.productDetailsTblView.dataSource = self
         self.configureCell()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -113,7 +113,7 @@ class ProductDetailsVC: UIViewController {
     
     func configureCell() {
         self.productDetailsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
-        let cellNib = UINib.init(nibName: "UserInfoTVC", bundle: nil)
+        let cellNib = UINib.init(nibName: "ProductInfoTVCell", bundle: nil)
         productDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
     
@@ -233,7 +233,7 @@ class ProductDetailsVC: UIViewController {
     deinit {
         print("deinit ProductDetailsVC")
     }
-
+    
 }
 
 extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
@@ -247,11 +247,11 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            if let price = self.product.suggestedVendorPrice, price > 0.0 {
-                return 3
-            }
             return 2
         } else if section == 1 {
+            if let price = self.product.suggestedVendorPrice, price > 0.0 {
+                return 2
+            }
             return 1
         } else if section == 2 {
             return paramTitles.count
@@ -262,42 +262,43 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Product Info"
+            return nil
         } else if section == 1 {
             return "Description"
         } else if section == 2 {
             return "Parameters"
         } else {
-            return "Grouped Products"
+            return "Add Individual Products"
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! UserInfoTVC
-                cell.userImgView.pin_updateWithProgress = true
-                cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! ProductInfoTVCell
+                cell.productImageView.pin_updateWithProgress = true
+                cell.productImageView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
                 
-                cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€ ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
-                return cell
-            } else if indexPath.row == 1 {
-                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
-                cell.textLabel?.textColor = UIColor.primaryColor
-                cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-                cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-                cell.textLabel?.text = "Expected Delivery Time"
-                cell.detailTextLabel?.text = product.expectedDeliveryTime ?? "Not Available"
+                cell.infoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Minimum Retail Price: \(product.minimumRetailPrice ?? 0)€", "Maximum Retail Price: \(product.maximumRetailPrice ?? 0)€ ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
                 return cell
             }
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             cell.textLabel?.textColor = UIColor.primaryColor
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
-            cell.textLabel?.text = "Suggested Price by Vendor"
-            cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? ""
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
+            cell.textLabel?.text = "Expected Delivery Time"
+            cell.detailTextLabel?.text = product.expectedDeliveryTime ?? "Not Available"
             return cell
         } else if indexPath.section == 1 {
+            if indexPath.row == 1 {
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
+                cell.textLabel?.textColor = UIColor.primaryColor
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
+                cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
+                cell.textLabel?.text = "Suggested Price by Vendor"
+                cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? ""
+                return cell
+            }
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
@@ -328,7 +329,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             }
             let product = self.grouped[indexPath.row]
             cell.userInfoLbl.numberOfLines = 0
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€", "Quantity: \(product.quantity ?? 0)"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["\n","\n","\n",""], Spacing: 3, atIndex: 0)
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€", "Quantity: \(product.quantity ?? 0)"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["\n","\n","",""], Spacing: 3, atIndex: 0)
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
             return cell
@@ -343,13 +344,20 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                     hView.addSubview(addBtn)
                     addBtn.anchor(hView.topAnchor, left: nil, bottom: hView.bottomAnchor, right: hView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 0)
                 } else {
-                    addBtn.removeFromSuperview()
+//                    addBtn.removeFromSuperview()
                 }
             }
             hView.contentView.backgroundColor = UIColor.groupTableViewBackground.withAlphaComponent(0.8)
             hView.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
             hView.textLabel?.textColor = UIColor.primaryColor
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

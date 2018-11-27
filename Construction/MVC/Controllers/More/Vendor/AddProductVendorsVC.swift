@@ -12,8 +12,9 @@ import Alamofire
 
 class AddProductVendorsVC: UIViewController {
     
-    @IBOutlet var expectedPriceLbl: UILabel!
+    @IBOutlet var prductDescriptionLbl: UILabel!
     @IBOutlet weak var productNameTF: ConstructionTextField!
+    @IBOutlet weak var productCodeTF: ConstructionTextField!
     @IBOutlet weak var vendorNameTF: ConstructionTextField!
     @IBOutlet weak var priceTF: ConstructionTextField!
     @IBOutlet weak var expectedTimeTF: ConstructionTextField!
@@ -32,15 +33,11 @@ class AddProductVendorsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let price = product.suggestedVendorPrice, price > 0.0 {
-            self.expectedPriceLbl.text = "Suggested Price by Vendor: \(price.getRounded(uptoPlaces: 2))€"
-            self.expectedPriceLbl.isHidden = false
-        } else {
-            self.expectedPriceLbl.isHidden = true
-        }
-        
-        self.productNameTF.text = product.name ?? ""
-        self.vendorNameTF.text = vendor.name ?? ""
+        self.prductDescriptionLbl.attributedText = getAttributedText(Titles: ["DESCRIPTION", product.description ?? "No Description"], Font: [UIFont.systemFont(ofSize: 9), UIFont.systemFont(ofSize: 13)], Colors: [UIColor.gray, UIColor.primaryColor], seperator: ["\n",""], Spacing: 3, atIndex: 0, alignment: .left)
+        self.prductDescriptionLbl.sizeToFit()
+        self.productNameTF.text = product.name ?? "-"
+        self.vendorNameTF.text = vendor.name ?? "-"
+        self.productCodeTF.text = "\(product.productId ?? 0)"
         self.unitsTF.text = "1"
         self.productNameTF.isUserInteractionEnabled = false
         self.vendorNameTF.isUserInteractionEnabled = false
