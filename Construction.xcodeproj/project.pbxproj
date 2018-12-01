@@ -58,6 +58,7 @@
 		87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A44F7121654EC5008D043F /* NotesTVCell.xib */; };
 		87A44F7521655A70008D043F /* AddNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F7421655A70008D043F /* AddNotesVC.swift */; };
 		87A44F772166BAE9008D043F /* AddEstimateFieldsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */; };
+		87D136F321B2B7B90057E30A /* RightDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D136F221B2B7B90057E30A /* RightDetailedTableViewCell.swift */; };
 		CA1B819821674C9500493B55 /* RelativeProbabilitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819721674C9500493B55 /* RelativeProbabilitiesVC.swift */; };
 		CA1B819A21674CB100493B55 /* DashboardEstimateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819921674CB100493B55 /* DashboardEstimateVC.swift */; };
 		CA1B819C21674CC300493B55 /* ForcastedVolumesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B819B21674CC300493B55 /* ForcastedVolumesVC.swift */; };
@@ -147,6 +148,7 @@
 		87A44F7121654EC5008D043F /* NotesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTVCell.xib; sourceTree = "<group>"; };
 		87A44F7421655A70008D043F /* AddNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesVC.swift; sourceTree = "<group>"; };
 		87A44F762166BAE9008D043F /* AddEstimateFieldsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEstimateFieldsCell.swift; sourceTree = "<group>"; };
+		87D136F221B2B7B90057E30A /* RightDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightDetailedTableViewCell.swift; sourceTree = "<group>"; };
 		A0DD9B1E0D356ED4D7D7279A /* Pods_ConstructionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConstructionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA74A6D9283DFCCBDE33DFF0 /* Pods_Construction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Construction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1B819721674C9500493B55 /* RelativeProbabilitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeProbabilitiesVC.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				8778687A217FB2AA000F38B2 /* AddEstimateProductTVCell.xib */,
 				872811F621ADBF120012D803 /* ProductInfoTVCell.swift */,
 				872811F721ADBF120012D803 /* ProductInfoTVCell.xib */,
+				87D136F221B2B7B90057E30A /* RightDetailedTableViewCell.swift */,
 			);
 			path = "View Cells";
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				42CC6BE62127483300B06418 /* AppDelegate.swift in Sources */,
 				42CC6C1F21276F1500B06418 /* Helper.swift in Sources */,
 				42FEE8C72129F2D50013022B /* VendorDetailsVC.swift in Sources */,
+				87D136F321B2B7B90057E30A /* RightDetailedTableViewCell.swift in Sources */,
 				CA991171212A9EF60091AB7D /* Extensions.swift in Sources */,
 				42D1EB40213DBA19009D4B0B /* AddProductsToVendor.swift in Sources */,
 				42D66B48213C30B800684CF4 /* AddProspectVC.swift in Sources */,

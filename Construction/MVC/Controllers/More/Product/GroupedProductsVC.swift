@@ -75,7 +75,7 @@ class GroupedProductsVC: UIViewController {
     
     fileprivate func postGroupedProductsFromManager(productIds: [[String:Any]]) {
         UIViewController.showLoader(text: "Please Wait...")
-        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetGroupedProductsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId! , "groupedProducts": productIds]) { [weak self] (response: BaseResponse?, error) in
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProductGroupedProductsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId! , "groupedProducts": productIds]) { [weak self] (response: BaseResponse?, error) in
             UIViewController.hideLoader()
             if let err = error {
                 print(err)
@@ -85,11 +85,7 @@ class GroupedProductsVC: UIViewController {
                 print("Posted Grouped Products")
                 self?.navigationController?.popViewController(animated: true)
             } else {
-                if productIds.count == 0 {
-                    self!.showBanner(title: "Select a product first!", style: .info)
-                } else {
-                 self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
-                }
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
                 print("Error fetching data")
             }
         }
@@ -116,7 +112,11 @@ class GroupedProductsVC: UIViewController {
             delegate?.GroupedProducts(controller: self, products: selectedProducts)
             return
         }
-        let productIds = self.selectedProducts.map( { ["groupedProductId": $0.productId!, "quantity": $0.quantity!] })
+        let productIds = self.selectedProducts.map( { ["groupedProductId": $0.productId!, "quantity": $0.quantity ?? 1] })
+        if productIds.count == 0 {
+            self.showBanner(title: "Select a product first!", style: .info)
+            return
+        }
         postGroupedProductsFromManager(productIds: productIds)
     }
     
@@ -174,12 +174,12 @@ extension GroupedProductsVC : UITableViewDelegate, UITableViewDataSource {
         if let index = selectedProducts.index(where: { $0.productId == self.productsSectionedData[indexPath.section][indexPath.row].productId }) {
             selectedProducts.remove(at: index)
         } else {
-//            if self.delegate == nil {
-//                selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
-//            } else {
-//                self.showAlertForQuantity(indexPath: indexPath)
-//            }
-            self.showAlertForQuantity(indexPath: indexPath)
+            if self.delegate == nil {
+                selectedProducts.append(self.productsSectionedData[indexPath.section][indexPath.row])
+            } else {
+                self.showAlertForQuantity(indexPath: indexPath)
+            }
+//            self.showAlertForQuantity(indexPath: indexPath)
         }
         self.groupedProductsTblView.reloadData()
     }

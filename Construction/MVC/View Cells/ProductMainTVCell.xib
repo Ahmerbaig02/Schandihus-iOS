@@ -37,26 +37,52 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arsam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cR-Ok-QJO">
-                        <rect key="frame" x="57.5" y="4" width="246.5" height="41.5"/>
+                        <rect key="frame" x="57.5" y="4" width="41.5" height="41.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="fdo-6O-FHN"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="taj-MW-MXm">
+                        <rect key="frame" x="225.5" y="10" width="86.5" height="30"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dp8-Gj-Zej">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Dp8-Gj-Zej" secondAttribute="height" multiplier="5:3" id="c3l-f3-oeo"/>
+                                    <constraint firstAttribute="height" constant="30" id="mpk-Iy-ykl"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y48-RO-Ujd">
+                                <rect key="frame" x="58" y="0.0" width="28.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="P37-kS-5Wo" secondAttribute="bottom" constant="4" id="7B8-lv-ZlJ"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="top" secondItem="P37-kS-5Wo" secondAttribute="top" id="Zwy-Ra-ltg"/>
+                    <constraint firstItem="taj-MW-MXm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9cR-Ok-QJO" secondAttribute="trailing" constant="8" id="blX-Xx-hbJ"/>
                     <constraint firstItem="9cR-Ok-QJO" firstAttribute="leading" secondItem="P37-kS-5Wo" secondAttribute="trailing" constant="8" id="hs1-ae-0cP"/>
-                    <constraint firstAttribute="trailing" secondItem="9cR-Ok-QJO" secondAttribute="trailing" constant="16" id="jsP-kq-FPO"/>
+                    <constraint firstItem="taj-MW-MXm" firstAttribute="centerY" secondItem="gdw-A6-Upt" secondAttribute="centerY" id="jHv-zu-AU8"/>
                     <constraint firstItem="P37-kS-5Wo" firstAttribute="top" secondItem="gdw-A6-Upt" secondAttribute="top" constant="4" id="kYZ-7N-Pgy"/>
+                    <constraint firstAttribute="trailing" secondItem="taj-MW-MXm" secondAttribute="trailing" constant="8" id="lFp-TT-y4S"/>
                     <constraint firstAttribute="bottom" secondItem="9cR-Ok-QJO" secondAttribute="bottom" constant="4" id="vRW-KF-wn4"/>
                     <constraint firstItem="P37-kS-5Wo" firstAttribute="leading" secondItem="gdw-A6-Upt" secondAttribute="leading" constant="8" id="yPU-Ie-Vux"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="amountLbl" destination="y48-RO-Ujd" id="axr-QB-nIx"/>
                 <outlet property="imageBGView" destination="P37-kS-5Wo" id="8zT-8D-c7Q"/>
+                <outlet property="quantityTextField" destination="Dp8-Gj-Zej" id="ZuH-P3-z3h"/>
                 <outlet property="userImgView" destination="RFj-3R-5mT" id="1No-Zj-LCQ"/>
                 <outlet property="userInfoLbl" destination="9cR-Ok-QJO" id="srh-Xz-Fcj"/>
             </connections>

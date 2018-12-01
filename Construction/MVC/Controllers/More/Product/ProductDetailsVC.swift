@@ -42,6 +42,8 @@ class ProductDetailsVC: UIViewController {
         return button
     }()
     
+    fileprivate var selectedGroupedProductIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,6 +115,7 @@ class ProductDetailsVC: UIViewController {
     
     func configureCell() {
         self.productDetailsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
+        self.productDetailsTblView.register(RightDetailedTableViewCell.self, forCellReuseIdentifier: "RightDetailedTableViewCell")
         let cellNib = UINib.init(nibName: "ProductInfoTVCell", bundle: nil)
         productDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
@@ -210,6 +213,23 @@ class ProductDetailsVC: UIViewController {
         }
     }
     
+    fileprivate func postGroupedProductsFromManager(productIds: [[String:Any]]) {
+        UIViewController.showLoader(text: "Please Wait...")
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: Helper.GetProductGroupedProductsURL, method: .post, headers: nil, encoding: JSONEncoding.default, parameters: ["productId": product.productId! , "groupedProducts": productIds]) { [weak self] (response: BaseResponse?, error) in
+            UIViewController.hideLoader()
+            if let err = error {
+                print(err)
+                return
+            }
+            if response?.success == true {
+                print("Posted Grouped Products")
+                self?.getGroupedProductsFromManager()
+            } else {
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
     
     @IBAction func showProductVendorsAction(_ sender: Any) {
         performSegue(withIdentifier: Helper.ProductVendorsSegueID, sender: nil)
@@ -256,7 +276,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
         } else if section == 2 {
             return paramTitles.count
         } else {
-            return groupedProducts.count
+            return groupedProducts.count + 1
         }
     }
     
@@ -276,6 +296,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.UserInfoCellID, for: indexPath) as! ProductInfoTVCell
+                cell.backgroundColor = UIColor.white
                 cell.productImageView.pin_updateWithProgress = true
                 cell.productImageView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
                 
@@ -283,6 +304,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
+            cell.backgroundColor = UIColor.white
             cell.textLabel?.textColor = UIColor.primaryColor
             cell.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
@@ -297,9 +319,11 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                 cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
                 cell.textLabel?.text = "Suggested Price by Vendor"
                 cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? ""
+                cell.backgroundColor = UIColor.white
                 return cell
             }
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
+            cell.backgroundColor = UIColor.white
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.textColor = (product.description == nil) ? UIColor.gray : UIColor.black
@@ -312,6 +336,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.textLabel?.textColor = UIColor.primaryColor
             }
+            cell.backgroundColor = UIColor.white
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.medium)
             cell.textLabel?.text = paramTitles[indexPath.row]
@@ -319,7 +344,23 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
+            if indexPath.row == self.grouped.count {
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: "RightDetailedTableViewCell", for: indexPath) as! RightDetailedTableViewCell
+                cell.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+                cell.titleLbl.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
+                cell.titleLbl.text = "Total Cost"
+                cell.titleLbl.textColor = UIColor.primaryColor
+                
+                let cost = self.grouped.reduce(0) { (res, product) -> Int in
+                    return res + ((product.quantity ?? 1) * (product.minimumRetailPrice ?? 0))
+                }
+                cell.infoLbl.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
+                cell.infoLbl.text = "\(cost)€"
+                cell.infoLbl.textColor = UIColor.primaryColor
+                return cell
+            }
             let cell = tableView.dequeueReusableCell(withIdentifier: Helper.ProductsCellID, for: indexPath) as! ProductMainTVCell
+            cell.backgroundColor = UIColor.white
             if self.grouped.count == 0 {
                 let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
@@ -329,9 +370,19 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             }
             let product = self.grouped[indexPath.row]
             cell.userInfoLbl.numberOfLines = 0
-            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€", "Quantity: \(product.quantity ?? 0)"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["\n","\n","",""], Spacing: 3, atIndex: 0)
+            cell.backgroundColor = UIColor.white
+            cell.userInfoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "\(product.minimumRetailPrice ?? 0)€ - \(product.maximumRetailPrice ?? 0)€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.gray, UIColor.gray, UIColor.gray], seperator: ["\n","\n","",""], Spacing: 3, atIndex: 0)
             cell.userImgView.pin_updateWithProgress = true
             cell.userImgView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
+            
+            cell.amountLbl.text = "\((product.minimumRetailPrice ?? 0) * (product.quantity ?? 0))€"
+            cell.amountLbl.isHidden = false
+            
+            cell.quantityTextField.delegate = self
+            cell.quantityTextField.tag = indexPath.row
+            cell.quantityTextField.text = "\(product.quantity ?? 0)"
+            cell.quantityTextField.isHidden = false
+            
             return cell
         }
     }
@@ -390,4 +441,22 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     
+}
+
+
+extension ProductDetailsVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.selectedGroupedProductIndex = textField.tag
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.grouped[selectedGroupedProductIndex!].quantity = (textField.text as NSString?)?.integerValue ?? 1
+        self.selectedGroupedProductIndex = nil
+        let productIds = self.grouped.map( { ["groupedProductId": $0.productId!, "quantity": $0.quantity ?? 1] })
+        self.postGroupedProductsFromManager(productIds: productIds)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
 }

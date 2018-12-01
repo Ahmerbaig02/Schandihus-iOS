@@ -10,6 +10,8 @@ import UIKit
 
 class ProductMainTVCell: UITableViewCell {
 
+    @IBOutlet var amountLbl: UILabel!
+    @IBOutlet var quantityTextField: UITextField!
     @IBOutlet var imageBGView: UIView!
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var userInfoLbl: UILabel!
@@ -22,6 +24,11 @@ class ProductMainTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.amountLbl.textColor = UIColor.primaryColor
+        self.quantityTextField.placeholder = "Quantity"
+        self.amountLbl.isHidden = true
+        self.quantityTextField.isHidden = true
     }
     
     override func layoutSubviews() {
