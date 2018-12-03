@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="KGk-i7-Jjw" customClass="SingleProductCountTVCell" customModule="Construction" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pmC-Eh-VYI" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
+                        <rect key="frame" x="66.5" y="0.0" width="218.5" height="39.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="39.5" id="fs8-1D-DDI"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBU-S1-fm8">
+                        <rect key="frame" x="16" y="23.5" width="38.5" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="FWh-az-0Gc"/>
+                            <constraint firstAttribute="width" constant="38.5" id="fzp-uJ-4nI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pcs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcN-Ao-yIC">
+                        <rect key="frame" x="287" y="24.5" width="21" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="21" id="2K1-x4-ePO"/>
+                            <constraint firstAttribute="height" constant="15" id="Y62-2D-UAU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantified as unit/box of item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgi-FD-7HD">
+                        <rect key="frame" x="66.5" y="43.5" width="218.5" height="23"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="pmC-Eh-VYI" firstAttribute="leading" secondItem="sBU-S1-fm8" secondAttribute="trailing" constant="12" id="1h3-ri-z91"/>
+                    <constraint firstItem="pgi-FD-7HD" firstAttribute="leading" secondItem="pmC-Eh-VYI" secondAttribute="leading" id="33H-1J-FfT"/>
+                    <constraint firstItem="sBU-S1-fm8" firstAttribute="bottom" secondItem="pmC-Eh-VYI" secondAttribute="bottom" id="7xm-NV-pe6"/>
+                    <constraint firstItem="pgi-FD-7HD" firstAttribute="top" secondItem="pmC-Eh-VYI" secondAttribute="bottom" constant="4" id="8Q4-IT-pvJ"/>
+                    <constraint firstItem="pmC-Eh-VYI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Jlh-fV-mwe"/>
+                    <constraint firstAttribute="trailing" secondItem="YcN-Ao-yIC" secondAttribute="trailing" constant="12" id="Kj1-PF-ACF"/>
+                    <constraint firstItem="sBU-S1-fm8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="eqP-3u-CaL"/>
+                    <constraint firstItem="YcN-Ao-yIC" firstAttribute="bottom" secondItem="pmC-Eh-VYI" secondAttribute="bottom" id="fPa-5u-US3"/>
+                    <constraint firstItem="YcN-Ao-yIC" firstAttribute="leading" secondItem="pmC-Eh-VYI" secondAttribute="trailing" constant="2" id="lze-hk-XSP"/>
+                    <constraint firstItem="pgi-FD-7HD" firstAttribute="trailing" secondItem="pmC-Eh-VYI" secondAttribute="trailing" id="qS5-GB-odf"/>
+                    <constraint firstAttribute="bottom" secondItem="pgi-FD-7HD" secondAttribute="bottom" constant="8" id="tJY-yb-wQb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="countLbl" destination="sBU-S1-fm8" id="1AD-sg-0JJ"/>
+                <outlet property="pcsLbl" destination="YcN-Ao-yIC" id="UoI-L9-ulQ"/>
+                <outlet property="quantityTextField" destination="pmC-Eh-VYI" id="K38-ES-yQy"/>
+            </connections>
+            <point key="canvasLocation" x="41.600000000000001" y="60.719640179910051"/>
+        </tableViewCell>
+    </objects>
+</document>

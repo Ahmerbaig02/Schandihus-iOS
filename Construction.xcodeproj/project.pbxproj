@@ -70,6 +70,8 @@
 		CA991173212A9FC60091AB7D /* AlamofireRequestFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */; };
 		CA991175212A9FCF0091AB7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991174212A9FCF0091AB7D /* NetworkManager.swift */; };
 		CA99117C212AA3BC0091AB7D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA99117B212AA3BC0091AB7D /* Models.swift */; };
+		CABEFF3921B546D30008FB18 /* SingleProductCountTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABEFF3721B546D30008FB18 /* SingleProductCountTVCell.swift */; };
+		CABEFF3A21B546D30008FB18 /* SingleProductCountTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CABEFF3821B546D30008FB18 /* SingleProductCountTVCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,8 @@
 		CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireRequestFetch.swift; sourceTree = "<group>"; };
 		CA991174212A9FCF0091AB7D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CA99117B212AA3BC0091AB7D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		CABEFF3721B546D30008FB18 /* SingleProductCountTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProductCountTVCell.swift; sourceTree = "<group>"; };
+		CABEFF3821B546D30008FB18 /* SingleProductCountTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleProductCountTVCell.xib; sourceTree = "<group>"; };
 		F8083E6FC536F3A803355250 /* Pods-Construction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Construction.release.xcconfig"; path = "Pods/Target Support Files/Pods-Construction/Pods-Construction.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -292,6 +296,8 @@
 				872811F621ADBF120012D803 /* ProductInfoTVCell.swift */,
 				872811F721ADBF120012D803 /* ProductInfoTVCell.xib */,
 				87D136F221B2B7B90057E30A /* RightDetailedTableViewCell.swift */,
+				CABEFF3721B546D30008FB18 /* SingleProductCountTVCell.swift */,
+				CABEFF3821B546D30008FB18 /* SingleProductCountTVCell.xib */,
 			);
 			path = "View Cells";
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 				872811F921ADBF120012D803 /* ProductInfoTVCell.xib in Resources */,
 				87A44F7321654EC5008D043F /* NotesTVCell.xib in Resources */,
 				42CC6BEB2127483400B06418 /* Main.storyboard in Resources */,
+				CABEFF3A21B546D30008FB18 /* SingleProductCountTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +769,7 @@
 				42D66B48213C30B800684CF4 /* AddProspectVC.swift in Sources */,
 				42D1EB3E213D75A6009D4B0B /* VendorProductsVC.swift in Sources */,
 				87A44F7221654EC5008D043F /* NotesTVCell.swift in Sources */,
+				CABEFF3921B546D30008FB18 /* SingleProductCountTVCell.swift in Sources */,
 				42CC6C1D2127673700B06418 /* ConstructionTextField.swift in Sources */,
 				42FEE8BF2129DEF00013022B /* VendorsVC.swift in Sources */,
 				CA99117C212AA3BC0091AB7D /* Models.swift in Sources */,

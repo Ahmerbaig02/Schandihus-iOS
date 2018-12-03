@@ -117,6 +117,7 @@ class ProductDetailsVC: UIViewController {
         self.productDetailsTblView.register(UINib(nibName: "ProductMainTVCell", bundle: nil), forCellReuseIdentifier: Helper.ProductsCellID)
         self.productDetailsTblView.register(RightDetailedTableViewCell.self, forCellReuseIdentifier: "RightDetailedTableViewCell")
         let cellNib = UINib.init(nibName: "ProductInfoTVCell", bundle: nil)
+        self.productDetailsTblView.register(UINib(nibName: "SingleProductCountTVCell", bundle: nil), forCellReuseIdentifier: "SingleProductCountTVCell")
         productDetailsTblView.register(cellNib, forCellReuseIdentifier: Helper.UserInfoCellID)
     }
     
@@ -231,6 +232,27 @@ class ProductDetailsVC: UIViewController {
         }
     }
     
+    fileprivate func postProductFromManager() {
+        UIViewController.showLoader(text: "Please Wait...")
+        let params: [String: Any] = ["name": product.name!, "description": product.description!, "minimumRetailPrice": product.minimumRetailPrice!, "maximumRetailPrice": product.maximumRetailPrice!, "markup": product.markup!, "productCost": product.productCost!, "productSalePrice": product.productSalePrice!, "groupedProducts": [],"grouped": product.grouped ?? false, "parameters": [], "units": product.units ?? 1]
+        NetworkManager.fetchUpdateGenericDataFromServer(urlString: "\(Helper.PostProductURL)/\(product.productId ?? 0)", method: .put, headers: nil, encoding: JSONEncoding.default, parameters: params) { [weak self] (response: BasicResponse<Int>?, error) in
+            if let err = error {
+                UIViewController.hideLoader()
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print(err)
+                return
+            }
+            if response?.success == true {
+                print("Posted Product")
+                self?.getProductDetailsFromManager()
+            } else {
+                self?.getProductDetailsFromManager()
+                self!.showBanner(title: "An Error occurred. Please try again later.", style: .danger)
+                print("Error fetching data")
+            }
+        }
+    }
+    
     @IBAction func showProductVendorsAction(_ sender: Any) {
         performSegue(withIdentifier: Helper.ProductVendorsSegueID, sender: nil)
     }
@@ -267,7 +289,10 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            if self.product.grouped == true {
+                return 2
+            }
+            return 3
         } else if section == 1 {
             if let price = self.product.suggestedVendorPrice, price > 0.0 {
                 return 2
@@ -301,6 +326,11 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                 cell.productImageView.pin_setImage(from: URL.init(string: "\(Helper.GetProductImageURL)\(product.productId!).jpg"), placeholderImage: #imageLiteral(resourceName: "Placeholder Image"))
                 
                 cell.infoLbl.attributedText = getAttributedText(Titles: [product.name ?? "N/A", "Minimum Retail Price: \(product.minimumRetailPrice ?? 0)€", "Maximum Retail Price: \(product.maximumRetailPrice ?? 0)€ ", "Cost: \((product.productCost ?? 0.0).getRounded(uptoPlaces: 2))€", "Sale Price: \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))€"], Font: [UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold), UIFont.systemFont(ofSize: 12.0),UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0), UIFont.systemFont(ofSize: 12.0)], Colors: [UIColor.primaryColor, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray, UIColor.darkGray], seperator: ["\n","\n","\n","\n",""], Spacing: 3, atIndex: 0)
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: "SingleProductCountTVCell", for: indexPath) as! SingleProductCountTVCell
+                cell.backgroundColor = UIColor.white
+                cell.quantityTextField.text = "\(product.units ?? 1)"
                 return cell
             }
             let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: Helper.ProductDetailsCellID, for: indexPath)
@@ -449,11 +479,20 @@ extension ProductDetailsVC: UITextFieldDelegate {
         self.selectedGroupedProductIndex = textField.tag
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    fileprivate func updateGroupedProductQuantity(_ textField: UITextField) {
         self.grouped[selectedGroupedProductIndex!].quantity = (textField.text as NSString?)?.integerValue ?? 1
         self.selectedGroupedProductIndex = nil
         let productIds = self.grouped.map( { ["groupedProductId": $0.productId!, "quantity": $0.quantity ?? 1] })
         self.postGroupedProductsFromManager(productIds: productIds)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if self.product.grouped == true {
+            updateGroupedProductQuantity(textField)
+        } else {
+            self.product.units = (textField.text as NSString?)!.integerValue
+            self.postProductFromManager()
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
