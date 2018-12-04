@@ -113,14 +113,7 @@ class EstimateDetailsVC: UIViewController {
     
     func createInvoiceAsHTML() {
         invoiceComposer = InvoiceComposer()
-        let productsDict = products.map({ ["\($0.name ?? "") x \($0.quantity ?? 0)": "\(($0.maximumRetailPrice ?? 0) * ($0.quantity ?? 0))"] })
-        if let invoiceHTML = invoiceComposer.renderInvoice(invoiceDate: "\(Date().humanReadableDatewoTime)",
-            estimateTitles: estimateTitles,
-            estimateDescripts: estimateDescripts,
-            prospectTitles: prospectTitles,
-            prospectDescripts: prospectDescripts,
-            items: productsDict,
-            isEstimate: true) {
+        if let invoiceHTML = invoiceComposer.renderInvoiceEstimate(invoiceDate: "\(Date().humanReadableDatewoTime)", estimate: self.estimate, products: products, prospect: self.estimate.Prospect!) {
             HTMLContent = invoiceHTML
         }
     }

@@ -11,8 +11,10 @@ import UIKit
 class InvoiceComposer: NSObject {
 
     let pathToInvoiceHTMLTemplate = Bundle.main.path(forResource: "invoice", ofType: "html")
+    let pathToEstimateInvoiceHTMLTemplate = Bundle.main.path(forResource: "invoice_estimate", ofType: "html")
     
     let pathToSingleItemHTMLTemplate = Bundle.main.path(forResource: "single_item", ofType: "html")
+    let pathToEstimateSingleItemHTMLTemplate = Bundle.main.path(forResource: "estimate_single_item", ofType: "html")
     
     let pathToLastItemHTMLTemplate = Bundle.main.path(forResource: "last_item", ofType: "html")
     
@@ -29,6 +31,52 @@ class InvoiceComposer: NSObject {
         super.init()
     }
     
+    
+    func renderInvoiceEstimate(invoiceDate: String, estimate: EstimateData, products: [ProductData], prospect: ProspectData) -> String! {
+        do {
+            // Load the invoice HTML template code into a String variable.
+            var HTMLContent = try String(contentsOfFile: pathToEstimateInvoiceHTMLTemplate!)
+            
+            
+            // Invoice date.
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#INVOICE_DATE#", with: invoiceDate)
+            
+            // Receiver info.
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#BILL To#", with: prospect.prospectName ?? "")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#BILL Address#", with: prospect.homeAddress ?? "")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Estimate ID#", with: "\(estimate.estimateId ?? 0)")
+            
+            var productsHTML = ""
+            for product in products {
+                var itemHTMLContent = try String(contentsOfFile: pathToEstimateSingleItemHTMLTemplate!)
+                
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Name#", with: product.name ?? "")
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Quantity#", with: "\(product.quantity ?? 0)")
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Price#", with: "€ \(product.minimumRetailPrice ?? 0)")
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Amount#", with: "€ \((product.quantity ?? 0) * (product.minimumRetailPrice ?? 0))")
+                productsHTML += itemHTMLContent
+            }
+            
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Products data#", with: productsHTML)
+            
+            let subTotalAmount = products.reduce(0) { (res, product) -> Int in
+                return res + ((product.quantity ?? 0) * (product.minimumRetailPrice ?? 0))
+            }
+            
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#VAT#", with: "€ ")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Sub Total#", with: "€ \(subTotalAmount)")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Grand Total#", with: "€ \(subTotalAmount)")
+            
+            // The HTML code is ready.
+            return HTMLContent
+            
+        }
+        catch {
+            print("Unable to open and use HTML template files.")
+        }
+        
+        return nil
+    }
     
     func renderInvoice(invoiceDate: String, estimateTitles: [String], estimateDescripts: [String], prospectTitles: [String], prospectDescripts: [String], items: [[String: String]], isEstimate: Bool = false) -> String! {
         // Store the invoice number for future use.

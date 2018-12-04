@@ -66,6 +66,8 @@
 		CA1B81A02167B6DC00493B55 /* ProductMainTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */; };
 		CA1B81A22167BBB100493B55 /* AddEstimateSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */; };
 		CA3F945C9652C503B4C2D42D /* Pods_Construction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA74A6D9283DFCCBDE33DFF0 /* Pods_Construction.framework */; };
+		CA978AE421B6C38C0062798E /* invoice_estimate.html in Resources */ = {isa = PBXBuildFile; fileRef = CA978AE321B6C38C0062798E /* invoice_estimate.html */; };
+		CA978AE621B6C3E50062798E /* estimate_single_item.html in Resources */ = {isa = PBXBuildFile; fileRef = CA978AE521B6C3E50062798E /* estimate_single_item.html */; };
 		CA991171212A9EF60091AB7D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991170212A9EF60091AB7D /* Extensions.swift */; };
 		CA991173212A9FC60091AB7D /* AlamofireRequestFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */; };
 		CA991175212A9FCF0091AB7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA991174212A9FCF0091AB7D /* NetworkManager.swift */; };
@@ -160,6 +162,8 @@
 		CA1B819E2167B6DC00493B55 /* ProductMainTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMainTVCell.xib; sourceTree = "<group>"; };
 		CA1B81A12167BBB100493B55 /* AddEstimateSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEstimateSettingsVC.swift; sourceTree = "<group>"; };
 		CA75B2F5B3793EC2A9668F8C /* Pods-Construction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Construction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Construction/Pods-Construction.debug.xcconfig"; sourceTree = "<group>"; };
+		CA978AE321B6C38C0062798E /* invoice_estimate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = invoice_estimate.html; sourceTree = "<group>"; };
+		CA978AE521B6C3E50062798E /* estimate_single_item.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = estimate_single_item.html; sourceTree = "<group>"; };
 		CA991170212A9EF60091AB7D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CA991172212A9FC60091AB7D /* AlamofireRequestFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireRequestFetch.swift; sourceTree = "<group>"; };
 		CA991174212A9FCF0091AB7D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -334,11 +338,13 @@
 		879AED67217B4030006D9DC2 /* HTML Templates */ = {
 			isa = PBXGroup;
 			children = (
+				CA978AE321B6C38C0062798E /* invoice_estimate.html */,
 				879AED68217B403E006D9DC2 /* invoice.html */,
 				879AED6A217B403F006D9DC2 /* last_item.html */,
 				879AED69217B403E006D9DC2 /* single_item.html */,
 				879AED6E217B40BA006D9DC2 /* InvoiceComposer.swift */,
 				879AED70217B40CF006D9DC2 /* CustomPrintPageRenderer.swift */,
+				CA978AE521B6C3E50062798E /* estimate_single_item.html */,
 			);
 			path = "HTML Templates";
 			sourceTree = "<group>";
@@ -603,8 +609,10 @@
 				879AED6B217B403F006D9DC2 /* invoice.html in Resources */,
 				42FEE8C52129EFBB0013022B /* UserInfoTVC.xib in Resources */,
 				879AED6D217B403F006D9DC2 /* last_item.html in Resources */,
+				CA978AE421B6C38C0062798E /* invoice_estimate.html in Resources */,
 				879AED6C217B403F006D9DC2 /* single_item.html in Resources */,
 				8778687C217FB2AA000F38B2 /* AddEstimateProductTVCell.xib in Resources */,
+				CA978AE621B6C3E50062798E /* estimate_single_item.html in Resources */,
 				42CC6BF02127484800B06418 /* LaunchScreen.storyboard in Resources */,
 				42CC6BED2127484700B06418 /* Assets.xcassets in Resources */,
 				872811F921ADBF120012D803 /* ProductInfoTVCell.xib in Resources */,

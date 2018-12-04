@@ -1,0 +1,200 @@
+<html>
+    
+    <head>
+        <style>
+            body {
+                padding: 32px;
+                border: 1px solid #f7931d;
+                margin: 4px;
+            }
+        
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fbefb6;
+        }
+        
+        .width-50 {
+            width: 50%;
+        }
+        
+        .width-100 {
+            width: 100%;
+        }
+        
+        .block-height {
+            height: 105px;
+        }
+        
+        .float-left {
+            float: left;
+        }
+        
+        .float-right {
+            float: right;
+        }
+        
+        .container {
+            width: 100%;
+        }
+        
+        .estimate-details {
+            text-align: right;
+        }
+        
+        .total-section {
+            text-align: right;
+        }
+        
+        .clear-both {
+            clear: both;
+        }
+        
+        .border-bottom {
+            border-bottom: 1px solid #c5bdbd
+        }
+        
+        .image-logo {
+            height: 31px;
+            width: 35px;
+        }
+        
+        .company-header {
+            font-family: calibri light;
+            height: 45px;
+            line-height: 45px;
+            margin-left: 5px;
+            color: #f7931d;
+            font-size: 25px;
+            margin-top: -5px;
+        }
+        
+        .color-orange{
+            color: #f7931d;
+        }
+        
+        .font-family-calibri {
+            font-family: calibri light;
+        }
+        
+        .estimate-details {
+            text-align: right;
+        }
+        
+        .client-details-container {
+            padding: 20px;
+            padding-right: 0px;
+            padding-left: 0px;
+            height: 50px;
+        }
+        
+        .margin-left-block {
+            margin-left: 6px
+        }
+        
+        .total-section {
+            margin-top: 10px;
+        }
+        
+        .color-gray{
+            color:#464343;
+        }
+        
+        .grand-total-container{
+            background-color: #f7931d;
+            color: white;
+            padding: 5px;
+        }
+        
+        .margin-top-4{
+            margin-top: 4px;
+        }
+        
+        .margin-top-2{
+            margin-top: 2px;
+        }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="company-logo width-50 float-left block-height border-bottom">
+                <img class="image-logo float-left" src="http://scandichus.no/img/logo.png" />
+                <div class="company-header float-left">S C A N D I C H U S</div>
+            </div>
+            <div class="estimate-details width-50 float-right block-height border-bottom">
+                <div class="estimate-header font-family-calibri"><b>ESTIMATE</b></div>
+                <div class="company-name font-family-calibri color-gray">SCANDICHUS </div>
+                <div class="company-number font-family-calibri color-gray">+47 908 00 786</div>
+                <div class="company-email font-family-calibri color-gray">post@scandichus.no</div>
+                <div class="company-address font-family-calibri color-gray">Ringsakervegen 19, 2383 Brumunddal</div>
+            </div>
+        </div>
+        <div class="clear-both"></div>
+        <div class="client-details-container">
+            <div class="client-details width-50 float-left">
+                <div class="bill-header float-left font-family-calibri">BILL To</div>
+                <div class="prospect-details float-left font-family-calibri margin-left-block color-gray">#BILL To#</div>
+                <div class="clear-both"></div>
+                <div class="bill-header float-left font-family-calibri margin-top-2">BILL Address</div>
+                <div class="prospect-details-address float-left font-family-calibri margin-left-block color-gray margin-top-2">#BILL Address#</div>
+            </div>
+            <div class="estimate-details width-50 float-right">
+                <div class="float-right">
+                    <div class="estimate-header float-left font-family-calibri">Estimate ID</div>
+                    <div class="estimate-header-value float-left font-family-calibri margin-left-block color-gray">##Estimate ID#</Div>
+                </div>
+                
+                <div class="clear-both"></div>
+                
+                <div class="float-right">
+                    <div class="estimate-date float-left font-family-calibri margin-top-2">Date</div>
+                    <div class="estimate-date-value float-left font-family-calibri margin-left-block color-gray margin-top-2">#INVOICE_DATE#</Div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="estimate-table">
+            <table>
+                <tr>
+                    <th class="font-family-calibri">Products</th>
+                    <th class="font-family-calibri">Quantity</th>
+                    <th class="font-family-calibri">Price</th>
+                    <th class="font-family-calibri">Amount</th>
+                </tr>
+                #Products data#
+            </table>
+        </div>
+        
+        <div class="total-section width-100">
+            <div class="subtotal float-right margin-top-4">
+                <div class="subtotal-header float-left font-family-calibri">Subtotal</div>
+                <div class="subtotal-header-value float-left font-family-calibri margin-left-block">#Sub Total#</div>
+            </div>
+            <div class="clear-both"></div>
+            
+            <div class="vat float-right margin-top-4">
+                <div class="vat-header float-left font-family-calibri">VAT</div>
+                <div class="vat-header-value float-left font-family-calibri margin-left-block">#VAT#</div>
+            </div>
+            <div class="clear-both"></div>
+            
+            <div class="grand-total-container float-right margin-top-4">
+                <div class="grand-total-header float-left font-family-calibri">Grand Total</div>
+                <div class="grand-total-header-value float-left font-family-calibri margin-left-block">#Grand Total#</div>
+            </div>
+        </div>
+    </body>
+    
+</html>
