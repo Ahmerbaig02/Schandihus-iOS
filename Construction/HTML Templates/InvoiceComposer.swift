@@ -52,20 +52,20 @@ class InvoiceComposer: NSObject {
                 
                 itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Name#", with: product.name ?? "")
                 itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Quantity#", with: "\(product.quantity ?? 0)")
-                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Price#", with: "€ \(product.minimumRetailPrice ?? 0)")
-                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Amount#", with: "€ \((product.quantity ?? 0) * (product.minimumRetailPrice ?? 0))")
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Price#", with: "€ \((product.productSalePrice ?? 0.0).getRounded(uptoPlaces: 2))")
+                itemHTMLContent = itemHTMLContent.replacingOccurrences(of: "#Amount#", with: "€ \((Double(product.quantity ?? 0) * (product.productSalePrice ?? 0.0)))")
                 productsHTML += itemHTMLContent
             }
             
             HTMLContent = HTMLContent.replacingOccurrences(of: "#Products data#", with: productsHTML)
             
-            let subTotalAmount = products.reduce(0) { (res, product) -> Int in
-                return res + ((product.quantity ?? 0) * (product.minimumRetailPrice ?? 0))
+            let subTotalAmount = products.reduce(0.0) { (res, product) -> Double in
+                return res + (Double(product.quantity ?? 0) * (product.productSalePrice ?? 0.0))
             }
             
-            HTMLContent = HTMLContent.replacingOccurrences(of: "#VAT#", with: "€ ")
-            HTMLContent = HTMLContent.replacingOccurrences(of: "#Sub Total#", with: "€ \(subTotalAmount)")
-            HTMLContent = HTMLContent.replacingOccurrences(of: "#Grand Total#", with: "€ \(subTotalAmount)")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#VAT#", with: "€ 0")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Sub Total#", with: "€ \(subTotalAmount.getRounded(uptoPlaces: 2))")
+            HTMLContent = HTMLContent.replacingOccurrences(of: "#Grand Total#", with: "€ \(subTotalAmount.getRounded(uptoPlaces: 2))")
             
             // The HTML code is ready.
             return HTMLContent

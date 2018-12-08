@@ -294,10 +294,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
             }
             return 3
         } else if section == 1 {
-            if let price = self.product.suggestedVendorPrice, price > 0.0 {
-                return 2
-            }
-            return 1
+            return 2
         } else if section == 2 {
             return paramTitles.count
         } else {
@@ -348,7 +345,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.semibold)
                 cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
                 cell.textLabel?.text = "Suggested Price by Vendor"
-                cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? ""
+                cell.detailTextLabel?.text = product.suggestedVendorPrice?.getRounded(uptoPlaces: 2) ?? "Not Available"
                 cell.backgroundColor = UIColor.white
                 return cell
             }
@@ -378,14 +375,14 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = productDetailsTblView.dequeueReusableCell(withIdentifier: "RightDetailedTableViewCell", for: indexPath) as! RightDetailedTableViewCell
                 cell.backgroundColor = UIColor.black.withAlphaComponent(0.8)
                 cell.titleLbl.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
-                cell.titleLbl.text = "Total Cost"
+                cell.titleLbl.text = "Cost"
                 cell.titleLbl.textColor = UIColor.primaryColor
                 
                 let cost = self.grouped.reduce(0) { (res, product) -> Int in
                     return res + ((product.quantity ?? 1) * (product.minimumRetailPrice ?? 0))
                 }
                 cell.infoLbl.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
-                cell.infoLbl.text = "\(cost)€"
+                cell.infoLbl.text = "Not Available"//"\(cost)€"
                 cell.infoLbl.textColor = UIColor.primaryColor
                 return cell
             }
@@ -443,7 +440,7 @@ extension ProductDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
-            return UITableViewAutomaticDimension // getCellHeaderSize(Width: self.view.frame.width, aspectRatio: 350/90, padding: 20).height
+            return UITableViewAutomaticDimension
         }
         return UITableViewAutomaticDimension
     }

@@ -20,8 +20,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pmC-Eh-VYI" customClass="ConstructionTextField" customModule="Construction" customModuleProvider="target">
-                        <rect key="frame" x="66.5" y="0.0" width="218.5" height="39.5"/>
+                        <rect key="frame" x="66.5" y="0.0" width="70" height="39.5"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="70" id="Xvn-Ch-Jj0"/>
                             <constraint firstAttribute="height" constant="39.5" id="fs8-1D-DDI"/>
                         </constraints>
                         <nil key="textColor"/>
@@ -39,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pcs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcN-Ao-yIC">
-                        <rect key="frame" x="287" y="24.5" width="21" height="15"/>
+                        <rect key="frame" x="138.5" y="24.5" width="21" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="21" id="2K1-x4-ePO"/>
                             <constraint firstAttribute="height" constant="15" id="Y62-2D-UAU"/>
@@ -49,24 +50,32 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantified as unit/box of item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgi-FD-7HD">
-                        <rect key="frame" x="66.5" y="43.5" width="218.5" height="23"/>
+                        <rect key="frame" x="16" y="43.5" width="143" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdI-AO-4bL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hiY-dc-n0f"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="pmC-Eh-VYI" firstAttribute="leading" secondItem="sBU-S1-fm8" secondAttribute="trailing" constant="12" id="1h3-ri-z91"/>
-                    <constraint firstItem="pgi-FD-7HD" firstAttribute="leading" secondItem="pmC-Eh-VYI" secondAttribute="leading" id="33H-1J-FfT"/>
                     <constraint firstItem="sBU-S1-fm8" firstAttribute="bottom" secondItem="pmC-Eh-VYI" secondAttribute="bottom" id="7xm-NV-pe6"/>
                     <constraint firstItem="pgi-FD-7HD" firstAttribute="top" secondItem="pmC-Eh-VYI" secondAttribute="bottom" constant="4" id="8Q4-IT-pvJ"/>
+                    <constraint firstItem="pgi-FD-7HD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GQ3-7u-hXe"/>
                     <constraint firstItem="pmC-Eh-VYI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Jlh-fV-mwe"/>
-                    <constraint firstAttribute="trailing" secondItem="YcN-Ao-yIC" secondAttribute="trailing" constant="12" id="Kj1-PF-ACF"/>
+                    <constraint firstItem="kdI-AO-4bL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="eM2-sA-cuj"/>
                     <constraint firstItem="sBU-S1-fm8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="eqP-3u-CaL"/>
                     <constraint firstItem="YcN-Ao-yIC" firstAttribute="bottom" secondItem="pmC-Eh-VYI" secondAttribute="bottom" id="fPa-5u-US3"/>
+                    <constraint firstItem="kdI-AO-4bL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hgn-fK-t3m"/>
                     <constraint firstItem="YcN-Ao-yIC" firstAttribute="leading" secondItem="pmC-Eh-VYI" secondAttribute="trailing" constant="2" id="lze-hk-XSP"/>
-                    <constraint firstItem="pgi-FD-7HD" firstAttribute="trailing" secondItem="pmC-Eh-VYI" secondAttribute="trailing" id="qS5-GB-odf"/>
                     <constraint firstAttribute="bottom" secondItem="pgi-FD-7HD" secondAttribute="bottom" constant="8" id="tJY-yb-wQb"/>
+                    <constraint firstAttribute="trailing" secondItem="kdI-AO-4bL" secondAttribute="trailing" id="teu-Mw-4jU"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -147,6 +147,7 @@
 		879AED6A217B403F006D9DC2 /* last_item.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = last_item.html; sourceTree = "<group>"; };
 		879AED6E217B40BA006D9DC2 /* InvoiceComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceComposer.swift; sourceTree = "<group>"; };
 		879AED70217B40CF006D9DC2 /* CustomPrintPageRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPrintPageRenderer.swift; sourceTree = "<group>"; };
+		879B6E3E21B838750088FA9D /* calibril.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = calibril.ttf; sourceTree = "<group>"; };
 		87A44F6E21654C7B008D043F /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
 		87A44F7021654EC5008D043F /* NotesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTVCell.swift; sourceTree = "<group>"; };
 		87A44F7121654EC5008D043F /* NotesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTVCell.xib; sourceTree = "<group>"; };
@@ -233,6 +234,7 @@
 		42CC6BE42127483300B06418 /* Construction */ = {
 			isa = PBXGroup;
 			children = (
+				879B6E3D21B8386A0088FA9D /* Font */,
 				879AED67217B4030006D9DC2 /* HTML Templates */,
 				CA991179212AA39F0091AB7D /* MVC */,
 				CA991178212AA33B0091AB7D /* Property List Files */,
@@ -347,6 +349,14 @@
 				CA978AE521B6C3E50062798E /* estimate_single_item.html */,
 			);
 			path = "HTML Templates";
+			sourceTree = "<group>";
+		};
+		879B6E3D21B8386A0088FA9D /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				879B6E3E21B838750088FA9D /* calibril.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		87A44F6D21654C68008D043F /* Notes */ = {
